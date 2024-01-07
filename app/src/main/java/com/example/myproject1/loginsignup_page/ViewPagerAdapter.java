@@ -10,6 +10,12 @@ import com.example.myproject1.loginsignup_page.LoginTabFragment;
 import com.example.myproject1.loginsignup_page.SignUpTabFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
+    private ILoginRegister iLoginRegister;
+//    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,ILoginRegister loginRegister) {
+//        super(fragmentManager, lifecycle);
+//        iLoginRegister = loginRegister;
+//    }
+
     public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }

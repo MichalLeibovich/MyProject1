@@ -52,16 +52,15 @@
                 android:background="@drawable/edittext_bkg"/>
 
 
-
-
             <Button
+                android:id="@+id/login_button"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:id="@+id/login_button"
-                android:textSize="17sp"
-                android:text="Log In"/>
+                android:onClick="login"
+                android:text="Log In"
+                android:textSize="17sp" />
 
         </LinearLayout>
 
