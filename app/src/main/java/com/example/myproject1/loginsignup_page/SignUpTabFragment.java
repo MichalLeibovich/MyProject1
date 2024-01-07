@@ -14,6 +14,14 @@ import com.example.myproject1.R;
 public class SignUpTabFragment extends Fragment {
 
 
+    private ILoginRegister iLoginRegister;
+
+    public SignUpTabFragment( ILoginRegister iLoginRegister)
+    {
+        super();
+        this.iLoginRegister = iLoginRegister;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
