@@ -1,10 +1,13 @@
-package com.example.myproject1;
+package com.example.myproject1.loginsignup_page;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.myproject1.loginsignup_page.LoginTabFragment;
+import com.example.myproject1.loginsignup_page.SignUpTabFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

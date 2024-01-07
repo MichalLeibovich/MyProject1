@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUpTabFragment">
+    tools:context=".loginsignup_page.SignUpTabFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:id="@+id/signup_email"
+                android:id="@+id/et_signup_email"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
@@ -42,7 +42,7 @@
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:id="@+id/signup_password"
+                android:id="@+id/et_signup_password"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Password"
@@ -55,7 +55,7 @@
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:id="@+id/signup_confirmPassword"
+                android:id="@+id/et_signup_confirmPassword"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Confirm Password"
@@ -72,8 +72,7 @@
                 android:layout_marginTop="30dp"
                 android:id="@+id/signup_button"
                 android:textSize="17sp"
-                android:text="Sign Up"
-                app:cornerRadius="40dp"/>
+                android:text="Sign Up"/>
 
         </LinearLayout>
 
