@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myproject1.GamePage.GameActivity;
+import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,7 +67,7 @@ public class SignUpTabFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT);
-                                Intent intent = new Intent(getActivity(), GameActivity.class);
+                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                                 startActivity(intent);
                             }
                             else

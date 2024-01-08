@@ -3,5 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
-<!--    <color name="yellow">#fff660</color>-->
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFBF00</color>
+    <color name="green">#00FF0A</color>
+    <color name="pink">#F700FF</color>
+    <color name="blue">#0027FF</color>
 </resources>

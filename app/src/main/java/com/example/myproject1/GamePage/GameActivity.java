@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void currentColor(int c)
     {
-        //currentBrush = c;
+        Display.currentBrush = c;
         path = new Path();
     }
 

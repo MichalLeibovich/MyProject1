@@ -13,14 +13,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myproject1.GamePage.GameActivity;
-import com.example.myproject1.MainActivity;
+import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
-import com.example.myproject1.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -50,8 +46,6 @@ public class LoginTabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 
     public void login(View view)
@@ -60,7 +54,7 @@ public class LoginTabFragment extends Fragment {
         EditText etLoginPassword = fragView.findViewById(R.id.et_login_password);
 
         String loginEmail = etLoginEmail.getText().toString();
-        String loginPassword = etLoginEmail.getText().toString();
+        String loginPassword = etLoginPassword.getText().toString();
 
         if (loginEmail.isEmpty() && loginPassword.isEmpty()) {
             Toast.makeText(getActivity(), "Fields cannot remain empty", Toast.LENGTH_SHORT);
@@ -72,7 +66,8 @@ public class LoginTabFragment extends Fragment {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT);
-                            Intent intent = new Intent(getActivity(), GameActivity.class);
+                            //Intent intent = new Intent(getActivity(), MainScreenActivity);
+                            Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             startActivity(intent);
                             //finish();
                         }
