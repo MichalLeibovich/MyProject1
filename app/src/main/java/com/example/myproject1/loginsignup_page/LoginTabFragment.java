@@ -26,7 +26,6 @@ public class LoginTabFragment extends Fragment {
     FirebaseAuth fUser = FirebaseAuth.getInstance();
     View fragView;
 
-    private ILoginRegister iLoginRegister;
 
 
 //    public LoginTabFragment(ILoginRegister iLoginRegister)
