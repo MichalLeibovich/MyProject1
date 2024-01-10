@@ -32,7 +32,7 @@ public class GameActivity extends AppCompatActivity {
         currentColor(paintBrush.getColor());
     }
 
-    public void eraser(View view)
+    public void reset(View view)
     {
         pathList.clear();
         colorList.clear();
