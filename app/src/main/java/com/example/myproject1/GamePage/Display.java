@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Display extends View
 {
-
+//
     public static ArrayList<Path> pathList = new ArrayList<>();
     public static ArrayList<Integer> colorList = new ArrayList<>();
     public ViewGroup.LayoutParams params;
