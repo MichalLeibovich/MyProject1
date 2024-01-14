@@ -97,6 +97,7 @@ public class SignUpTabFragment extends Fragment {
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         fb.collection("Users").add(user);
+
     }
 
 
