@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MainScreenActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="302dp"
+        android:text="MainScreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="91dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="108dp"
+        android:onClick="PlayClicked"
+        android:text="Play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

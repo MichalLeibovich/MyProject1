@@ -58,7 +58,6 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:onClick="login"
                 android:text="Log In"
                 android:textSize="17sp" />
 
