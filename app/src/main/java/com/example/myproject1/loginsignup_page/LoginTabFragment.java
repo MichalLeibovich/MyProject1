@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,18 +27,12 @@ public class LoginTabFragment extends Fragment {
     FirebaseAuth fUser = FirebaseAuth.getInstance();
     View fragView;
 
-    private ILoginRegister iLoginRegister;
 
 
-//    public LoginTabFragment(ILoginRegister iLoginRegister)
-//    {
-//        super();
-//        this.iLoginRegister = iLoginRegister;
-//    }
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragView =  inflater.inflate(R.layout.fragment_login_tab, container, false);
         return fragView;
@@ -46,9 +41,15 @@ public class LoginTabFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Button buttonLogin = fragView.findViewById(R.id.login_button);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                login();
+            }
+        });
     }
 
-    public void login(View view)
+    public void login()
     {
         EditText etLoginEmail = fragView.findViewById(R.id.et_login_email);
         EditText etLoginPassword = fragView.findViewById(R.id.et_login_password);
@@ -80,7 +81,5 @@ public class LoginTabFragment extends Fragment {
                     });
         }
     }
-
-
 
 }

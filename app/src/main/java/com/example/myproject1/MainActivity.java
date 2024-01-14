@@ -30,12 +30,11 @@ public class MainActivity extends AppCompatActivity{
         this.tabLayout.addTab(this.tabLayout.newTab().setText("Sign Up"));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        // this.viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle(),this);
         this.viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
         this.viewPager2.setAdapter(this.viewPagerAdapter);
 
         if (fUser.getCurrentUser() != null) {
-            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+            Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
             startActivity(intent);
         }
 
