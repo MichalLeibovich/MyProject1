@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
+import com.example.myproject1.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,7 +33,8 @@ public class SignUpTabFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sign_up_tab, container, false);
+        fragView = inflater.inflate(R.layout.fragment_sign_up_tab, container, false);
+        return fragView;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class SignUpTabFragment extends Fragment {
         }
         else
         {
-            if (signupPassword != signupConfirmPassword) {
+            if (!SamePasswords(signupPassword, signupConfirmPassword)) {
                 Toast.makeText(getActivity(), "Password and confirmation password have to be the same", Toast.LENGTH_SHORT);
             }
                 else
@@ -70,17 +73,27 @@ public class SignUpTabFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                Log.d("FIREBASE", "onComplete: success");
+                                User user = new User(signupEmail, signupPassword);
                                 Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT);
                                 Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                                 startActivity(intent);
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Sign up failed" + task.getException().getMessage(), Toast.LENGTH_SHORT);
+                                String msg = task.getException().getMessage();
+                                Toast.makeText(getActivity(), "Sign up failed" + msg, Toast.LENGTH_SHORT);
+                                Log.d("FIREBASE", task.getException().getMessage());
                             }
                     }
                 });
             }
         }
     }
+
+    public boolean SamePasswords(String p1, String p2)
+    {
+        return p1.equals(p2);
+    }
+
 }
