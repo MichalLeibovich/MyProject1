@@ -19,9 +19,12 @@ import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.example.myproject1.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -77,9 +80,7 @@ public class SignUpTabFragment extends Fragment {
                                 Log.d("FIREBASE", "onComplete: success");
                                 User user = new User(signupEmail, signupPassword);
                                 addUserToFirestore(user);
-                                Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                                startActivity(intent);
+
                             }
                             else
                             {
@@ -96,7 +97,19 @@ public class SignUpTabFragment extends Fragment {
     private void addUserToFirestore(User user)
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
-        fb.collection("Users").add(user);
+        fb.collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("FIREBASE", e.getMessage());
+            }
+        });
 
     }
 
