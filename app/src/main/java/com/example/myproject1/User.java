@@ -11,10 +11,10 @@ public class User {
         this.password = password;
     }
 
-    public void SetEmail(String email){ this.email = email; }
-    public void SetPassword(String password){ this.password = password; }
-    public String GetEmail(){ return this.email; }
-    public String GetPassword(){ return this.password; }
+    public void setEmail(String email){ this.email = email; }
+    public void setPassword(String password){ this.password = password; }
+    public String getEmail(){ return this.email; }
+    public String getPassword(){ return this.password; }
 
 
 

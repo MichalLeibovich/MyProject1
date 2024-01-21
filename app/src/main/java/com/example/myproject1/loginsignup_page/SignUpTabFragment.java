@@ -31,7 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SignUpTabFragment extends Fragment {
 
     View fragView;
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
 
 
@@ -80,7 +80,8 @@ public class SignUpTabFragment extends Fragment {
                                 Log.d("FIREBASE", "onComplete: success");
                                 User user = new User(signupEmail, signupPassword);
                                 addUserToFirestore(user);
-
+                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                                startActivity(intent);
                             }
                             else
                             {
@@ -93,7 +94,6 @@ public class SignUpTabFragment extends Fragment {
             }
         }
     }
-
     private void addUserToFirestore(User user)
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
@@ -104,10 +104,19 @@ public class SignUpTabFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                 startActivity(intent);
             }
+
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("FIREBASE", e.getMessage());
+            }
+        });
+        String uid = fAuth.getCurrentUser().getUid();
+        DocumentReference ref = fb.collection("Users").document(uid);
+        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getActivity(), "set successes", Toast.LENGTH_SHORT).show();
             }
         });
 
