@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
-                android:src="@drawable/loginimg_signuplogin"/>
+                android:src="@drawable/authentication_login_pic"/>
 
             <EditText
                 android:layout_width="300dp"
@@ -34,9 +34,9 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
-                android:drawableLeft="@drawable/email_pic"
+                android:drawableLeft="@drawable/authentication_email_pic"
                 android:drawablePadding="8dp"
-                android:background="@drawable/edittext_bkg"/>
+                android:background="@drawable/authentication_edittext_bkg"/>
 
             <EditText
                 android:layout_width="300dp"
@@ -47,9 +47,9 @@
                 android:padding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:drawableLeft="@drawable/lock_pic"
+                android:drawableLeft="@drawable/authentication_lock_pic"
                 android:drawablePadding="8dp"
-                android:background="@drawable/edittext_bkg"/>
+                android:background="@drawable/authentication_edittext_bkg"/>
 
 
             <Button

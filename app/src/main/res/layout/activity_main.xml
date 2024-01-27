@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkgimg_signuplogin"
+    android:background="@drawable/authentication_bkg_pic"
     tools:context=".MainActivity">
 
 
@@ -25,12 +25,13 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="560dp"
-            android:background="@drawable/viewpager_bkg"
-            app:layout_constraintVertical_bias="0"
+            android:background="@drawable/authentication_viewpager_bkg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -39,16 +40,23 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:background="@drawable/tab_bkg"
+            android:background="@drawable/authentication_tab_bkg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="125dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_sketchparty" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

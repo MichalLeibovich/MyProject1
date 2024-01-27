@@ -4,26 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainscreen_bkg_pic"
     tools:context=".MainScreenActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="302dp"
-        android:text="MainScreen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/play_button"
-        android:layout_width="91dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="132dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginBottom="156dp"
+        android:background="@drawable/mainscreen_playbutton_design"
+        android:fontFamily="casual"
         android:onClick="PlayClicked"
         android:text="Play"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/mainscreen_mygallerybutton_design"
+        android:fontFamily="cursive"
+        android:text="My Gallery"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="293dp"
+        android:layout_height="254dp"
+        android:layout_marginStart="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_sketchparty" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

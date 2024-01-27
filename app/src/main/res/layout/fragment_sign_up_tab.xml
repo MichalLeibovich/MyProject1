@@ -20,10 +20,10 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="83dp"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
-                android:src="@drawable/signupimg_signuplogin" />
+                android:src="@drawable/authentication_signup_pic" />
 
             <EditText
                 android:id="@+id/et_signup_email"
@@ -31,8 +31,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/email_pic"
+                android:background="@drawable/authentication_edittext_bkg"
+                android:drawableLeft="@drawable/authentication_email_pic"
                 android:drawablePadding="8dp"
                 android:hint="Email"
                 android:padding="8dp" />
@@ -43,8 +43,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/lock_pic"
+                android:background="@drawable/authentication_edittext_bkg"
+                android:drawableLeft="@drawable/authentication_lock_pic"
                 android:drawablePadding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -56,8 +56,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/password_pic"
+                android:background="@drawable/authentication_edittext_bkg"
+                android:drawableLeft="@drawable/authentication_password_pic"
                 android:drawablePadding="8dp"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
