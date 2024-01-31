@@ -92,11 +92,40 @@ public class GameActivity extends AppCompatActivity {
         currentColor(paintBrush.getColor());
     }
 
+    public void whiteColor(View view) {
+        paintBrush.setColor(Color.WHITE);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void blackColor(View view)
+    {
+        paintBrush.setColor(Color.BLACK);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void greyColor(View view)
+    {
+        paintBrush.setColor(Color.GRAY);
+        currentColor(paintBrush.getColor());
+    }
+
+
+
+
     public void currentColor(int c)
     {
         Display.currentBrush = c;
         path = new Path();
     }
+
+//    public void brightGrayColor(View view)
+//    {
+//        int color = R.color.brightGray;
+//        String s = String.valueOf(color);
+//        paintBrush.setColor(Color.parseColor(s));
+//        currentColor(paintBrush.getColor());
+//    }
+
 
     // I removed the View view
 //    public void uploadDrawingToStorage(Bitmap bitmap, String entryName)
