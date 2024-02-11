@@ -163,7 +163,6 @@ public class GameActivity extends AppCompatActivity {
         String name = UUID.randomUUID().toString().substring(0,6);
         uploadDrawingToStorage(myBitmap, name+".png");
     }
-
     public void uploadDrawingToStorage(Bitmap bitmap, String entryName) {
         // set the reference as follows:
         // "folder
