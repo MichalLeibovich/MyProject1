@@ -6,6 +6,7 @@
 
     <com.example.myproject1.GamePage.Display
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:id="@+id/gmDisplay"/>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

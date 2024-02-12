@@ -302,9 +302,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
+            <com.example.myproject1.GamePage.Display
                 android:id="@+id/include"
-                layout="@layout/view_display"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -348,4 +349,27 @@
         android:layout_height="50dp"
         android:onClick="saveCanvasasBitmap"
         android:text="Save" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/constraintLayout3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="-25dp"
+        android:text="Time left:"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/constraintLayout3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="-55dp"
+        android:text="Timer"
+        android:textSize="25dp" />
+
 </RelativeLayout>
