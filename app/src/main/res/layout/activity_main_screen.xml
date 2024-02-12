@@ -13,7 +13,7 @@
         android:layout_width="132dp"
         android:layout_height="81dp"
         android:layout_marginStart="136dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="148dp"
         android:background="@drawable/mainscreen_playbutton_design"
         android:fontFamily="casual"
         android:onClick="PlayClicked"
@@ -27,11 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="396dp"
         android:background="@drawable/mainscreen_mygallerybutton_design"
         android:fontFamily="casual"
         android:text="My Gallery"
-        android:textSize="25dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

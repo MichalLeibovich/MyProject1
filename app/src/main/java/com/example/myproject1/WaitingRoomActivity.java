@@ -6,19 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainScreenActivity extends AppCompatActivity {
+import com.example.myproject1.GamePage.GameActivity;
+
+public class WaitingRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen);
+        setContentView(R.layout.activity_waiting_room);
     }
 
-
-    public void PlayClicked(View view)
+    public void StartClicked(View view)
     {
-        Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+        Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
         startActivity(intent);
     }
-
 }

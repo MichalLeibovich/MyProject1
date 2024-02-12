@@ -8,6 +8,7 @@ import static com.example.myproject1.GamePage.Display.pathList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,7 +23,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
+import com.example.myproject1.RankingScreenActivity;
+import com.example.myproject1.WaitingRoomActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -70,6 +74,9 @@ public class GameActivity extends AppCompatActivity {
             // When the task is over it will print 00:00:00 there
             public void onFinish() {
                 textView.setText("00:00");
+                saveCanvasAsBitmap();
+                Intent intent = new Intent(GameActivity.this, RankingScreenActivity.class);
+                startActivity(intent);
             }
         }.start();
 
@@ -123,10 +130,6 @@ public class GameActivity extends AppCompatActivity {
         currentColor(paintBrush.getColor());
     }
 
-    public void greyColor(View view) {
-        paintBrush.setColor(Color.GRAY);
-        currentColor(paintBrush.getColor());
-    }
 
 
     public void currentColor(int c) {
@@ -145,7 +148,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-    public void saveCanvasasBitmap(View view) {
+    public void saveCanvasAsBitmap() {
         View v = findViewById(R.id.include);
 
     //    View v = v1.findViewById(R.id.gmDisplay);
@@ -163,6 +166,7 @@ public class GameActivity extends AppCompatActivity {
         String name = UUID.randomUUID().toString().substring(0,6);
         uploadDrawingToStorage(myBitmap, name+".png");
     }
+
     public void uploadDrawingToStorage(Bitmap bitmap, String entryName) {
         // set the reference as follows:
         // "folder
