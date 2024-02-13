@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity{
 
-    // implements ILoginRegister
     FirebaseAuth fUser = FirebaseAuth.getInstance();
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                // TODO: find out why I can't write this. in listeners I suppose?
+                // why I can't write this. in listeners I suppose?
                 viewPager2.setCurrentItem(tab.getPosition());
             }
 

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.myproject1.GamePage.GameActivity;
+
 public class MainScreenActivity extends AppCompatActivity {
 
 
@@ -36,5 +38,18 @@ public class MainScreenActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MainScreenActivity.this, MyGalleryActivity.class);
         startActivity(intent);
+    }
+
+    public void createNewGameRoom()
+    {
+        Button btnCreate = findViewById(R.id.button27);
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
