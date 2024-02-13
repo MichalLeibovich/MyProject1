@@ -30,6 +30,7 @@
         android:layout_marginTop="396dp"
         android:background="@drawable/mainscreen_mygallerybutton_design"
         android:fontFamily="casual"
+        android:onClick="MyGalleryClicked"
         android:text="My Gallery"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
