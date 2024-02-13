@@ -42,14 +42,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void createNewGameRoom()
     {
-        Button btnCreate = findViewById(R.id.button27);
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
-                startActivity(intent);
-            }
-        });
+        Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+        startActivity(intent);
     }
+
 }
