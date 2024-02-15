@@ -7,6 +7,7 @@ import static com.example.myproject1.GamePage.Display.pathList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -83,8 +84,21 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+    public void currentColor(int c) {
+        Display.currentBrush = c;
+        path = new Path();
+    }
+
+
     public void pencil(View view) {
-        paintBrush.setColor(Color.BLACK);
+        int color = ContextCompat.getColor(this, R.color.black);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void eraser(View view) {
+        int color = ContextCompat.getColor(this, R.color.white);
+        paintBrush.setColor(color);
         currentColor(paintBrush.getColor());
     }
 
@@ -94,56 +108,115 @@ public class GameActivity extends AppCompatActivity {
         path.reset();
     }
 
-
-    public void redColor(View view) {
-        paintBrush.setColor(Color.RED);
-        currentColor(paintBrush.getColor());
-    }
-
-    public void yellowColor(View view) {
-        paintBrush.setColor(Color.YELLOW);
-        currentColor(paintBrush.getColor());
-    }
-
-    public void greenColor(View view) {
-        paintBrush.setColor(Color.GREEN);
-        currentColor(paintBrush.getColor());
-    }
-
-    public void pinkColor(View view) {
-        paintBrush.setColor(Color.MAGENTA);
-        currentColor(paintBrush.getColor());
-    }
-
-    public void blueColor(View view) {
-        paintBrush.setColor(Color.BLUE);
-        currentColor(paintBrush.getColor());
-    }
-
     public void whiteColor(View view) {
-        paintBrush.setColor(Color.WHITE);
+        int color = ContextCompat.getColor(this, R.color.white);
+        paintBrush.setColor(color);
         currentColor(paintBrush.getColor());
     }
 
     public void blackColor(View view) {
-        paintBrush.setColor(Color.BLACK);
+        int color = ContextCompat.getColor(this, R.color.black);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightGrayColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightGray);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void darkGrayColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkGray);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightRedColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightRed);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+
+    }    public void darkRedColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkRed);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightOrangeColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightOrange);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void darkOrangeColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkOrange);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightYellowColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightYellow);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void darkYellowColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkYellow);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightGreenColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightGreen);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void darkGreenColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkGreen);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brightBlueColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brightBlue);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void darkBlueColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.darkBlue);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void pinkColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.pink);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void purpleColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.purple);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void beigeColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.beige);
+        paintBrush.setColor(color);
+        currentColor(paintBrush.getColor());
+    }
+
+    public void brownColor(View view) {
+        int color = ContextCompat.getColor(this, R.color.brown);
+        paintBrush.setColor(color);
         currentColor(paintBrush.getColor());
     }
 
 
 
-    public void currentColor(int c) {
-        Display.currentBrush = c;
-        path = new Path();
-    }
-
-//    public void brightGrayColor(View view)
-//    {
-//        int color = R.color.brightGray;
-//        String s = String.valueOf(color);
-//        paintBrush.setColor(Color.parseColor(s));
-//        currentColor(paintBrush.getColor());
-//    }
 
 
 

@@ -8,7 +8,7 @@
     android:background="#fef8ef">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+        android:id="@+id/constraintLayoutDrawingArea"
         android:layout_width="80dp"
         android:layout_height="440dp"
         android:background="@drawable/game_tools_design_bkg"
@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true" >
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonPencil"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="16dp"
@@ -30,55 +30,54 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/game_tools_eraser_pic"
-            android:onClick="pencil"
-            app:backgroundTint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-        <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonThickness"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/game_tools_thickness_pic"
-            android:onClick="pencil"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonPencil" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/buttonEraser"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/game_tools_eraser_pic"
+            android:onClick="eraser"
+            app:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonThickness" />
+
+
+
+        <Button
+            android:id="@+id/buttonFill"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/game_tools_fill_pic"
-            android:onClick="pencil"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonEraser" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/buttonUndo"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="101dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/game_tools_undo_pic"
-            android:onClick="pencil"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonFill" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/buttonTrash"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="7dp"
@@ -87,21 +86,21 @@
             android:onClick="reset"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonUndo" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/buttonColorWhite"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="7dp"
             android:background="@drawable/game_tools_colorbutton_design"
             android:onClick="whiteColor"
             app:backgroundTint="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/button8"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorBlack"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/buttonColorBlack"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="7dp"
@@ -113,192 +112,192 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/buttonColorGrayBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
             android:onClick="brightGrayColor"
             app:backgroundTint="@color/brightGray"
-            app:layout_constraintBottom_toTopOf="@+id/button10"
-            app:layout_constraintStart_toEndOf="@+id/button7" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorGrayDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorWhite" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/buttonColorGrayDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="redColor"
+            android:onClick="darkGrayColor"
             app:backgroundTint="@color/darkGray"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button8" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorBlack" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/buttonColorRedBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="redColor"
-            app:backgroundTint="@color/red"
-            app:layout_constraintBottom_toTopOf="@+id/button12"
-            app:layout_constraintStart_toEndOf="@+id/button9" />
+            android:onClick="brightRedColor"
+            app:backgroundTint="@color/brightRed"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorRedDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorGrayBright" />
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/buttonColorRedDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="redColor"
+            android:onClick="darkRedColor"
             app:backgroundTint="@color/darkRed"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button10" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorGrayBright" />
 
         <Button
-            android:id="@+id/button13"
+            android:id="@+id/buttonColorOrangeBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
-            app:backgroundTint="@color/orange"
-            app:layout_constraintBottom_toTopOf="@+id/button14"
-            app:layout_constraintStart_toEndOf="@+id/button11" />
+            android:onClick="brightOrangeColor"
+            app:backgroundTint="@color/brightOrange"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorOrangeDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorRedBright" />
 
         <Button
-            android:id="@+id/button14"
+            android:id="@+id/buttonColorOrangeDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
+            android:onClick="darkOrangeColor"
             app:backgroundTint="@color/darkOrange"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button12" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorRedDark" />
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/buttonColorYellowBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
-            app:backgroundTint="@color/yellow"
-            app:layout_constraintBottom_toTopOf="@+id/button16"
-            app:layout_constraintStart_toEndOf="@+id/button13" />
+            android:onClick="brightYellowColor"
+            app:backgroundTint="@color/brightYellow"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorYellowDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorOrangeBright" />
 
         <Button
-            android:id="@+id/button16"
+            android:id="@+id/buttonColorYellowDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
+            android:onClick="darkYellowColor"
             app:backgroundTint="@color/darkYellow"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button14" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorOrangeDark" />
 
         <Button
-            android:id="@+id/button17"
+            android:id="@+id/buttonColorGreenBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="greenColor"
-            app:backgroundTint="@color/green"
-            app:layout_constraintBottom_toTopOf="@+id/button18"
-            app:layout_constraintStart_toEndOf="@+id/button15" />
+            android:onClick="brightGreenColor"
+            app:backgroundTint="@color/brightGreen"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorGreenDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorYellowBright" />
 
         <Button
-            android:id="@+id/button18"
+            android:id="@+id/buttonColorGreenDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="greenColor"
+            android:onClick="darkGreenColor"
             app:backgroundTint="@color/darkGreen"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button16" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorYellowDark" />
 
         <Button
-            android:id="@+id/button19"
+            android:id="@+id/buttonColorBlueBright"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="blueColor"
-            app:backgroundTint="@color/blue"
-            app:layout_constraintBottom_toTopOf="@+id/button20"
-            app:layout_constraintStart_toEndOf="@+id/button17" />
+            android:onClick="brightBlueColor"
+            app:backgroundTint="@color/brightBlue"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorBlueDark"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorGreenBright" />
 
         <Button
-            android:id="@+id/button20"
+            android:id="@+id/buttonColorBlueDark"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="blueColor"
+            android:onClick="darkBlueColor"
             app:backgroundTint="@color/darkBlue"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button18" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorGreenDark" />
 
         <Button
-            android:id="@+id/button21"
+            android:id="@+id/buttonColorPink"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
             android:onClick="pinkColor"
             app:backgroundTint="@color/pink"
-            app:layout_constraintBottom_toTopOf="@+id/button22"
-            app:layout_constraintStart_toEndOf="@+id/button19" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorPurple"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorBlueBright" />
 
         <Button
-            android:id="@+id/button22"
+            android:id="@+id/buttonColorPurple"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="pinkColor"
+            android:onClick="purpleColor"
             app:backgroundTint="@color/purple"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button20" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorBlueDark" />
 
         <Button
-            android:id="@+id/button23"
+            android:id="@+id/buttonColorBeige"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
+            android:onClick="beigeColor"
             app:backgroundTint="@color/beige"
-            app:layout_constraintBottom_toTopOf="@+id/button24"
-            app:layout_constraintStart_toEndOf="@+id/button21" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorBrown"
+            app:layout_constraintStart_toEndOf="@+id/buttonColorPink" />
 
         <Button
-            android:id="@+id/button24"
+            android:id="@+id/buttonColorBrown"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/game_tools_colorbutton_design"
-            android:onClick="yellowColor"
+            android:onClick="brownColor"
             app:backgroundTint="@color/brown"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button22" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorPurple" />
 
 
         <ImageView
-            android:id="@+id/button25"
+            android:id="@+id/buttonColorsPlate"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginStart="6dp"
             android:layout_marginBottom="32dp"
+            android:onClick="colorsPlate"
             android:background="@drawable/game_tools_colorsplate_pic"
-            android:onClick="reset"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button23" />
+            app:layout_constraintStart_toEndOf="@+id/buttonColorBeige" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/constraintLayoutCanvas"
             android:layout_width="330dp"
             android:layout_height="330dp"
             android:background="@drawable/game_canvas_design"
-            app:layout_constraintBottom_toTopOf="@+id/button15"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
+            app:layout_constraintBottom_toTopOf="@+id/buttonColorGreenBright"
+            app:layout_constraintEnd_toStartOf="@+id/buttonFill"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -316,7 +315,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayoutPlayersList"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_alignParentStart="true"
@@ -354,7 +353,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/constraintLayout3"
+        android:layout_above="@+id/constraintLayoutDrawingArea"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="-25dp"
@@ -365,7 +364,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/constraintLayout3"
+        android:layout_above="@+id/constraintLayoutDrawingArea"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="-55dp"
@@ -376,7 +375,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/constraintLayout3"
+        android:layout_above="@+id/constraintLayoutDrawingArea"
         android:layout_alignParentStart="true"
 
         android:layout_marginStart="30dp"

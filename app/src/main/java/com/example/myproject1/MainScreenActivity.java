@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.myproject1.GamePage.GameActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,41 +65,40 @@ public class MainScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void createNewGameRoom()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         createNewGame(user);
-        Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
-        startActivity(intent);
     }
 
     private void createNewGame(FirebaseUser user)
     {
-        Game game = new Game(user);
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
-        fb.collection("Games").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        GameRoom gameRoom = new GameRoom(user);
+        FirebaseFirestore fbfs = FirebaseFirestore.getInstance();
+        fbfs.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
                 startActivity(intent);
             }
 
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainScreenActivity.this, "creating a new game room failed: " +  e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("FIREBASE", e.getMessage());
             }
         });
-        FirebaseAuth fAuth = FirebaseAuth.getInstance(); // TODO: do I need this?
-        String uid = fAuth.getCurrentUser().getUid();
-        DocumentReference ref = fb.collection("Users").document(uid);
-        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getActivity(), "set successes", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        FirebaseAuth fAuth = FirebaseAuth.getInstance(); // TODO: do I need this?
+//        String uid = fAuth.getCurrentUser().getUid();
+//        DocumentReference ref = fbfs.collection("Users").document(uid);
+//        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                Toast.makeText(MainScreenActivity.this, "set successes", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
