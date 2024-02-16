@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class GameRoom
 {
     //ArrayList<User> users; do I need a friends list?
-    FirebaseUser host;
+    String hostID;
     String subject;
     boolean started; // has the game started? T- yes, F- no
     int countUsersRanking; // count how many users finished ranking all drawings (to know when everyone has finished);
@@ -15,9 +15,11 @@ public class GameRoom
 
     // TODO: func that randomizes a subject
 
-    public GameRoom(FirebaseUser user) {
+    public GameRoom(){}
+
+    public GameRoom(String user) {
         //this.users = null;
-        this.host = user;
+        this.hostID = user;
         //this.subject = randomSubject();
         this.started = false;
         this.numOfUsers = 1;

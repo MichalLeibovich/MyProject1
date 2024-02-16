@@ -68,15 +68,15 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void createNewGameRoom()
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        createNewGame(user);
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        createNewGame(userID);
     }
 
-    private void createNewGame(FirebaseUser user)
+    private void createNewGame(String userID)
     {
-        GameRoom gameRoom = new GameRoom(user);
-        FirebaseFirestore fbfs = FirebaseFirestore.getInstance();
-        fbfs.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        GameRoom gameRoom = new GameRoom(userID);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
