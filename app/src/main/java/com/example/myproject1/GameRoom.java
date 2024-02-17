@@ -17,6 +17,15 @@ public class GameRoom
 
     public GameRoom(){}
 
+//    public GameRoom(String hostID, String subject, boolean started, int countUsersRanking, int numOfUsers)
+//    {
+//        this.hostID = hostID;
+//        this.subject = subject;
+//        this.started = false;
+//        this.countUsersRanking = countUsersRanking;
+//        this.numOfUsers = numOfUsers;
+//    }
+
     public GameRoom(String user) {
         //this.users = null;
         this.hostID = user;

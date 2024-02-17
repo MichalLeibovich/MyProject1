@@ -13,28 +13,14 @@
         android:layout_width="132dp"
         android:layout_height="81dp"
         android:layout_marginStart="136dp"
-        android:layout_marginBottom="148dp"
+        android:layout_marginTop="248dp"
         android:background="@drawable/mainscreen_playbutton_design"
         android:fontFamily="casual"
         android:onClick="PlayClicked"
         android:text="Play"
         android:textSize="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="396dp"
-        android:background="@drawable/mainscreen_mygallerybutton_design"
-        android:fontFamily="casual"
-        android:onClick="MyGalleryClicked"
-        android:text="My Gallery"
-        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -44,6 +30,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_sketchparty" />
+
+    <Button
+        android:id="@+id/mygallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="51dp"
+        android:background="@drawable/mainscreen_mygallery_design"
+        android:fontFamily="casual"
+        android:onClick="MyGalleryClicked"
+        android:text="My Gallery"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accounts_button" />
+
+    <Button
+        android:id="@+id/accounts_button"
+        android:layout_width="196dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/mainscreen_accountsbutton_design"
+        android:drawableLeft="@drawable/mainscreen_accountsbutton_pic"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="accountsButtonClicked"
+        android:text="change account or create a new one"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

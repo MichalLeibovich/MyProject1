@@ -62,7 +62,7 @@ public class LoginTabFragment extends Fragment {
         String loginPassword = etLoginPassword.getText().toString();
 
         if (loginEmail.isEmpty() && loginPassword.isEmpty()) {
-            Toast.makeText(getActivity(), "Fields cannot remain empty", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Fields cannot remain empty", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -70,7 +70,7 @@ public class LoginTabFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT);
+                            Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT).show();
                             //Intent intent = new Intent(getActivity(), MainScreenActivity);
                             Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             startActivity(intent);
@@ -80,7 +80,7 @@ public class LoginTabFragment extends Fragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Log in failed", Toast.LENGTH_SHORT);
+                            Toast.makeText(getActivity(), "Log in failed", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

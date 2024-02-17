@@ -109,4 +109,9 @@ public class MainScreenActivity extends AppCompatActivity {
         dialogJoin.show();
     }
 
+    public void accountsButtonClicked(View view)
+    {
+        Intent intent = new Intent(MainScreenActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
