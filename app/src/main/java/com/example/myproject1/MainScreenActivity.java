@@ -90,7 +90,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 Log.d("FIREBASE", e.getMessage());
             }
         });
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance(); // TODO: do I need this?
+//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 //        String uid = fAuth.getCurrentUser().getUid();
 //        DocumentReference ref = fbfs.collection("Users").document(uid);
 //        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

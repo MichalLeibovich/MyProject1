@@ -7,24 +7,35 @@
     tools:context=".WaitingRoomActivity">
 
     <Button
-        android:id="@+id/button26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="428dp"
+        android:id="@+id/startGameButton"
+        android:layout_width="151dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="644dp"
         android:onClick="StartClicked"
-        android:text="Start Game"
+        android:text="Start"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/waitingRoomTextview" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/waitingRoomTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="40dp"
         android:text="Waiting Room"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/playersTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Players who joined this room:"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="158dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
