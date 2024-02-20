@@ -79,10 +79,11 @@ public class MainScreenActivity extends AppCompatActivity {
         firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                String gameCode = documentReference.getId();
                 Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+                intent.putExtra("gameCode", gameCode); // Pass the game code as an extra
                 startActivity(intent);
             }
-
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -90,6 +91,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 Log.d("FIREBASE", e.getMessage());
             }
         });
+
 //        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 //        String uid = fAuth.getCurrentUser().getUid();
 //        DocumentReference ref = fbfs.collection("Users").document(uid);

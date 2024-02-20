@@ -13,6 +13,7 @@ public class GameRoom
     private  int numOfUsers; // how many users are in here
     private ArrayList<User> players;
 
+
     // TODO: func that randomizes a subject
 
     public GameRoom(){}
@@ -31,7 +32,6 @@ public class GameRoom
     public String getHostId() {
         return hostId;
     }
-
     public void setHostId(String hostId) {
         this.hostId = hostId;
     }
@@ -39,15 +39,13 @@ public class GameRoom
     public String getSubject() {
         return subject;
     }
-
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
-    public boolean isStarted() {
+    public boolean getStarted() {
         return started;
     }
-
     public void setStarted(boolean started) {
         this.started = started;
     }
@@ -55,21 +53,16 @@ public class GameRoom
     public int getCountUsersRanking() {
         return countUsersRanking;
     }
-
-    public void setCountUsersRanking(int countUsersRanking) {
-        this.countUsersRanking = countUsersRanking;
-    }
+    public void setCountUsersRanking(int countUsersRanking) {this.countUsersRanking = countUsersRanking;}
 
     public int getNumOfUsers() {
         return numOfUsers;
     }
-
     public void setNumOfUsers(int numOfUsers) {
         this.numOfUsers = numOfUsers;
     }
 
     public ArrayList<User> getPlayers(){ return this.players; }
     public void setPlayers(ArrayList<User> players){ this.players = players; }
-
 
 }
