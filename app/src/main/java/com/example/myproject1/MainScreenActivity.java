@@ -68,20 +68,21 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void createNewGameRoom()
     {
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        createNewGame(userID);
+        //String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        createNewGame(user);
     }
 
-    private void createNewGame(String userID)
+    private void createNewGame(FirebaseUser user)
     {
-        GameRoom gameRoom = new GameRoom(userID);
+        GameRoom gameRoom = new GameRoom(user);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                String gameCode = documentReference.getId();
+                String gameId = documentReference.getId();
                 Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
-                intent.putExtra("gameCode", gameCode); // Pass the game code as an extra
+                intent.putExtra("gameId", gameId); // Pass the game code as an extra
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {

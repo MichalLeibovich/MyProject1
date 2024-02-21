@@ -3,7 +3,6 @@ package com.example.myproject1.GamePage;
 import static android.app.PendingIntent.getActivity;
 import static com.example.myproject1.GamePage.Display.colorList;
 import static com.example.myproject1.GamePage.Display.pathList;
-import static com.example.myproject1.GamePage.Display.pathList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
@@ -24,10 +21,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.example.myproject1.RankingScreenActivity;
-import com.example.myproject1.WaitingRoomActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

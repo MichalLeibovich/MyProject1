@@ -11,7 +11,8 @@ public class GameRoom
     private  boolean started; // has the game started? T- yes, F- no
     private  int countUsersRanking; // count how many users finished ranking all drawings (to know when everyone has finished);
     private  int numOfUsers; // how many users are in here
-    private ArrayList<User> players;
+    private ArrayList<String> playersId;
+    private ArrayList<String> playersNames;
 
 
     // TODO: func that randomizes a subject
@@ -19,15 +20,17 @@ public class GameRoom
     public GameRoom(){}
 
 
-    public GameRoom(String user) {
-        this.players = null;
+    public GameRoom(FirebaseUser user) {
+        this.players = new ArrayList<>();
+        this.players.add(user);
         this.subject = null;
-        this.hostId = user;
+        this.hostId = user.getUid();
         //this.subject = randomSubject();
         this.started = false;
         this.numOfUsers = 1;
         this.countUsersRanking = 0;
     }
+
 
     public String getHostId() {
         return hostId;
@@ -62,7 +65,7 @@ public class GameRoom
         this.numOfUsers = numOfUsers;
     }
 
-    public ArrayList<User> getPlayers(){ return this.players; }
-    public void setPlayers(ArrayList<User> players){ this.players = players; }
+    public ArrayList<FirebaseUser> getPlayers(){ return this.players; }
+    public void setPlayers(ArrayList<FirebaseUser> players){ this.players = players; }
 
 }
