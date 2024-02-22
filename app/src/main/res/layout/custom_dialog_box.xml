@@ -13,7 +13,7 @@
         android:background="@drawable/mainscreen_bkg_dialogbox_design">
 
         <Button
-            android:id="@+id/button27"
+            android:id="@+id/buttonCreateGameRoom"
             android:layout_width="235dp"
             android:layout_height="63dp"
             android:layout_marginStart="16dp"
@@ -24,14 +24,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button28"
+            android:id="@+id/buttonJoinGameRoom"
             android:layout_width="235dp"
             android:layout_height="61dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:text="Join an existing room"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button27" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonCreateGameRoom" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

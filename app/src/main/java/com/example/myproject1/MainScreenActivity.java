@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,23 +26,21 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+
+        TextView usernameTextView = findViewById(R.id.usernameTextView);
+        String username = getIntent().getStringExtra("username");
+        usernameTextView.setText(username);
     }
 
 
-    public void PlayClicked(View view)
-    {
-        //Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
-        //startActivity(intent);
-        showDialogBox();
-    }
 
-    public void showDialogBox()
+    public void showDialogBox(View view)
     {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_box);
 
-        Button b1 = dialog.findViewById(R.id.button27);
-        Button b2 = dialog.findViewById(R.id.button28);
+        Button b1 = dialog.findViewById(R.id.buttonCreateGameRoom);
+        Button b2 = dialog.findViewById(R.id.buttonJoinGameRoom);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,14 +67,14 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void createNewGameRoom()
     {
-        //String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        createNewGame(user);
+        String username = "hello";
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        createNewGame(userId, username);
     }
 
-    private void createNewGame(FirebaseUser user)
+    private void createNewGame(String userId, String username)
     {
-        GameRoom gameRoom = new GameRoom(user);
+        GameRoom gameRoom = new GameRoom(userId, username);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

@@ -16,14 +16,14 @@
         android:layout_marginTop="248dp"
         android:background="@drawable/mainscreen_playbutton_design"
         android:fontFamily="casual"
-        android:onClick="PlayClicked"
+        android:onClick="showDialogBox"
         android:text="Play"
         android:textSize="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logo_image"
         android:layout_width="293dp"
         android:layout_height="254dp"
         android:layout_marginStart="56dp"
@@ -57,7 +57,17 @@
         android:text="change account or create a new one"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

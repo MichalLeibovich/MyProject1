@@ -20,11 +20,13 @@ public class GameRoom
     public GameRoom(){}
 
 
-    public GameRoom(FirebaseUser user) {
-        this.players = new ArrayList<>();
-        this.players.add(user);
+    public GameRoom(String id, String username) {
+        this.playersId = new ArrayList<>();
+        this.playersId.add(id);
+        this.playersNames = new ArrayList<>();
+        this.playersNames.add(username);
         this.subject = null;
-        this.hostId = user.getUid();
+        this.hostId = id;
         //this.subject = randomSubject();
         this.started = false;
         this.numOfUsers = 1;
@@ -65,7 +67,10 @@ public class GameRoom
         this.numOfUsers = numOfUsers;
     }
 
-    public ArrayList<FirebaseUser> getPlayers(){ return this.players; }
-    public void setPlayers(ArrayList<FirebaseUser> players){ this.players = players; }
+    public ArrayList<String> getPlayersId(){ return this.playersId; }
+    public void setPlayersId(ArrayList<String> playersId){ this.playersId = playersId; }
+
+    public ArrayList<String> getPlayersNames(){ return this.playersNames; }
+    public void setPlayersNames(ArrayList<String> playersNames){ this.playersNames = playersNames; }
 
 }

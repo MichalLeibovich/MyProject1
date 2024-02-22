@@ -1,5 +1,6 @@
 package com.example.myproject1.loginsignup_page;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -78,10 +79,11 @@ public class SignUpTabFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d("FIREBASE", "onComplete: success");
-                                User user = new User(signupEmail, signupPassword);
-                                addUserToFirestore(user);
-                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                                startActivity(intent);
+                                showDialogBox(signupEmail, signupPassword);
+//                                User user = new User(signupEmail, signupPassword);
+//                                addUserToFirestore(user);
+//                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+//                                startActivity(intent);
                             }
                             else
                             {
@@ -94,6 +96,7 @@ public class SignUpTabFragment extends Fragment {
             }
         }
     }
+
     private void addUserToFirestore(User user)
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
@@ -121,6 +124,45 @@ public class SignUpTabFragment extends Fragment {
         });
 
     }
+
+    public void showDialogBox(String signupEmail, String signupPassword)
+    {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.custom_dialog_box_username);
+
+        Button b = dialog.findViewById(R.id.buttonRegister);
+        EditText et = dialog.findViewById(R.id.usernameEditText);
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                String username = et.getText().toString();
+                // checkUsername();
+                // TODO: checkusername will be boolean and if username is availabe, do what's below. if not - toast.
+                User user = new User(signupEmail, signupPassword, username);
+                addUserToFirestore(user);
+                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                intent.putExtra("username", username); // Pass the username as an extra
+                // TODO: pass the userId instead
+                startActivity(intent);
+            }
+        });
+
+//        User user = new User(signupEmail, signupPassword);
+//        addUserToFirestore(user);
+//        Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+//        startActivity(intent);
+
+        dialog.show();
+    }
+
+//    public void checkUsername(String username)
+//    {
+//    // check if there's another one in firebase
+//
+//        if ()
+//    }
 
 
 }
