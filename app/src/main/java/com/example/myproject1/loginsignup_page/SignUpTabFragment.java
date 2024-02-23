@@ -143,8 +143,8 @@ public class SignUpTabFragment extends Fragment {
                 User user = new User(signupEmail, signupPassword, username);
                 addUserToFirestore(user);
                 Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                intent.putExtra("username", username); // Pass the username as an extra
-                // TODO: pass the userId instead
+                //intent.putExtra("username", username); // Pass the username as an extra
+                // TODO: pass the userId instead ?
                 startActivity(intent);
             }
         });
