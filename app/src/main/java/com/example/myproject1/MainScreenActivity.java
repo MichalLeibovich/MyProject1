@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainScreenActivity extends AppCompatActivity {
@@ -27,9 +28,39 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        TextView usernameTextView = findViewById(R.id.usernameTextView);
-        String username = getIntent().getStringExtra("username");
-        usernameTextView.setText(username);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            DocumentReference userRef = firestore.collection("Users").document(userId);
+
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists()) {
+                        String username = documentSnapshot.getString("username");
+                        TextView usernameTextView = findViewById(R.id.usernameTextView);
+                        usernameTextView.setText(username);
+                    } else {
+                        Log.d("MainScreenActivity", "User document does not exist");
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("MainScreenActivity", "Error fetching user document: " + e.getMessage());
+                }
+            });
+        } else {
+            Log.e("MainScreenActivity", "No user logged in");
+        }
+
+
+//        TextView usernameTextView = findViewById(R.id.usernameTextView);
+//        String username = getIntent().getStringExtra("username");
+        // TODO get tyhe username by the username's firebase
+
+        //usernameTextView.setText(username);
     }
 
 

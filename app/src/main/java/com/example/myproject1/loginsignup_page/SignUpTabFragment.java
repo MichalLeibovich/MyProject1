@@ -104,8 +104,8 @@ public class SignUpTabFragment extends Fragment {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+//                startActivity(intent);
             }
 
         }).addOnFailureListener(new OnFailureListener() {
