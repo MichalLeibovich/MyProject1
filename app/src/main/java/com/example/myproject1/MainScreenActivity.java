@@ -27,7 +27,12 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        displayUsername();
+    }
 
+
+    public void displayUsername()
+    {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -55,14 +60,11 @@ public class MainScreenActivity extends AppCompatActivity {
             Log.e("MainScreenActivity", "No user logged in");
         }
 
-
-//        TextView usernameTextView = findViewById(R.id.usernameTextView);
-//        String username = getIntent().getStringExtra("username");
-        // TODO get tyhe username by the username's firebase
-
+        //TextView usernameTextView = findViewById(R.id.usernameTextView);
+        //String username = getIntent().getStringExtra("username");
+        // get the username by the username's firebase
         //usernameTextView.setText(username);
     }
-
 
 
     public void showDialogBox(View view)

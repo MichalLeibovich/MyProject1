@@ -39,7 +39,7 @@ public class User {
         this.totalStars = 0;
         this.rank = 0;
         this.pointsInLevel = 0;
-        this.level = 0;
+        this.level = 1;
     }
 
     public void setEmail(String email){ this.email = email; }
