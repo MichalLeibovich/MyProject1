@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +85,7 @@ public class MainScreenActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                joinAnExistingRoom();
+                showDialogBoxJoin();
             }
         });
 
@@ -137,11 +138,69 @@ public class MainScreenActivity extends AppCompatActivity {
 
     }
 
-    public void joinAnExistingRoom()
+    public void showDialogBoxJoin()
     {
         Dialog dialogJoin = new Dialog(this);
         dialogJoin.setContentView(R.layout.custom_dialog_box_join);
         dialogJoin.show();
+        joinExistingRoom();
+    }
+
+    public void joinExistingRoom()
+    {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_box_join);
+
+        Button b1 = dialog.findViewById(R.id.buttonCreateGameRoom);
+        EditText et = dialog.findViewById(R.id.usernameEditText);
+
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String gameId = et.getText().toString();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                DocumentReference documentRef = firestore.collection("Games").document(gameId);
+                documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            Boolean started = documentSnapshot.getBoolean("started");
+                            if (started != null) {
+                                if (started) {
+                                    // game has started
+                                    Toast.makeText(MainScreenActivity.this, "You cannot join the game- game has already started", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    // game has not started
+                                    // how to join the same game room of the gameId and not open a new one?
+                                    Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+                                    intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                                    startActivity(intent);
+
+                                }
+                            } else {
+                                // "started" field is missing or null
+                                // Handle this case
+                            }
+                        } else {
+                            // Document does not exist
+                            Toast.makeText(MainScreenActivity.this, "Game room isn't found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error fetching document
+                        Log.e("TAG", "Error fetching document: " + e.getMessage());
+                        Toast.makeText(MainScreenActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        dialog.show();
     }
 
     public void accountsButtonClicked(View view)

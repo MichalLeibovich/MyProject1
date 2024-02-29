@@ -21,10 +21,10 @@
             android:text="Join"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            app:layout_constraintTop_toBottomOf="@+id/gamecode_editText" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/gamecode_editText"
             android:layout_width="230dp"
             android:layout_height="52dp"
             android:layout_marginStart="16dp"
