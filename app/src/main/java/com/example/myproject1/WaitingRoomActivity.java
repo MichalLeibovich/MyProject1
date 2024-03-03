@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
@@ -44,6 +45,9 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         // Get the game code from the intent extras
         gameId = getIntent().getStringExtra("gameId");
+
+
+        addCurrentPlayerToGame(gameId);
 
         TextView textView = findViewById (R.id.codeTextView);
         textView.setText(gameId);
@@ -106,6 +110,14 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
     }
 
+    private void addCurrentPlayerToGame(String gameId) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameRef = firestore.collection("Games").document(gameId);
+
+        gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.userName));
+
+    }
+
 
     public void StartClicked(View view)
     {
@@ -138,9 +150,9 @@ public class WaitingRoomActivity extends AppCompatActivity {
     {
         // impilicit intent - אינטנט מרומז
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        //this action indicates taht you want to send data
+        //this action indicates that you want to send data
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey, let's play! Here's the game code: " + gameId);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, gameId);
         startActivityForResult(Intent.createChooser(shareIntent, "share using"), 1);
     }
 }

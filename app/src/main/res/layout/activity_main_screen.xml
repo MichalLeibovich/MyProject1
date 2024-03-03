@@ -16,7 +16,7 @@
         android:layout_marginTop="248dp"
         android:background="@drawable/mainscreen_playbutton_design"
         android:fontFamily="casual"
-        android:onClick="showDialogBox"
+        android:onClick="playClicked"
         android:text="Play"
         android:textSize="35dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainScreenActivity extends AppCompatActivity {
 
 
+
+     public static String userName="anonymous";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +46,9 @@ public class MainScreenActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
-                        String username = documentSnapshot.getString("username");
+                        userName = documentSnapshot.getString("username");
                         TextView usernameTextView = findViewById(R.id.usernameTextView);
-                        usernameTextView.setText(username);
+                        usernameTextView.setText(userName);
                     } else {
                         Log.d("MainScreenActivity", "User document does not exist");
                     }
@@ -68,7 +70,7 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
 
-    public void showDialogBox(View view)
+    public void playClicked(View view)
     {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_box);
@@ -85,7 +87,7 @@ public class MainScreenActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogBoxJoin();
+                joinExistingRoom();
             }
         });
 
@@ -138,21 +140,17 @@ public class MainScreenActivity extends AppCompatActivity {
 
     }
 
-    public void showDialogBoxJoin()
-    {
-        Dialog dialogJoin = new Dialog(this);
-        dialogJoin.setContentView(R.layout.custom_dialog_box_join);
-        dialogJoin.show();
-        joinExistingRoom();
-    }
 
     public void joinExistingRoom()
     {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_box_join);
 
-        Button b1 = dialog.findViewById(R.id.buttonCreateGameRoom);
-        EditText et = dialog.findViewById(R.id.usernameEditText);
+        Button b1 = dialog.findViewById(R.id.button_join);
+        EditText et = dialog.findViewById(R.id.gamecode_editText);
+
+
+
 
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -164,10 +162,12 @@ public class MainScreenActivity extends AppCompatActivity {
                 documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
+                        if (documentSnapshot.exists())
+                        {
                             Boolean started = documentSnapshot.getBoolean("started");
-                            if (started != null) {
-                                if (started) {
+                            if (started != null)
+                            {
+                                if (started == true) {
                                     // game has started
                                     Toast.makeText(MainScreenActivity.this, "You cannot join the game- game has already started", Toast.LENGTH_SHORT).show();
                                 }
@@ -180,7 +180,8 @@ public class MainScreenActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                 }
-                            } else {
+                            }
+                            else {
                                 // "started" field is missing or null
                                 // Handle this case
                             }
@@ -199,7 +200,6 @@ public class MainScreenActivity extends AppCompatActivity {
                 });
             }
         });
-
         dialog.show();
     }
 

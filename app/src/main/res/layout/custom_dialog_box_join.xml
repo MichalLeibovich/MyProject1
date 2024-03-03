@@ -13,7 +13,7 @@
         android:background="@drawable/mainscreen_bkg_dialogbox_design">
 
         <Button
-            android:id="@+id/button29"
+            android:id="@+id/button_join"
             android:layout_width="235dp"
             android:layout_height="61dp"
             android:layout_marginStart="16dp"
