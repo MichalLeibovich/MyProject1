@@ -8,83 +8,92 @@
     tools:context=".WaitingRoomActivity"
     android:background="#DCB3FF">
 
+
     <Button
         android:id="@+id/startGameButton"
         android:layout_width="151dp"
         android:layout_height="75dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="47dp"
         android:onClick="StartClicked"
         android:text="Start"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutShare" />
 
     <TextView
         android:id="@+id/waitingRoomTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="36dp"
         android:text="Waiting Room"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWaitingRoom"
+        android:layout_width="380dp"
+        android:layout_height="218dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playersTextView"></androidx.recyclerview.widget.RecyclerView>
+
     <TextView
         android:id="@+id/playersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="68dp"
         android:text="Players who joined this room:"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/waitingRoomTextview" />
 
-    <TextView
-        android:id="@+id/codeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="36dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/shareImageView"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewWaitingRoom" />
-
-    <ImageView
-        android:id="@+id/shareImageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="36dp"
-        android:onClick="shareCode"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutShare"
+        android:background="@drawable/waitingroom_share_design_bkg"
+        android:layout_width="411dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewWaitingRoom"
-        app:srcCompat="@drawable/waitingroom_share_pic" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewWaitingRoom">
 
-    <TextView
-        android:id="@+id/shareTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="1dp"
-        android:text="Share code"
-        android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shareImageView" />
+        <TextView
+            android:id="@+id/codeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:text="TextView"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/shareImageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewWaitingRoom"
-        android:layout_width="424dp"
-        android:layout_height="295dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playersTextView">
+        <TextView
+            android:id="@+id/shareTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Share code"
+            android:textSize="13dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shareImageView" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/shareImageView"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:onClick="shareCode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/waitingroom_share_pic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

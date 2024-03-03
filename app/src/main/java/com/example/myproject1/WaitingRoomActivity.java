@@ -114,7 +114,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
 
-        gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.userName));
+        gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.username));
 
     }
 

@@ -25,7 +25,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
 
 
-     public static String userName="anonymous";
+     public static String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +47,9 @@ public class MainScreenActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
-                        userName = documentSnapshot.getString("username");
+                        username = documentSnapshot.getString("username");
                         TextView usernameTextView = findViewById(R.id.usernameTextView);
-                        usernameTextView.setText(userName);
+                        usernameTextView.setText(username);
                     } else {
                         Log.d("MainScreenActivity", "User document does not exist");
                     }
@@ -103,7 +104,6 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void createNewGameRoom()
     {
-        String username = "hello";
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         createNewGame(userId, username);
     }
