@@ -208,4 +208,13 @@ public class MainScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(MainScreenActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void questionMarkClicked(View view)
+    {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_box_instructions);
+
+        dialog.show();
+
+    }
 }
