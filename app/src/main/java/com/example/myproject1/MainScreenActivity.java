@@ -38,7 +38,8 @@ public class MainScreenActivity extends AppCompatActivity {
     public void displayUsername()
     {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
+        if (currentUser != null)
+        {
             String userId = currentUser.getUid();
             FirebaseFirestore firestore = FirebaseFirestore.getInstance();
             DocumentReference userRef = firestore.collection("Users").document(userId);
@@ -50,7 +51,9 @@ public class MainScreenActivity extends AppCompatActivity {
                         username = documentSnapshot.getString("username");
                         TextView usernameTextView = findViewById(R.id.usernameTextView);
                         usernameTextView.setText(username);
-                    } else {
+                    }
+                    else
+                    {
                         Log.d("MainScreenActivity", "User document does not exist");
                     }
                 }
@@ -60,7 +63,9 @@ public class MainScreenActivity extends AppCompatActivity {
                     Log.e("MainScreenActivity", "Error fetching user document: " + e.getMessage());
                 }
             });
-        } else {
+        }
+        else
+        {
             Log.e("MainScreenActivity", "No user logged in");
         }
 
@@ -149,55 +154,54 @@ public class MainScreenActivity extends AppCompatActivity {
         Button b1 = dialog.findViewById(R.id.button_join);
         EditText et = dialog.findViewById(R.id.gamecode_editText);
 
-
-
-
-
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 String gameId = et.getText().toString();
-                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                DocumentReference documentRef = firestore.collection("Games").document(gameId);
-                documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists())
-                        {
-                            Boolean started = documentSnapshot.getBoolean("started");
-                            if (started != null)
-                            {
-                                if (started == true) {
-                                    // game has started
-                                    Toast.makeText(MainScreenActivity.this, "You cannot join the game- game has already started", Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
-                                    // game has not started
-                                    // how to join the same game room of the gameId and not open a new one?
-                                    Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
-                                    intent.putExtra("gameId", gameId); // Pass the game code as an extra
-                                    startActivity(intent);
+                if (gameId.isEmpty())
+                {
+                    Toast.makeText(MainScreenActivity.this, "No code entered", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                    DocumentReference documentRef = firestore.collection("Games").document(gameId);
+                    documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.exists()) {
+                                Boolean started = documentSnapshot.getBoolean("started");
+                                if (started != null) {
+                                    if (started == true) {
+                                        // game has started
+                                        Toast.makeText(MainScreenActivity.this, "You cannot join the game- game has already started", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // game has not started
+                                        // how to join the same game room of the gameId and not open a new one?
+                                        Intent intent = new Intent(MainScreenActivity.this, WaitingRoomActivity.class);
+                                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                                        startActivity(intent);
 
+                                    }
+                                } else {
+                                    // "started" field is missing or null
+                                    // Handle this case
                                 }
+                            } else {
+                                // Document does not exist
+                                Toast.makeText(MainScreenActivity.this, "Game room isn't found", Toast.LENGTH_SHORT).show();
                             }
-                            else {
-                                // "started" field is missing or null
-                                // Handle this case
-                            }
-                        } else {
-                            // Document does not exist
-                            Toast.makeText(MainScreenActivity.this, "Game room isn't found", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Error fetching document
-                        Log.e("TAG", "Error fetching document: " + e.getMessage());
-                        Toast.makeText(MainScreenActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Error fetching document
+                            Log.e("TAG", "Error fetching document: " + e.getMessage());
+                            Toast.makeText(MainScreenActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
         dialog.show();

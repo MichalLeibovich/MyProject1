@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RankingScreenActivity">
+    tools:context=".RatingScreenActivity">
 
     <TextView
         android:id="@+id/textView6"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
-        android:text="Ranking Screen"
+        android:text="Rating Screen"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

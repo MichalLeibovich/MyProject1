@@ -16,7 +16,7 @@
             android:name=".MyGalleryActivity"
             android:exported="false" />
         <activity
-            android:name=".RankingScreenActivity"
+            android:name=".RatingScreenActivity"
             android:exported="false" />
         <activity
             android:name=".WaitingRoomActivity"

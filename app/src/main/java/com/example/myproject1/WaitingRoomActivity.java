@@ -71,15 +71,25 @@ public class WaitingRoomActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value!=null && value.exists())
                 {
+
+                    // check if game has started or if another user joined
+
+
                     GameRoom gr = value.toObject(GameRoom.class);
-                    productList.clear();
-                    productList.addAll(gr.getPlayersNames());
-                    //creating recyclerview adapter
-                    PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, productList);
 
-                    //setting adapter to recyclerview
-                    recyclerView.setAdapter(adapter);
+                    if(!gr.getStarted()) {
+                        productList.clear();
+                        productList.addAll(gr.getPlayersNames());
+                        //creating recyclerview adapter
+                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, productList);
 
+                        //setting adapter to recyclerview
+                        recyclerView.setAdapter(adapter);
+                    }
+                    else {
+                        // move to next acitivty
+
+                    }
 
                 }
             }
@@ -132,6 +142,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         // Game started successfully
                         Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
+                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
                         startActivity(intent);
                     }
                 })

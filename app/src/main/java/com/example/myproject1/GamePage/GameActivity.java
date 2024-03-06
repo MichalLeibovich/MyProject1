@@ -21,11 +21,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
-import com.example.myproject1.RankingScreenActivity;
+import com.example.myproject1.RatingScreenActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,8 +51,9 @@ public class GameActivity extends AppCompatActivity {
 
     public static Path path = new Path();
     public static Paint paintBrush = new Paint();
-
+    String gameId;
     TextView textView;
+
 
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
 
@@ -58,8 +67,7 @@ public class GameActivity extends AppCompatActivity {
    //     Display display = new Display(this);
 
 
-
-        new CountDownTimer(120000, 1000) {
+        new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -71,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 textView.setText("00:00");
                 saveCanvasAsBitmap();
-                Intent intent = new Intent(GameActivity.this, RankingScreenActivity.class);
+                Intent intent = new Intent(GameActivity.this, RatingScreenActivity.class);
                 startActivity(intent);
             }
         }.start();
@@ -131,8 +139,8 @@ public class GameActivity extends AppCompatActivity {
         int color = ContextCompat.getColor(this, R.color.brightRed);
         paintBrush.setColor(color);
         currentColor(paintBrush.getColor());
-
-    }    public void darkRedColor(View view) {
+    }
+    public void darkRedColor(View view) {
         int color = ContextCompat.getColor(this, R.color.darkRed);
         paintBrush.setColor(color);
         currentColor(paintBrush.getColor());
@@ -212,28 +220,66 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-
+    Bitmap myBitmap;
 
 
 
     public void saveCanvasAsBitmap() {
         View v = findViewById(R.id.include);
 
-    //    View v = v1.findViewById(R.id.gmDisplay);
-
-
         // Measure and layout the view to ensure it's properly sized
         v.measure(View.MeasureSpec.makeMeasureSpec(v.getWidth(), View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(v.getHeight(), View.MeasureSpec.EXACTLY));
         v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-        Bitmap myBitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        myBitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(myBitmap);
         v.draw(c);
        // Bitmap b  = BitmapFactory.decodeResource(getResources(),R.drawable.img);
     // myBitmap = b;
-        String name = UUID.randomUUID().toString().substring(0,6);
+        //String name = UUID.randomUUID().toString().substring(0,6);
+
+
+        String gameId = getIntent().getStringExtra("gameId");
+        String name = MainScreenActivity.username + gameId;
         uploadDrawingToStorage(myBitmap, name+".png");
     }
+
+
+/*
+
+    public void getUsername()
+    {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference userRef = firestore.collection("Users").document(userId);
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>()
+        {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot)
+            {
+                if (documentSnapshot.exists())
+                {
+                    username = documentSnapshot.getString("username");
+                    userNameFromFB(username);
+                }
+                else
+                {
+                    Log.d("MainScreenActivity", "User document does not exist");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Log.e("MainScreenActivity", "Error fetching user document: " + e.getMessage());
+            }
+        });
+    }
+
+ */
+
 
     public void uploadDrawingToStorage(Bitmap bitmap, String entryName) {
         // set the reference as follows:
