@@ -74,7 +74,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
                     // check if game has started or if another user joined
 
-
+//
                     GameRoom gr = value.toObject(GameRoom.class);
 
                     if(!gr.getStarted()) {
