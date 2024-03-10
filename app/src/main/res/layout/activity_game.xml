@@ -327,8 +327,6 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/game_playerslist_design">
-
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -339,6 +337,18 @@
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:layout_width="329dp"
+            android:layout_height="265dp"
+            android:id="@+id/lvNames"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

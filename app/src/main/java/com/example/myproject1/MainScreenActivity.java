@@ -3,7 +3,9 @@ package com.example.myproject1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,7 +75,11 @@ public class MainScreenActivity extends AppCompatActivity {
         //String username = getIntent().getStringExtra("username");
         // get the username by the username's firebase
         //usernameTextView.setText(username);
+
+
     }
+
+
 
 
     public void playClicked(View view)

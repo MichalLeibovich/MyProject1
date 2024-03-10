@@ -18,12 +18,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myproject1.GameRoom;
 import com.example.myproject1.MainScreenActivity;
+import com.example.myproject1.PlayersNamesAdapter;
 import com.example.myproject1.R;
 import com.example.myproject1.RatingScreenActivity;
+import com.example.myproject1.WaitingRoomActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -58,11 +65,17 @@ public class GameActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         textView = findViewById (R.id.textView3);
+
+        String gameId = getIntent().getStringExtra("gameId");
+
+        displayPlayersName(gameId);
 
    //     Display display = new Display(this);
 
@@ -83,6 +96,10 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }.start();
+
+
+
+
 
     }
 
@@ -240,8 +257,36 @@ public class GameActivity extends AppCompatActivity {
 
 
         String gameId = getIntent().getStringExtra("gameId");
+
+
         String name = MainScreenActivity.username + gameId;
         uploadDrawingToStorage(myBitmap, name+".png");
+    }
+
+    private void displayPlayersName(String gameId) {
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        fb.collection("Games").document(gameId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                GameRoom gr = documentSnapshot.toObject(GameRoom.class);
+                ArrayList<String> arrNames = gr.getPlayersNames();
+
+                ListView lv = findViewById(R.id.lvNames);
+
+                ArrayAdapter adapter = new ArrayAdapter<String>(GameActivity.this,
+                        android.R.layout.simple_list_item_1,
+                        arrNames);
+
+                lv.setAdapter(adapter);
+
+
+
+
+            }
+        });
+
+
     }
 
 
