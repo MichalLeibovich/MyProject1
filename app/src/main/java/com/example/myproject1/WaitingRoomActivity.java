@@ -115,6 +115,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         productList = new ArrayList<PlayerName>();
 
+        
         productList.add(pn1);
         productList.add(pn2);
         productList.add(pn3);

@@ -1,24 +1,21 @@
 package com.example.myproject1;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
 public class RatingAreaViewHolder
 {
+    TextView tvUserName;
+    RatingBar ratingBar;
+    ImageView ivDrawing;
 
-
-    TextView tvPrice, tvTitle, tvSubTitle;
-
-    ImageView ivProduct;
-
-    public ToyViewHolder(View itemView) {
-
+    public RatingAreaViewHolder(View itemView) {
         super(itemView);
-
-        tvPrice = itemView.findViewById(R.id.tvPrice);
-
-        tvTitle = itemView.findViewById(R.id.tvTitle);
-
-        tvSubTitle = itemView.findViewById(R.id.tvSubTitle);
-
-        ivProduct = itemView.findViewById(R.id.ivProduct);
+        ratingBar = itemView.findViewById(R.id.ratingBar_drawingRate);
+        tvUserName = itemView.findViewById(R.id.textView_userName);
+        ivDrawing = itemView.findViewById(R.id.imageView_drawing);
 
     }
 }

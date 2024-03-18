@@ -1,79 +1,61 @@
 package com.example.myproject1;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.ToyViewHolder>
+public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.RatingAreaViewHolder>
 {
     //this context we will use to inflate the layout
-
     private Context mCtx;
 
-    //we are storing all the products in a list
+    //we are storing all the rating areas in a list
+    private List<RatingArea> ratingAreaList;
 
-    private List<RatingArea> productList;
 
     //getting the context and product list with constructor
-
-    public ToyAdapter(Context mCtx, List<RatingArea> productList)
-
+    public RatingAreaAdapter(Context mCtx, List<RatingArea> ratingAreaList)
     {
-
         this.mCtx = mCtx;
-
-        this.productList = productList;
+        this.ratingAreaList = ratingAreaList;
 
     }
 
 
-
     @Override
-
-    public ToyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+    public RatingAreaViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         //inflating and returning our view holder
-
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-
-        View view = inflater.inflate(R.layout.custom_layout, null);
-
-        return new ToyViewHolder(view);
-
+        //View view = inflater.inflate(R.layout.custom_recyclerview_rating, null);
+        View view = inflater.inflate(R.layout.custom_recyclerview_rating, parent, false);
+        return new RatingAreaViewHolder(view);
     }
 
 
 
     @Override
-
-    public void onBindViewHolder(ToyViewHolder holder, int position) {
-
+    public void onBindViewHolder(RatingAreaViewHolder holder, int position)
+    {
         //getting the product of the specified position
-
-        Toy product = productList.get(position);
+        RatingArea ratingArea = ratingAreaList.get(position);
 
         //binding the data with the viewholder views
-
-        holder.tvTitle.setText(product.getTitle());
-
-        holder.tvSubTitle.setText(product.getSubTitle());
-
-        holder.tvPrice.setText(String.valueOf(product.getPrice()));
-
-        holder.ivProduct.setImageBitmap(product.getBitmap());
-
+        holder.tvUserName.setText(ratingArea.getUsername());
+        holder.ratingBar.setRating(ratingArea.getRating());
+        holder.ivDrawing.setImageBitmap(ratingArea.getBitmap());
     }
 
     @Override
-
-    public int getItemCount() {
-
-        return productList.size();
-
+    public int getItemCount()
+    {
+        return ratingAreaList.size();
     }
-
 
 
 
