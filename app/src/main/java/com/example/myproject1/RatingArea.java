@@ -7,15 +7,24 @@ public class RatingArea
 {
     private Bitmap bitmap;
     private String username;
-    private float rating; // Field to hold the rating value
+    //private float rating; // Field to hold the rating value
+
+    private RatingBar ratingBar;
 
 
 
+//    public RatingArea(Bitmap bitmap, String username, float rating) {
+//        this.bitmap = bitmap;
+//        this.username = username;
+//        this.rating = rating;
+//    }
 
-    public RatingArea(Bitmap bitmap, String username, float rating) {
+
+    public RatingArea(Bitmap bitmap, String username, RatingBar ratingBar)
+    {
         this.bitmap = bitmap;
         this.username = username;
-        this.rating = rating;
+        this.ratingBar = ratingBar;
     }
 
     public Bitmap getBitmap() {
@@ -34,12 +43,20 @@ public class RatingArea
         this.username = username;
     }
 
-    public float getRating() {
-        return rating;
+    public RatingBar getRatingBar() {
+        return ratingBar;
     }
 
-    public void setRating(float rating) {
-        this.rating = rating;
+    public void setRatingBar(RatingBar ratingBar) {
+        this.ratingBar = ratingBar;
     }
+
+    //    public float getRating() {
+//        return rating;
+//    }
+//
+//    public void setRating(float rating) {
+//        this.rating = rating;
+//    }
 
 }

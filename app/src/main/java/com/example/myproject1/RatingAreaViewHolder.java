@@ -5,7 +5,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class RatingAreaViewHolder
+import androidx.recyclerview.widget.RecyclerView;
+
+public class RatingAreaViewHolder extends RecyclerView.ViewHolder
 {
     TextView tvUserName;
     RatingBar ratingBar;
