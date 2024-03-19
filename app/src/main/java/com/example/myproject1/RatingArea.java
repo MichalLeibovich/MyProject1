@@ -5,36 +5,52 @@ import android.widget.RatingBar;
 
 public class RatingArea
 {
-    private Bitmap bitmap;
+    private String bitmap;
     private String username;
-    //private float rating; // Field to hold the rating value
+    private float rating; // Field to hold the rating value
 
-    private RatingBar ratingBar;
-
-
-
-//    public RatingArea(Bitmap bitmap, String username, float rating) {
-//        this.bitmap = bitmap;
-//        this.username = username;
-//        this.rating = rating;
-//    }
+  //  private float ratingBar;
 
 
-    public RatingArea(Bitmap bitmap, String username, RatingBar ratingBar)
-    {
+
+    public RatingArea(String bitmap, String username, float rating) {
         this.bitmap = bitmap;
         this.username = username;
-        this.ratingBar = ratingBar;
+        this.rating = rating;
     }
 
-    public Bitmap getBitmap() {
+    public String getBitmap() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(String bitmap) {
         this.bitmap = bitmap;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    /*
+        public RatingArea(Bitmap bitmap, String username, RatingBar ratingBar)
+        {
+            this.bitmap = bitmap;
+            this.username = username;
+            this.ratingBar = ratingBar;
+        }
+
+        public Bitmap getBitmap() {
+            return bitmap;
+        }
+
+        public void setBitmap(Bitmap bitmap) {
+            this.bitmap = bitmap;
+        }
+    */
     public String getUsername() {
         return username;
     }
@@ -42,7 +58,7 @@ public class RatingArea
     public void setUsername(String username) {
         this.username = username;
     }
-
+    /*
     public RatingBar getRatingBar() {
         return ratingBar;
     }
@@ -50,6 +66,8 @@ public class RatingArea
     public void setRatingBar(RatingBar ratingBar) {
         this.ratingBar = ratingBar;
     }
+
+     */
 
     //    public float getRating() {
 //        return rating;

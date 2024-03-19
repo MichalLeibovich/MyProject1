@@ -1,5 +1,6 @@
 package com.example.myproject1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,11 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +30,34 @@ public class RatingScreenActivity extends AppCompatActivity {
     List<RatingArea> ratingAreasList;
     RecyclerView recyclerViewAreas;
 
+    String gameId;
 
+    GameRoom gameRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_screen);
+
+
+
+        gameId = getIntent().getStringExtra("gameId");
+
+
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        fb.collection("Games").document(gameId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    GameRoom gr = task.getResult().toObject(GameRoom.class);
+                    displayRecyclerView();
+
+                }
+            }
+        });
+        ArrayList<RatingArea> ratingAreas = new ArrayList<>();
 
 
 
@@ -67,6 +95,22 @@ public class RatingScreenActivity extends AppCompatActivity {
         //creating recyclerview adapter
         RatingAreaAdapter adapter = new RatingAreaAdapter(this, ratingAreasList);
         recyclerViewAreas.setAdapter(adapter);
+
+    }
+
+    private void displayRecyclerView() {
+        // game room
+        // array list ratings
+
+
+        for (int i = 0; i < gameRoom.getPlayersNames().size(); i++) {
+            RatingArea ra = new RatingArea(gameRoom.getPlayersNames().get(i) + gameId,gameRoom.getPlayersNames().get(i),0.0f);
+
+            ratingAreasList.add(ra);
+        }
+
+
+
 
     }
 

@@ -73,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         textView = findViewById (R.id.textView3);
 
-        String gameId = getIntent().getStringExtra("gameId");
+        gameId = getIntent().getStringExtra("gameId");
 
         displayPlayersName(gameId);
 
@@ -93,6 +93,7 @@ public class GameActivity extends AppCompatActivity {
                 textView.setText("00:00");
                 saveCanvasAsBitmap();
                 Intent intent = new Intent(GameActivity.this, RatingScreenActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, gameId);
                 startActivity(intent);
             }
         }.start();
