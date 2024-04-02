@@ -1,6 +1,8 @@
 package com.example.myproject1;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -45,8 +52,31 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
 
         //binding the data with the viewholder views
         holder.tvUserName.setText(ratingArea.getUsername());
-        holder.ratingBar.setRating(ratingArea.getRatingBar().getRating());
-        holder.ivDrawing.setImageBitmap(ratingArea.getBitmap());
+        holder.ratingBar.setRating(ratingArea.getRating());
+
+        //storageRef.getImage(holder.ivDrawing,ratingArea.getBitmap());
+        //holder.ivDrawing.setImageBitmap(ratingArea.getBitmap());
+
+        // get the image from the firebase storage
+        FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+        StorageReference storageRef = firebaseStorage.getReference();
+        StorageReference imageRef = storageRef.child(ratingArea.getBitmap());
+
+        imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Use the bytes to display the image
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                holder.ivDrawing.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+
 
 
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -59,6 +89,7 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -76,15 +107,7 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
             ratingBar = itemView.findViewById(R.id.ratingBar_drawingRate);
             tvUserName = itemView.findViewById(R.id.textView_userName);
             ivDrawing = itemView.findViewById(R.id.imageView_drawing);
-
-
-
-
-
-
-
         }
-
 
     }
 }
