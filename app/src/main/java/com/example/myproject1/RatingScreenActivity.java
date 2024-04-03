@@ -2,6 +2,7 @@ package com.example.myproject1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
@@ -51,7 +52,7 @@ public class RatingScreenActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful())
                 {
-                    GameRoom gr = task.getResult().toObject(GameRoom.class);
+                    gameRoom = task.getResult().toObject(GameRoom.class);
                     displayRecyclerView();
 
                 }
@@ -64,8 +65,8 @@ public class RatingScreenActivity extends AppCompatActivity {
 
 
         // getting the recycler view from xml
-        recyclerViewAreas = (RecyclerView)findViewById(R.id.recyclerView_ratingArea);
-        recyclerViewAreas.setHasFixedSize(true);
+    //    recyclerViewAreas = (RecyclerView)findViewById(R.id.recyclerView_ratingArea);
+      //  recyclerViewAreas.setHasFixedSize(true);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // initializing the ratingAreasList
         ratingAreasList = new ArrayList<>();
@@ -76,25 +77,23 @@ public class RatingScreenActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img);
 
         //binding MainActivity.java with activity_main.xml file
-       // rtBar = (RatingBar) findViewById(R.id.ratingBar);
+       //rtBar = (RatingBar) findViewById(R.id.ratingBar);
         //finding the specific RatingBar with its unique ID
-        LayerDrawable stars=(LayerDrawable)rtBar.getProgressDrawable();
+       // LayerDrawable stars=(LayerDrawable)rtBar.getProgressDrawable();
         //Use for changing the color of RatingBar
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+     //   stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
 
 
         //RatingArea ra1 = new RatingArea(bitmap, "username", 0);
-        RatingArea ra1 = new RatingArea(bitmap, "username", rtBar);
+       // RatingArea ra1 = new RatingArea("hi", "username", 0);
 
 
 
 
         //phase 2 - add to array list
-        ratingAreasList = new ArrayList<RatingArea>();
-        ratingAreasList.add(ra1);
+    //    ratingAreasList = new ArrayList<RatingArea>();
+   //     ratingAreasList.add(ra1);
         //creating recyclerview adapter
-        RatingAreaAdapter adapter = new RatingAreaAdapter(this, ratingAreasList);
-        recyclerViewAreas.setAdapter(adapter);
 
     }
 
@@ -108,6 +107,13 @@ public class RatingScreenActivity extends AppCompatActivity {
 
             ratingAreasList.add(ra);
         }
+
+        recyclerViewAreas = (RecyclerView)findViewById(R.id.recyclerView_ratingArea);
+        recyclerViewAreas.setHasFixedSize(true);
+        recyclerViewAreas.setLayoutManager(new LinearLayoutManager(this));
+        RatingAreaAdapter adapter = new RatingAreaAdapter(this, ratingAreasList);
+        recyclerViewAreas.setAdapter(adapter);
+
 
 
 

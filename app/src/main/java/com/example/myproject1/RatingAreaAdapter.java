@@ -3,6 +3,7 @@ package com.example.myproject1;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,13 +55,13 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
         holder.tvUserName.setText(ratingArea.getUsername());
         holder.ratingBar.setRating(ratingArea.getRating());
 
-        //storageRef.getImage(holder.ivDrawing,ratingArea.getBitmap());
+        //storage.getImage(holder.ivDrawing,ratingArea.getBitmap());
         //holder.ivDrawing.setImageBitmap(ratingArea.getBitmap());
 
         // get the image from the firebase storage
         FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
         StorageReference storageRef = firebaseStorage.getReference();
-        StorageReference imageRef = storageRef.child(ratingArea.getBitmap());
+        StorageReference imageRef = storageRef.child(ratingArea.getBitmap()+".png");
 
         imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
@@ -71,8 +72,9 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
+            public void onFailure(@NonNull Exception exception)
+            {
+                Log.d("FIREBASE", "setting image from storage failed " + exception.getMessage());
             }
         });
 

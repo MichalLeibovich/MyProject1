@@ -80,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
    //     Display display = new Display(this);
 
 
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -92,9 +92,7 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 textView.setText("00:00");
                 saveCanvasAsBitmap();
-                Intent intent = new Intent(GameActivity.this, RatingScreenActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, gameId);
-                startActivity(intent);
+
             }
         }.start();
 
@@ -376,6 +374,11 @@ public class GameActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
                     Toast.makeText(GameActivity.this, "Uploading successes", Toast.LENGTH_SHORT);
+
+                    Intent intent = new Intent(GameActivity.this, RatingScreenActivity.class);
+                    //intent.putExtra(Intent.EXTRA_TEXT, gameId);
+                    intent.putExtra("gameId", gameId);
+                    startActivity(intent);
                     Log.d("FIREBASE STORAGE", "STORAGE FIREBASE onSuccess: " + downloadUri);
                 } else {
                     // Handle failures
@@ -386,7 +389,6 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
-//    }
 
 
     }
