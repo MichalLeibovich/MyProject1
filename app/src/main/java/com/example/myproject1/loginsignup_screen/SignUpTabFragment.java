@@ -1,4 +1,4 @@
-package com.example.myproject1.loginsignup_page;
+package com.example.myproject1.loginsignup_screen;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myproject1.MainScreenActivity;
+import com.example.myproject1.MainScreenActivity2;
 import com.example.myproject1.R;
 import com.example.myproject1.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -142,7 +143,33 @@ public class SignUpTabFragment extends Fragment {
                 // TODO: checkusername will be boolean and if username is availabe, do what's below. if not - toast.
                 User user = new User(signupEmail, signupPassword, username);
                 addUserToFirestore(user);
-                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+
+
+
+
+
+
+
+
+
+
+
+                //todo hi
+                // FROM-
+                //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                //TO-
+                Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
+
+
+
+
+
+
+
+
+
+
+
                 //intent.putExtra("username", username); // Pass the username as an extra
                 // TODO: pass the userId instead ?
                 startActivity(intent);

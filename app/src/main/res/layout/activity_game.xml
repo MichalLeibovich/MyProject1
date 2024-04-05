@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GamePage.GameActivity"
+    tools:context=".GameScreen.GameActivity"
     android:background="#fef8ef">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -301,7 +301,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.myproject1.GamePage.Display
+            <com.example.myproject1.GameScreen.Display
                 android:id="@+id/include"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"

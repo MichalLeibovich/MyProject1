@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
-import com.example.myproject1.GamePage.GameActivity;
-import com.example.myproject1.loginsignup_page.ViewPagerAdapter;
+
+import com.example.myproject1.loginsignup_screen.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity{
         this.viewPager2.setAdapter(this.viewPagerAdapter);
 
         if (fUser.getCurrentUser() != null) {
-            Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
+            //Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
+            Intent intent = new Intent(MainActivity.this, MainScreenActivity2.class);
             startActivity(intent);
         }
 

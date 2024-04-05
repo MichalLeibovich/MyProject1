@@ -74,7 +74,7 @@ public class RatingScreenActivity extends AppCompatActivity {
 
         // the views I have in each rating area
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img);
+        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img);
 
         //binding MainActivity.java with activity_main.xml file
        //rtBar = (RatingBar) findViewById(R.id.ratingBar);

@@ -1,4 +1,4 @@
-package com.example.myproject1.loginsignup_page;
+package com.example.myproject1.loginsignup_screen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myproject1.MainScreenActivity;
+import com.example.myproject1.MainScreenActivity2;
 import com.example.myproject1.R;
-import com.example.myproject1.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -72,7 +69,61 @@ public class LoginTabFragment extends Fragment {
                         public void onSuccess(AuthResult authResult) {
                             Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT).show();
                             //Intent intent = new Intent(getActivity(), MainScreenActivity);
-                            Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            //todo hi
+                            // FROM-
+                            //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                            //TO-
+                            Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             startActivity(intent);
                             //finish();
                         }

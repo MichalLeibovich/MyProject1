@@ -1,8 +1,8 @@
-package com.example.myproject1.GamePage;
+package com.example.myproject1.GameScreen;
 
 import static android.app.PendingIntent.getActivity;
-import static com.example.myproject1.GamePage.Display.colorList;
-import static com.example.myproject1.GamePage.Display.pathList;
+import static com.example.myproject1.GameScreen.Display.colorList;
+import static com.example.myproject1.GameScreen.Display.pathList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,18 +25,12 @@ import android.widget.Toast;
 
 import com.example.myproject1.GameRoom;
 import com.example.myproject1.MainScreenActivity;
-import com.example.myproject1.PlayersNamesAdapter;
 import com.example.myproject1.R;
 import com.example.myproject1.RatingScreenActivity;
-import com.example.myproject1.WaitingRoomActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,7 +44,6 @@ import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.UUID;
 
 
 public class GameActivity extends AppCompatActivity {

@@ -1,7 +1,7 @@
-package com.example.myproject1.GamePage;
+package com.example.myproject1.GameScreen;
 
-import static com.example.myproject1.GamePage.GameActivity.paintBrush;
-import static com.example.myproject1.GamePage.GameActivity.path;
+import static com.example.myproject1.GameScreen.GameActivity.paintBrush;
+import static com.example.myproject1.GameScreen.GameActivity.path;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
