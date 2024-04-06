@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
 
         Button buttonChangeAccount = fragView.findViewById(R.id.accounts_button);
-        buttonPlay.setOnClickListener(new View.OnClickListener() {
+        buttonChangeAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 accountsButtonClicked();
             }
