@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.example.myproject1.loginsignup_screen.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -21,7 +22,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // get window().setFlags(WindowManager.LayoutParams.FLAGS_FULLSCREEN), WindowManager.LayoutParams.FLAG_FULLSCREEN); initViews();
         this.tabLayout = findViewById(R.id.tab_layout);
         this.viewPager2 = findViewById(R.id.view_pager);
 
