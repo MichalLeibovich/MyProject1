@@ -63,5 +63,4 @@
         app:srcCompat="@drawable/mainscreen_quesmark_pic" />
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
