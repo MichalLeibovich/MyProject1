@@ -83,9 +83,13 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
 
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 if(b) // from user
                 {
+                    // position - index in the arraylist
+                    // v - value of ratring chosen
+                    ratingAreaList.get(position).setRating(v);
+
 
                 }
             }

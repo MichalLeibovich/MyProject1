@@ -154,6 +154,7 @@ public class HomeFragment extends Fragment {
             public void onSuccess(DocumentReference documentReference) {
                 String gameId = documentReference.getId();
                 Intent intent = new Intent(getActivity(), WaitingRoomActivity.class);
+                intent.putExtra("player","host");
                 intent.putExtra("gameId", gameId); // Pass the game code as an extra
                 startActivity(intent);
             }
@@ -213,6 +214,8 @@ public class HomeFragment extends Fragment {
                                         // how to join the same game room of the gameId and not open a new one?
                                         Intent intent = new Intent(getActivity(), WaitingRoomActivity.class);
                                         intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                                        intent.putExtra("player","player");
+
                                         startActivity(intent);
 
                                     }

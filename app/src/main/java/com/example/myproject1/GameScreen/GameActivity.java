@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproject1.GameRoom;
+import com.example.myproject1.HomeFragment;
 import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.example.myproject1.RatingScreenActivity;
@@ -63,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
         textView = findViewById (R.id.textView3);
 
@@ -252,7 +253,8 @@ public class GameActivity extends AppCompatActivity {
         String gameId = getIntent().getStringExtra("gameId");
 
 
-        String name = MainScreenActivity.username + gameId;
+        //String name = MainScreenActivity.username + gameId;
+        String name = HomeFragment.username + gameId;
         uploadDrawingToStorage(myBitmap, name+".png");
     }
 
@@ -319,7 +321,7 @@ public class GameActivity extends AppCompatActivity {
  */
 
 
-    public void uploadDrawingToStorage(Bitmap bitmap, String entryName) {
+    public void uploadDrawingToStorage(Bitmap bitmap, String entryName){
         // set the reference as follows:
         // "folder
         // " named entryname which is the id of the post

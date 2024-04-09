@@ -51,7 +51,10 @@ public class WaitingRoomActivity extends AppCompatActivity {
         TextView textView = findViewById (R.id.codeTextView);
         textView.setText(gameId);
 
-        addCurrentPlayerToGame(gameId);
+        String player = getIntent().getStringExtra("player");
+
+        if(player.equals("player"))
+             addCurrentPlayerToGame(gameId);
 
         //getting the recyclerview from xml
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewWaitingRoom);
@@ -149,7 +152,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
 
-        gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.username));
+        //gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.username));
+        gameRef.update("playersNames", FieldValue.arrayUnion(HomeFragment.username));
 
     }
 

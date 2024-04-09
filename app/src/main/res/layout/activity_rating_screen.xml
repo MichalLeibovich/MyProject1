@@ -44,5 +44,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
+    <Button
+        android:id="@+id/button_finishedRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="391dp"
+        android:layout_marginEnd="161dp"
+        android:onClick="finishedRating"
+        android:text="Finished rating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_ratingArea" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

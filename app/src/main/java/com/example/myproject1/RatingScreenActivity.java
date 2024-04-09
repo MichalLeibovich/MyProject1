@@ -113,10 +113,12 @@ public class RatingScreenActivity extends AppCompatActivity {
         recyclerViewAreas.setLayoutManager(new LinearLayoutManager(this));
         RatingAreaAdapter adapter = new RatingAreaAdapter(this, ratingAreasList);
         recyclerViewAreas.setAdapter(adapter);
+    }
 
-
-
-
+    public void finishedRating(View view)
+    {
+        // update al players rating in the firebase
+        // rating arrea list holds all of ratings I scored
 
     }
 

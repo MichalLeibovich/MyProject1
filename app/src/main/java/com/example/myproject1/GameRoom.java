@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public class GameRoom
 {
+
+    //
+
     private String hostId;
     private  String subject;
     private  boolean started; // has the game started? T- yes, F- no
