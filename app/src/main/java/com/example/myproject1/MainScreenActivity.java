@@ -51,7 +51,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
                         username = documentSnapshot.getString("username");
-                        TextView usernameTextView = findViewById(R.id.usernameTextView);
+                        TextView usernameTextView = findViewById(R.id.textView_username);
                         usernameTextView.setText(username);
                     }
                     else

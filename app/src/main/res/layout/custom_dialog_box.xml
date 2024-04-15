@@ -10,7 +10,7 @@
         android:layout_height="222dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/mainscreen_bkg_dialogbox_design">
+        android:background="#4DD3F3">
 
         <Button
             android:id="@+id/buttonCreateGameRoom"

@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.net.Uri;
@@ -242,17 +243,19 @@ public class GameActivity extends AppCompatActivity {
         v.measure(View.MeasureSpec.makeMeasureSpec(v.getWidth(), View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(v.getHeight(), View.MeasureSpec.EXACTLY));
         v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+
+        // Create a new bitmap with white background
         myBitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        myBitmap.eraseColor(Color.WHITE); // Fill bitmap with white color
+
+        // Draw the content of the view onto the bitmap
         Canvas c = new Canvas(myBitmap);
         v.draw(c);
-       // Bitmap b  = BitmapFactory.decodeResource(getResources(),R.drawable.img);
-    // myBitmap = b;
-        //String name = UUID.randomUUID().toString().substring(0,6);
 
 
         String gameId = getIntent().getStringExtra("gameId");
 
-
+        // Upload the bitmap to storage
         //String name = MainScreenActivity.username + gameId;
         String name = HomeFragment.username + gameId;
         uploadDrawingToStorage(myBitmap, name+".png");

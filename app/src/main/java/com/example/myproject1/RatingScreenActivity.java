@@ -11,12 +11,19 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -117,10 +124,88 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     public void finishedRating(View view)
     {
-        // update al players rating in the firebase
-        // rating arrea list holds all of ratings I scored
+        for (int i = 0; i < ratingAreasList.size(); i++)
+        {
+            float currentRaRate = ratingAreasList.get(i).getRating();
+            sumRatingInGameRoom(currentRaRate, i);
+        }
+
+
+        // update all players rating in the firebase
+        // rating area list holds all of ratings I scored
 
     }
+
+
+
+    public void sumRatingInGameRoom(float rating, int index)
+    {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameRef = firestore.collection("Games").document(gameId);
+        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                if (value!=null && value.exists())
+                {
+                    // Convert the Firestore document to a GameRoom object
+                    GameRoom gr = value.toObject(GameRoom.class);
+                    // Retrieve the playersScoresList from the GameRoom object
+                    ArrayList<Float> playersScoresList = gr.getPlayersScoresList();
+
+                    // Update the value of the specific element in the ArrayList
+                    playersScoresList.set(index, playersScoresList.get(index) + rating);
+
+                    // Update the modified playersScoresList in the Firestore document
+                    gameRef.update("playersScoresList", playersScoresList)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("RatingScreenActivity", "playersScoresList updated successfully");
+                                    // I know the ratings got updated and now I can lock the button
+                                    Button finishedButton = findViewById(R.id.b_finishedRating);
+                                    finishedButton.setEnabled(false);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("RatingScreenActivity", "Error updating playersScoresList: " + e.getMessage());
+                                }
+                            });
+
+                    int usersFinishedRating = gr.getCountUsersFinishedRating();
+                    gameRef.update("countUsersFinishedRating", usersFinishedRating+1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("RatingScreenActivity", "countUsersFinishedRating updated successfully");
+                                    //TODO
+                                    // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("RatingScreenActivity", "Error updating countUsersFinishedRating: " + e.getMessage());
+                                }
+                            });
+
+                }
+                else
+                {
+                    Log.d("RatingScreenActivity", "Game document does not exist");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("RatingScreenActivity", "Error fetching game document: " + e.getMessage());
+            }
+        });
+    }
+
+
+
 
 
 //    public void Call(View v)
@@ -130,6 +215,9 @@ public class RatingScreenActivity extends AppCompatActivity {
 //        TextView t = (TextView)findViewById(R.id.textView2);
 //        t.setText("You Rated :"+String.valueOf(rt.getRating()));
 //    }
+
+
+
 
 
 

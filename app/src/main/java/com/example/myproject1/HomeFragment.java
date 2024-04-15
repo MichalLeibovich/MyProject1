@@ -34,6 +34,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class HomeFragment extends Fragment {
 
     public static String username;
+    public int level;
+    public int pointsInLevel;
     private View fragView;
 
     @Override
@@ -41,6 +43,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         fragView = view;
         displayUsername();
+        displayUserLevel();
+        displayUserPointsLevel();
 
 
         Button buttonPlay = fragView.findViewById(R.id.play_button);
@@ -78,7 +82,8 @@ public class HomeFragment extends Fragment {
 
     public void displayUsername() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
+        if (currentUser != null)
+        {
             String userId = currentUser.getUid();
             FirebaseFirestore firestore = FirebaseFirestore.getInstance();
             DocumentReference userRef = firestore.collection("Users").document(userId);
@@ -88,7 +93,7 @@ public class HomeFragment extends Fragment {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
                         username = documentSnapshot.getString("username");
-                        TextView usernameTextView = fragView.findViewById(R.id.usernameTextView);
+                        TextView usernameTextView = fragView.findViewById(R.id.textView_username);
                         usernameTextView.setText(username);
                     } else {
                         Log.d("MainScreenActivity", "User document does not exist");
@@ -100,14 +105,99 @@ public class HomeFragment extends Fragment {
                     Log.e("MainScreenActivity", "Error fetching user document: " + e.getMessage());
                 }
             });
-        } else {
+        }
+        else
+        {
             Log.e("MainScreenActivity", "No user logged in");
         }
     }
 
-    // Other methods here...
 
 
+    public void displayUserLevel() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            DocumentReference userRef = firestore.collection("Users").document(userId);
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists())
+                    {
+                        Long levelLong = documentSnapshot.getLong("level");
+                        if (levelLong != null)
+                        {
+                            level = levelLong.intValue();
+                            TextView levelTextView = fragView.findViewById(R.id.textView_level);
+                            levelTextView.setText("level " + level);
+                        }
+                        else
+                        {
+                            Log.d("HomeFragment", "User document exists but 'level' is null");
+                        }
+                    }
+                    else
+                    {
+                        Log.d("HomeFragment", "User document does not exist");
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("HomeFragment", "Error fetching user document: " + e.getMessage());
+                }
+            });
+        }
+        else
+        {
+            Log.e("HomeFragment", "No user logged in");
+        }
+    }
+
+
+
+    public void displayUserPointsLevel() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            DocumentReference userRef = firestore.collection("Users").document(userId);
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists())
+                    {
+                        Long levelPointsLong = documentSnapshot.getLong("pointsInLevel");
+                        if (levelPointsLong != null)
+                        {
+                            pointsInLevel = levelPointsLong.intValue();
+                            TextView levelPointsTextView = fragView.findViewById(R.id.textView_pointsInLevel);
+                            //levelPointsTextView.setText(pointsInLevel + " points / " + level * 100 + " points");
+                            levelPointsTextView.setText(pointsInLevel + " / " + level * 100);
+                        }
+                        else
+                        {
+                            Log.d("HomeFragment", "User document exists but 'pointsInLevel' is null");
+                        }
+                    }
+                    else
+                    {
+                        Log.d("HomeFragment", "User document does not exist");
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("HomeFragment", "Error fetching user document: " + e.getMessage());
+                }
+            });
+        }
+        else
+        {
+            Log.e("HomeFragment", "No user logged in");
+        }
+    }
 
 
 

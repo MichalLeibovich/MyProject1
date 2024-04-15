@@ -31,7 +31,6 @@ import java.util.List;
 public class WaitingRoomActivity extends AppCompatActivity {
 
     String gameId;
-
     String hostId;
 
     //a list to store all the products
@@ -47,6 +46,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_waiting_room);
 
         // Get the game code from the intent extras
+
         gameId = getIntent().getStringExtra("gameId");
         TextView textView = findViewById (R.id.codeTextView);
         textView.setText(gameId);
