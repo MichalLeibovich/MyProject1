@@ -33,8 +33,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
     String gameId;
     String hostId;
 
-    //a list to store all the products
-    List<String> productList;
+    //a list to store all the players' names
+    List<String> playersNamesList;
     //the recyclerview
     RecyclerView recyclerView;
 
@@ -57,13 +57,13 @@ public class WaitingRoomActivity extends AppCompatActivity {
              addCurrentPlayerToGame(gameId);
 
         //getting the recyclerview from xml
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewWaitingRoom);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerViewWaitingRoom);
         recyclerView.setHasFixedSize(true);
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //initializing the productlist
-        productList = new ArrayList<>();
+        //initializing the playersNamesList
+        playersNamesList = new ArrayList<>();
 
         displayStartToHost1();
 
@@ -83,10 +83,10 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     if(!gr.getStarted())
                     {
                        // gr.getPlayersNames().get(gr.getPlayersNames().size()-1);
-                        productList.clear();
-                        productList.addAll(gr.getPlayersNames());
+                        playersNamesList.clear();
+                        playersNamesList.addAll(gr.getPlayersNames());
                         //creating recyclerview adapter
-                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, productList);
+                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, playersNamesList);
                         //setting adapter to recyclerview
                         recyclerView.setAdapter(adapter);
                     }
@@ -155,7 +155,96 @@ public class WaitingRoomActivity extends AppCompatActivity {
         //gameRef.update("playersNames", FieldValue.arrayUnion(MainScreenActivity.username));
         gameRef.update("playersNames", FieldValue.arrayUnion(HomeFragment.username));
 
+        addUserToScores();
+
+        addNumOfUsers();
     }
+
+
+    public void addNumOfUsers()
+    {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameRef = firestore.collection("Games").document(gameId);
+        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                if (value!=null && value.exists())
+                {
+                    // Convert the Firestore document to a GameRoom object
+                    GameRoom gr = value.toObject(GameRoom.class);
+                    // Retrieve the playersScoresList from the GameRoom object
+                    int updatedNumOfUsers = gr.getNumOfUsers() + 1;
+
+                    // Update the modified numOfUsers in the Firestore document
+                    gameRef.update("numOfUsers", updatedNumOfUsers)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("WaitingRoomActivity", "playersScoresList updated successfully");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("WaitingRoomActivity", "Error updating playersScoresList: " + e.getMessage());
+                                }
+                            });
+                }
+                else
+                {
+                    Log.d("WaitingRoomActivity", "Game document does not exist");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("WaitingRoomActivity", "Error fetching game document: " + e.getMessage());
+            }
+        });
+    }
+
+    public void addUserToScores()
+    {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameRef = firestore.collection("Games").document(gameId);
+        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                if (value!=null && value.exists())
+                {
+                    // Convert the Firestore document to a GameRoom object
+                    GameRoom gr = value.toObject(GameRoom.class);
+                    ArrayList<Float> newScoresList = gr.getPlayersScoresList();
+                    newScoresList.add(0F);
+
+                    // Update the modified playersScoresList in the Firestore document
+                    gameRef.update("playersScoresList", newScoresList)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("WaitingRoomActivity", "playersScoresList updated successfully");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("WaitingRoomActivity", "Error updating playersScoresList: " + e.getMessage());
+                                }
+                            });
+                }
+                else
+                {
+                    Log.d("WaitingRoomActivity", "Game document does not exist");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("WaitingRoomActivity", "Error fetching game document: " + e.getMessage());
+            }
+        });
+    }
+
 
 
     public void StartClicked(View view)

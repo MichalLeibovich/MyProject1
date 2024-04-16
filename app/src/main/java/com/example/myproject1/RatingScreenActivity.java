@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -178,9 +179,18 @@ public class RatingScreenActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("RatingScreenActivity", "countUsersFinishedRating updated successfully");
+                                    Log.d( "RatingScreenActivity", "countUsersFinishedRating updated successfully");
                                     //TODO
                                     // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
+                                    //int numOfUsers = gr.getNumOfUsers();
+                                    int numOfUsers = gr.getPlayersNames().size();
+                                    if (numOfUsers == usersFinishedRating+1)
+                                    {
+                                        Intent intent = new Intent(RatingScreenActivity.this, ResultsScreenActivity.class);
+                                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                                        startActivity(intent);
+                                    }
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

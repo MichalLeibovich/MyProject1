@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,14 +15,14 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
     //this context we will use to inflate the layout
     private Context mCtx;
     //we are storing all the products in a list
-    private List<String> productList;
+    private List<String> playersNamesList;
 
 
     //getting the context and product list with constructor
-    public PlayersNamesAdapter(Context mCtx, List<String> productList)
+    public PlayersNamesAdapter(Context mCtx, List<String> playersNamesList)
     {
         this.mCtx = mCtx;
-        this.productList = productList;
+        this.playersNamesList = playersNamesList;
     }
 
 
@@ -40,7 +39,7 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
     @Override
     public void onBindViewHolder(PlayersNamesViewHolder holder, int position) {
         //getting the product of the specified position
-        String name = productList.get(position);
+        String name = playersNamesList.get(position);
         //binding the data with the viewholder views
         holder.playerName.setText(name);
 
@@ -51,7 +50,7 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
 
     public int getItemCount()
     {
-        return productList.size();
+        return playersNamesList.size();
     }
 
 

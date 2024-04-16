@@ -40,7 +40,8 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playersTextView"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/playersTextView">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/playersTextView"
