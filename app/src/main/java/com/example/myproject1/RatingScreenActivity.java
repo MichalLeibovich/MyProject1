@@ -155,7 +155,7 @@ public class RatingScreenActivity extends AppCompatActivity {
 
                     // Update the value of the specific element in the ArrayList
                     playersScoresList.set(index, playersScoresList.get(index) + rating);
-
+//
                     // Update the modified playersScoresList in the Firestore document
                     gameRef.update("playersScoresList", playersScoresList)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
