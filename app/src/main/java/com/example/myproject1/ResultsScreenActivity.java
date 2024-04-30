@@ -86,6 +86,7 @@ String gameId;
     }
 
 
+
     public int indexOfMax(ArrayList<Float> rates)
     {
         float maxRate = 0;
