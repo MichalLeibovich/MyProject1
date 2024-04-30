@@ -112,8 +112,6 @@ String gameId;
         TextView tvSecond = findViewById(R.id.tv_secondPlace);
         TextView tvThird = findViewById(R.id.tv_thirdPlace);
 
-//        usernameTextView.setText(username);
-
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -127,10 +125,12 @@ String gameId;
                     ArrayList<String> playersNamesGr = gr.getPlayersNames();
                     ArrayList<Float> playersScoresGr = gr.getPlayersScoresList();
                     int numOfUsers = playersNamesGr.size();
+                    // I don't need numOfUsers on database, I can just take an array's size
 
                     String firstName = gr.getPlayersNames().get(ISortedList.get(0));
                     tvFirst.setText(firstName);
-                    // TODO remove the note, i put it so i won't need to have 2 running phones
+                    // TODO remove // - the note, I put it so I won't need to have 2 running phones
+                    // TODO also to make that if there's just 1 person in waitingRoom, te host can't start
 //                    String secondName = gr.getPlayersNames().get(ISortedList.get(1));
 //                    tvSecond.setText(secondName);
                     if (numOfUsers == 3)
@@ -147,7 +147,7 @@ String gameId;
                             int requestedI = ISortedList.get(playersNamesSet); // if I set 3 people, the 4th will be index 3. and so on
                             String playerName = playersNamesGr.get(requestedI);
                             float playerScore = playersScoresGr.get(requestedI);
-                            playersNamesInOrder.add(requestedI + ". " + playerName + " (total rate: " + playerScore + ")");
+                            playersNamesInOrder.add("#" + requestedI + ": " + playerName + " (total rate: " + playerScore + ")");
                             //otherPlayersNames.add(newName);
                             playersNamesSet++;
                         }
