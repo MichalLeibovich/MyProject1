@@ -131,8 +131,8 @@ String gameId;
                     tvFirst.setText(firstName);
                     // TODO remove // - the note, I put it so I won't need to have 2 running phones
                     // TODO also to make that if there's just 1 person in waitingRoom, te host can't start
-//                    String secondName = gr.getPlayersNames().get(ISortedList.get(1));
-//                    tvSecond.setText(secondName);
+                    String secondName = gr.getPlayersNames().get(ISortedList.get(1));
+                    tvSecond.setText(secondName);
                     if (numOfUsers == 3)
                     {
                         String thirdName = gr.getPlayersNames().get(ISortedList.get(2));

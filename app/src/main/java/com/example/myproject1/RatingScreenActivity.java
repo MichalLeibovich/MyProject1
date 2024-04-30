@@ -125,11 +125,11 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     public void finishedRating(View view)
     {
-        for (int i = 0; i < ratingAreasList.size(); i++)
-        {
-            float currentRaRate = ratingAreasList.get(i).getRating();
-            sumRatingInGameRoom(currentRaRate, i);
-        }
+      //  for (int i = 0; i < ratingAreasList.size(); i++)
+       // {
+          //  float currentRaRate = ratingAreasList.get(i).getRating();
+            sumRatingInGameRoom();
+        //}
 
 
         // update all players rating in the firebase
@@ -139,7 +139,7 @@ public class RatingScreenActivity extends AppCompatActivity {
 
 
 
-    public void sumRatingInGameRoom(float rating, int index)
+    public void sumRatingInGameRoom()
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
@@ -153,8 +153,12 @@ public class RatingScreenActivity extends AppCompatActivity {
                     // Retrieve the playersScoresList from the GameRoom object
                     ArrayList<Float> playersScoresList = gr.getPlayersScoresList();
 
+
+                    for (int i = 0; i < ratingAreasList.size(); i++) {
+                        playersScoresList.set(i,playersScoresList.get(i)+ratingAreasList.get(i).getRating());
+                    }
                     // Update the value of the specific element in the ArrayList
-                    playersScoresList.set(index, playersScoresList.get(index) + rating);
+                   // playersScoresList.set(index, playersScoresList.get(index) + rating);
 //
                     // Update the modified playersScoresList in the Firestore document
                     gameRef.update("playersScoresList", playersScoresList)
