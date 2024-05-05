@@ -7,7 +7,7 @@ public class User {
 
 
     // in a game:
-    private double totalStars;
+    private float totalStars;
     private int rank;
 
     // user's level:
@@ -61,8 +61,8 @@ public class User {
     public int getLevel() {return level;}
     public void setLevel(int level) {this.level = level;}
 
-    public double getTotalStars() {return totalStars;}
-    public void setTotalStars(double totalStars) {this.totalStars = totalStars;}
+    public float getTotalStars() {return totalStars;}
+    public void setTotalStars(float totalStars) {this.totalStars = totalStars;}
 
 
 

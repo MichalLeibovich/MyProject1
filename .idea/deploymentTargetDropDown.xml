@@ -10,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Owner\.android\avd\Pixel_4_API_31.avd" />
+                  <value value="C:\Users\Owner\.android\avd\Pixel_4_XL_API_30.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-30T10:47:20.881349300Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-05T10:08:29.791526200Z" />
         </State>
       </entry>
     </value>
