@@ -198,7 +198,7 @@ String gameId;
                     // Retrieve the totalStars from the User object
                     float totalStars = user.getTotalStars();
 
-
+//
                     // Update the modified playersScoresList in the Firestore document
                     gameRef.update("totalStars", totalStars)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
