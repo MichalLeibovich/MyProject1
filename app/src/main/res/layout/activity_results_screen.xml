@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/iv_podium"
-        android:layout_width="408dp"
-        android:layout_height="228dp"
+        android:layout_width="403dp"
+        android:layout_height="188dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
@@ -54,11 +54,11 @@
         android:id="@+id/tv_firstPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="12dp"
         android:text="1st place"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iv_podium"
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -86,34 +86,42 @@
         android:id="@+id/tv_secondPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
         android:text="2nd place"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_stars" />
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/tv_thirdPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="56dp"
         android:text="3rd place"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/iv_podium"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/tv_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
+        android:layout_marginTop="60dp"
         android:text="Well done! You get ? points"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/b_goBackHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_results"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_results" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="381dp"
+        android:layout_height="65dp"
+        app:srcCompat="@drawable/img_1"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
