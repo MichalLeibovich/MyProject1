@@ -49,7 +49,7 @@ String gameId;
 
     }
 
-    public ArrayList<Integer> sortToRanks()
+    public void sortToRanks()
     {
         ArrayList<Integer> sortedList = new ArrayList<Integer>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -87,7 +87,6 @@ String gameId;
                 Log.e("ResultsScreenActivity", "Error fetching game document: " + e.getMessage());
             }
         });
-        return sortedList;
     }
 
 
@@ -137,7 +136,7 @@ String gameId;
                     tvFirst.setText(firstName);
                     int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
                     tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
-                    //todo
+                    //todo האם הניקוד משתנה ככה לכל השחקנים?
                     String firstId = gr.getPlayersId().get(ISortedList.get(0));
                     addPointsToPointsInLevel(newPointsToLevel, firstId);
                     //todo
