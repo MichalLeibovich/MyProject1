@@ -135,11 +135,12 @@ String gameId;
 
                     String firstName = gr.getPlayersNames().get(ISortedList.get(0));
                     tvFirst.setText(firstName);
-                    int pointsToPointsInLevel = (numOfUsers + 1) * 10 - 1 * 10;
-                    tvPoints.setText("Well done! You get " + pointsToLevel + " points");
+                    int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
+                    tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
+                    //todo
                     String firstId = gr.getPlayersId().get(ISortedList.get(0));
-                    addPointsToPointsInLevel(pointsToLevel, firstId);
-
+                    addPointsToPointsInLevel(newPointsToLevel, firstId);
+                    //todo
 
                     if(numOfUsers>1) {
                         String secondName = gr.getPlayersNames().get(ISortedList.get(1));
@@ -184,75 +185,47 @@ String gameId;
     }
 
 
-    public void addPointsToPointsInLevel(Float pointsToLevel, String userId)
+    public void addPointsToPointsInLevel(int newPointsToLevel, String userId)
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference gameRef = firestore.collection("Users").document(userId);
-        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        DocumentReference userRef = firestore.collection("Users").document(userId);
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot value) {
                 if (value!=null && value.exists())
                 {
-                    // Convert the Firestore document to a GameRoom object
+                    // Convert the Firestore document to a User object
                     User user = value.toObject(User.class);
-                    // Retrieve the totalStars from the User object
-                    float totalStars = user.getTotalStars();
+                    // Retrieve the pointsInLevel from the User object
+                    int pointsInLevel = user.getPointsInLevel();
+                    pointsInLevel += newPointsToLevel;
 
-//
-                    // Update the modified playersScoresList in the Firestore document
-                    gameRef.update("totalStars", totalStars)
+                    // Update pointsInLevel in the Firestore document
+                    userRef.update("pointsInLevel", pointsInLevel)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("RatingScreenActivity", "playersScoresList updated successfully");
-                                    // I know the ratings got updated and now I can lock the button
-                                    Button finishedButton = findViewById(R.id.b_finishedRating);
-                                    finishedButton.setEnabled(false);
+                                    Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
+                                    // Now that it's updated, I can edit the pointsInLevel in homeFragment. Or is it already updated?
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.e("RatingScreenActivity", "Error updating playersScoresList: " + e.getMessage());
-                                }
-                            });
-
-                    int usersFinishedRating = gr.getCountUsersFinishedRating();
-                    gameRef.update("countUsersFinishedRating", usersFinishedRating+1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d( "RatingScreenActivity", "countUsersFinishedRating updated successfully");
-                                    //TODO
-                                    // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
-                                    //int numOfUsers = gr.getNumOfUsers();
-                                    int numOfUsers = gr.getPlayersNames().size();
-                                    if (numOfUsers == usersFinishedRating+1)
-                                    {
-                                        Intent intent = new Intent(RatingScreenActivity.this, ResultsScreenActivity.class);
-                                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
-                                        startActivity(intent);
-                                    }
-
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("RatingScreenActivity", "Error updating countUsersFinishedRating: " + e.getMessage());
+                                    Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
                                 }
                             });
 
                 }
                 else
                 {
-                    Log.d("RatingScreenActivity", "Game document does not exist");
+                    Log.d("ResultsScreenActivity", "User document does not exist");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("RatingScreenActivity", "Error fetching game document: " + e.getMessage());
+                Log.e("ResultsScreenActivity", "Error fetching user document: " + e.getMessage());
             }
         });
     }
