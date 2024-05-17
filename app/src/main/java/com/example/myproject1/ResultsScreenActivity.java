@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -185,7 +186,8 @@ String gameId;
     public void setPlayersScore(GameRoom gr, int numOfUsers)
     {
         TextView tvPoints = findViewById(R.id.tv_points);
-        int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
+        //int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
+        int newPointsToLevel = 800; //just for the comfort
         tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
         for(int i = 0; i < numOfUsers; i++)
         {
@@ -247,19 +249,22 @@ String gameId;
         int levelPoints = level * 100;
         if (pointsInLevel >= levelPoints)
         {
-            upgradeLevel(userRef, level);
-            resetPointsInLevel(userRef);
+            int difference = pointsInLevel - levelPoints;
+            upgradeLevel(userRef, level, difference);
         }
     }
 
-    public void upgradeLevel(DocumentReference userRef, int level)
+    public void upgradeLevel(DocumentReference userRef, int level, int diff)
     {
-        userRef.update("level", level + 1)
+        int newlevel = level + 1;
+        userRef.update("level", newlevel)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
                         // Now that it's updated, Todo show an alert DIALOG!! in HomeFragment or not only there!
+                        resetPointsInLevel(userRef, diff);
+                        upgradeLevelDialog(newlevel);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -269,9 +274,9 @@ String gameId;
                     }
                 });
     }
-    public void resetPointsInLevel(DocumentReference userRef)
+    public void resetPointsInLevel(DocumentReference userRef, int diff)
     {
-        userRef.update("pointsInLevel", 0)
+        userRef.update("pointsInLevel", diff)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -284,6 +289,26 @@ String gameId;
                         Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
                     }
                 });
+    }
+
+    public void upgradeLevelDialog(int level)
+    {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_box_newlevel);
+        dialog.setCancelable(false);
+        TextView tv = dialog.findViewById(R.id.tv_leveLContent);
+        tv.setText("Congratulations! You just got upgraded! You are now level " + level + "! 🎉");
+        Button btn = dialog.findViewById(R.id.btn_newlevelYay);
+        btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
 

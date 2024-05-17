@@ -1,6 +1,7 @@
 package com.example.myproject1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.myproject1.GameScreen.GameActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,13 +146,7 @@ public class RatingScreenActivity extends AppCompatActivity {
                                     // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
                                     //int numOfUsers = gr.getNumOfUsers();
                                     int numOfUsers = gr.getPlayersNames().size();
-                                    if (numOfUsers == usersFinishedRating+1)
-                                    {
-                                        Intent intent = new Intent(RatingScreenActivity.this, ResultsScreenActivity.class);
-                                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
-                                        startActivity(intent);
-                                    }
-
+                                    checkEveryoneFinished();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -168,6 +166,33 @@ public class RatingScreenActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("RatingScreenActivity", "Error fetching game document: " + e.getMessage());
+            }
+        });
+    }
+
+
+    public void checkEveryoneFinished()
+    {
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        fb.collection("Games").document(gameId).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null && value.exists())
+                {
+                    // check if game has started or if another user joined
+
+                    GameRoom gr = value.toObject(GameRoom.class);
+
+                    // if game hasn't started
+                    if(gr.getPlayersNames().size() == gr.getCountUsersFinishedRating())
+                    {
+                        // everybody moves to next activity
+                        Intent intent = new Intent(RatingScreenActivity.this, ResultsScreenActivity.class);
+                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                        startActivity(intent);
+                    }
+                }
             }
         });
     }
