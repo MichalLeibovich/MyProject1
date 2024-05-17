@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RatingScreenActivity"
-    android:background="@color/brightBeige">
+    android:background="@color/brightBeige"
+    tools:context=".RatingScreenActivity">
 
 
     <TextView
@@ -62,12 +62,10 @@
         android:id="@+id/tv_waitingForVoting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="76dp"
         android:text="Waiting for other players to finish voting..."
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/b_finishedRating" />
 

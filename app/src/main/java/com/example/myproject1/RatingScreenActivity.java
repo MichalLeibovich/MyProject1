@@ -69,39 +69,9 @@ public class RatingScreenActivity extends AppCompatActivity {
         ArrayList<RatingArea> ratingAreas = new ArrayList<>();
 
 
-
-
-
-        // getting the recycler view from xml
-    //    recyclerViewAreas = (RecyclerView)findViewById(R.id.recyclerView_ratingArea);
-      //  recyclerViewAreas.setHasFixedSize(true);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // initializing the ratingAreasList
         ratingAreasList = new ArrayList<>();
 
 
-        // the views I have in each rating area
-
-        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img);
-
-        //binding MainActivity.java with activity_main.xml file
-       //rtBar = (RatingBar) findViewById(R.id.ratingBar);
-        //finding the specific RatingBar with its unique ID
-       // LayerDrawable stars=(LayerDrawable)rtBar.getProgressDrawable();
-        //Use for changing the color of RatingBar
-     //   stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-
-
-        //RatingArea ra1 = new RatingArea(bitmap, "username", 0);
-       // RatingArea ra1 = new RatingArea("hi", "username", 0);
-
-
-
-
-        //phase 2 - add to array list
-    //    ratingAreasList = new ArrayList<RatingArea>();
-   //     ratingAreasList.add(ra1);
-        //creating recyclerview adapter
 
     }
 
@@ -125,22 +95,6 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     public void finishedRating(View view)
     {
-      //  for (int i = 0; i < ratingAreasList.size(); i++)
-       // {
-          //  float currentRaRate = ratingAreasList.get(i).getRating();
-            sumRatingInGameRoom();
-        //}
-
-
-        // update all players rating in the firebase
-        // rating area list holds all of ratings I scored
-
-    }
-
-
-
-    public void sumRatingInGameRoom()
-    {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -158,7 +112,7 @@ public class RatingScreenActivity extends AppCompatActivity {
                         playersScoresList.set(i,playersScoresList.get(i)+ratingAreasList.get(i).getRating());
                     }
                     // Update the value of the specific element in the ArrayList
-                   // playersScoresList.set(index, playersScoresList.get(index) + rating);
+                    // playersScoresList.set(index, playersScoresList.get(index) + rating);
 //
                     // Update the modified playersScoresList in the Firestore document
                     gameRef.update("playersScoresList", playersScoresList)

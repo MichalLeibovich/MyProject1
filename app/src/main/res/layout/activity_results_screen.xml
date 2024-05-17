@@ -9,22 +9,9 @@
 
 
     <ImageView
-        android:id="@+id/iv_stars"
-        android:layout_width="398dp"
-        android:layout_height="152dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="-60dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/resultsscreen_stars_pic" />
-
-    <ImageView
         android:id="@+id/iv_podium"
-        android:layout_width="403dp"
-        android:layout_height="188dp"
+        android:layout_width="405dp"
+        android:layout_height="213dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
@@ -78,6 +65,7 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="#B36E78"
         android:drawableRight="@drawable/resultsscreen_arrow_pic"
+        android:onClick="backHomeClicked"
         android:text="Go back to home screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -86,7 +74,7 @@
         android:id="@+id/tv_secondPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
         android:text="2nd place"
         android:textSize="25sp"
@@ -97,11 +85,11 @@
         android:id="@+id/tv_thirdPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="72dp"
         android:text="3rd place"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
@@ -120,7 +108,7 @@
         android:id="@+id/imageView4"
         android:layout_width="381dp"
         android:layout_height="65dp"
-        app:srcCompat="@drawable/img_1"
+        app:srcCompat="@drawable/resultsscreen_yellowstars_pic"
         tools:layout_editor_absoluteX="15dp"
         tools:layout_editor_absoluteY="0dp" />
 

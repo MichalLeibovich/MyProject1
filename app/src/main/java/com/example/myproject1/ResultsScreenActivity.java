@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +29,8 @@ String gameId;
     List<String> playersNamesInOrder;
     //the recyclerview
     RecyclerView recyclerView;
+
+    ArrayList<Integer> ISortedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ String gameId;
                         sortedList.add(indexOfMax);
                     }
 
-                    ArrayList<Integer> ISortedList = sortedList;
+                    ISortedList = sortedList;
                     setPlayersNames(ISortedList);
 
                 }
@@ -115,7 +118,6 @@ String gameId;
         TextView tvFirst = findViewById(R.id.tv_firstPlace);
         TextView tvSecond = findViewById(R.id.tv_secondPlace);
         TextView tvThird = findViewById(R.id.tv_thirdPlace);
-        TextView tvPoints = findViewById(R.id.tv_points);
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
@@ -134,12 +136,6 @@ String gameId;
 
                     String firstName = gr.getPlayersNames().get(ISortedList.get(0));
                     tvFirst.setText(firstName);
-                    int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
-                    tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
-                    //todo האם הניקוד משתנה ככה לכל השחקנים?
-                    String firstId = gr.getPlayersId().get(ISortedList.get(0));
-                    addPointsToPointsInLevel(newPointsToLevel, firstId);
-                    //todo
 
                     if(numOfUsers>1) {
                         String secondName = gr.getPlayersNames().get(ISortedList.get(1));
@@ -169,6 +165,8 @@ String gameId;
                         //setting adapter to recyclerview
                         recyclerView.setAdapter(adapter);
                     }
+                    // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
+                    setPlayersScore(gr, numOfUsers);
                 }
                 else
                 {
@@ -181,6 +179,20 @@ String gameId;
                 Log.e("ResultsScreenActivity", "Error fetching game document: " + e.getMessage());
             }
         });
+    }
+
+
+    public void setPlayersScore(GameRoom gr, int numOfUsers)
+    {
+        TextView tvPoints = findViewById(R.id.tv_points);
+        int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
+        tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
+        for(int i = 0; i < numOfUsers; i++)
+        {
+            String id = gr.getPlayersId().get(ISortedList.get(i));
+            addPointsToPointsInLevel(newPointsToLevel, id);
+        }
+        //String firstId = gr.getPlayersId().get(ISortedList.get(0));
     }
 
 
@@ -214,7 +226,7 @@ String gameId;
                                     Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
                                 }
                             });
-
+                    checkLevelUpgrading(user, userRef, pointsInLevel);
                 }
                 else
                 {
@@ -228,4 +240,57 @@ String gameId;
             }
         });
     }
+
+    public void checkLevelUpgrading(User user, DocumentReference userRef, int pointsInLevel)
+    {
+        int level = user.getLevel();
+        int levelPoints = level * 100;
+        if (pointsInLevel >= levelPoints)
+        {
+            upgradeLevel(userRef, level);
+            resetPointsInLevel(userRef);
+        }
+    }
+
+    public void upgradeLevel(DocumentReference userRef, int level)
+    {
+        userRef.update("level", level + 1)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
+                        // Now that it's updated, Todo show an alert DIALOG!! in HomeFragment or not only there!
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
+                    }
+                });
+    }
+    public void resetPointsInLevel(DocumentReference userRef)
+    {
+        userRef.update("pointsInLevel", 0)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
+                    }
+                });
+    }
+
+
+    public void backHomeClicked(View view)
+    {
+        Intent intent = new Intent(ResultsScreenActivity.this, MainScreenActivity2.class);
+        startActivity(intent);
+    }
+
 }

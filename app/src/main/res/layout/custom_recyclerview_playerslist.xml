@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/playersNameTextView"
         android:layout_width="389dp"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:text="TextView"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"

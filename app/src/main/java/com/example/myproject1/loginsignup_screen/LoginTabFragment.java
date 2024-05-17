@@ -70,59 +70,11 @@ public class LoginTabFragment extends Fragment {
                             Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT).show();
                             //Intent intent = new Intent(getActivity(), MainScreenActivity);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             //todo hi
                             // FROM-
                             //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             //TO-
                             Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                             startActivity(intent);
                             //finish();

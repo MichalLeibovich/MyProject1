@@ -18,6 +18,7 @@ import com.example.myproject1.GameScreen.GameActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -59,7 +60,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
         //getting the recyclerview from xml
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewWaitingRoom);
         recyclerView.setHasFixedSize(true);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //initializing the playersNamesList
@@ -70,61 +70,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
 
         // listen for changes in the gameroom
-        fb.collection("Games").document(gameId).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value!=null && value.exists())
-                {
-                    // check if game has started or if another user joined
-
-                    GameRoom gr = value.toObject(GameRoom.class);
-
-                    // if game hasn't started
-                    if(!gr.getStarted())
-                    {
-                       // gr.getPlayersNames().get(gr.getPlayersNames().size()-1);
-                        playersNamesList.clear();
-                        playersNamesList.addAll(gr.getPlayersNames());
-                        //creating recyclerview adapter
-                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, playersNamesList);
-                        //setting adapter to recyclerview
-                        recyclerView.setAdapter(adapter);
-                    }
-                    // if game has started, start to everybody
-                    else
-                    {
-                        // everybody moves to next activity
-                        Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
-                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
-
-
-/*
-        PlayerName pn1 = new PlayerName("hello");
-        PlayerName pn2 = new PlayerName("hello");
-        PlayerName pn3 = new PlayerName("hello");
-        PlayerName pn4 = new PlayerName("hello");
-        PlayerName pn5 = new PlayerName("hello");
-        PlayerName pn6 = new PlayerName("hello");
-
-
-        //phase 2 - add to array list
-
-        productList = new ArrayList<PlayerName>();
-
-        
-        productList.add(pn1);
-        productList.add(pn2);
-        productList.add(pn3);
-        productList.add(pn4);
-        productList.add(pn5);
-        productList.add(pn6);
-*/
-
+        listenForChanges();
 
     }
 
@@ -147,6 +93,42 @@ public class WaitingRoomActivity extends AppCompatActivity {
 //    }
 
 
+    public void listenForChanges()
+    {
+        fb.collection("Games").document(gameId).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null && value.exists())
+                {
+                    // check if game has started or if another user joined
+
+                    GameRoom gr = value.toObject(GameRoom.class);
+
+                    // if game hasn't started
+                    if(!gr.getStarted())
+                    {
+                        // gr.getPlayersNames().get(gr.getPlayersNames().size()-1);
+                        playersNamesList.clear();
+                        playersNamesList.addAll(gr.getPlayersNames());
+                        //creating recyclerview adapter
+                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, playersNamesList);
+                        //setting adapter to recyclerview
+                        recyclerView.setAdapter(adapter);
+                    }
+                    // if game has started, start to everybody
+                    else
+                    {
+                        // everybody moves to next activity
+                        Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
+                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
+    }
+
+
 
     private void addCurrentPlayerToGame(String gameId) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -158,6 +140,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
         addUserToScores();
 
         addNumOfUsers();
+
+        addUserIdToPlayersId();
     }
 
 
@@ -223,6 +207,51 @@ public class WaitingRoomActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("WaitingRoomActivity", "playersScoresList updated successfully");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("WaitingRoomActivity", "Error updating playersScoresList: " + e.getMessage());
+                                }
+                            });
+                }
+                else
+                {
+                    Log.d("WaitingRoomActivity", "Game document does not exist");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("WaitingRoomActivity", "Error fetching game document: " + e.getMessage());
+            }
+        });
+    }
+
+
+    public void addUserIdToPlayersId()
+    {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameRef = firestore.collection("Games").document(gameId);
+        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                if (value!=null && value.exists())
+                {
+                    // Convert the Firestore document to a GameRoom object
+                    GameRoom gr = value.toObject(GameRoom.class);
+                    ArrayList<String> newIdsList = gr.getPlayersId();
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String userId = currentUser.getUid();
+                    newIdsList.add(userId);
+
+                    // Update playersId in the Firestore document
+                    gameRef.update("playersScoresList", newIdsList)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("WaitingRoomActivity", "playersIdsList updated successfully");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
