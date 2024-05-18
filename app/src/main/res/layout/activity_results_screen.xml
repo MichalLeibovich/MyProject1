@@ -52,8 +52,8 @@
         android:id="@+id/recyclerView_results"
         android:layout_width="383dp"
         android:layout_height="170dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_podium"></androidx.recyclerview.widget.RecyclerView>
 
@@ -96,7 +96,7 @@
         android:id="@+id/tv_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:text="Well done! You get ? points"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,11 +105,70 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_results" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_starspic"
         android:layout_width="381dp"
         android:layout_height="65dp"
-        app:srcCompat="@drawable/resultsscreen_yellowstars_pic"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/resultsscreen_yellowstars_pic" />
+
+    <ImageView
+        android:id="@+id/iv_secondDrawing"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="74dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_secondPlace" />
+
+    <ImageView
+        android:id="@+id/iv_firstDrawing"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_firstPlace" />
+
+    <ImageView
+        android:id="@+id/iv_thirdDrawing"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_podium"
+        app:layout_constraintTop_toBottomOf="@+id/tv_thirdPlace" />
+
+    <TextView
+        android:id="@+id/tv_firstScore"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="50dp"
+        android:textSize="23dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_firstDrawing" />
+
+    <TextView
+        android:id="@+id/tv_secondScore"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="24dp"
+        android:textSize="23dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_secondDrawing" />
+
+    <TextView
+        android:id="@+id/tv_thirdScore"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="264dp"
+        android:layout_marginTop="10dp"
+        android:textSize="23dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_thirdDrawing" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

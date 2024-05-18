@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,13 +21,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResultsScreenActivity extends AppCompatActivity {
 
-String gameId;
+    String gameId;
 
     //a list to store all the players' names
     List<String> playersNamesInOrder;
@@ -120,6 +125,14 @@ String gameId;
         TextView tvSecond = findViewById(R.id.tv_secondPlace);
         TextView tvThird = findViewById(R.id.tv_thirdPlace);
 
+        ImageView ivFirst = findViewById(R.id.iv_firstDrawing);
+        ImageView ivSecond = findViewById(R.id.iv_secondDrawing);
+        ImageView ivThird= findViewById(R.id.iv_thirdDrawing);
+
+        TextView tvFirstScore = findViewById(R.id.tv_firstScore);
+        TextView tvSecondScore = findViewById(R.id.tv_secondScore);
+        TextView tvThirdScore = findViewById(R.id.tv_thirdScore);
+
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -137,15 +150,24 @@ String gameId;
 
                     String firstName = gr.getPlayersNames().get(ISortedList.get(0));
                     tvFirst.setText(firstName);
+                    setWinnersDrawings(firstName, ivFirst);
+                    float firstScore = playersScoresGr.get(ISortedList.get(0));
+                    tvFirstScore.setText(firstScore + "⭐");
 
                     if(numOfUsers>1) {
                         String secondName = gr.getPlayersNames().get(ISortedList.get(1));
                         tvSecond.setText(secondName);
+                        setWinnersDrawings(firstName, ivSecond);
+                        float secondScore = playersScoresGr.get(ISortedList.get(1));
+                        tvSecondScore.setText(secondScore + "⭐");
                     }
                     if (numOfUsers == 3)
                     {
                         String thirdName = gr.getPlayersNames().get(ISortedList.get(2));
                         tvThird.setText(thirdName);
+                        setWinnersDrawings(firstName, ivThird);
+                        float thirdScore = playersScoresGr.get(ISortedList.get(2));
+                        tvThirdScore.setText(thirdScore + "⭐");
                     }
                     int playersNamesSet = 3;
                     if (numOfUsers > playersNamesSet)
@@ -156,7 +178,7 @@ String gameId;
                             int requestedI = ISortedList.get(playersNamesSet); // if I set 3 people, the 4th will be index 3. and so on
                             String playerName = playersNamesGr.get(requestedI);
                             float playerScore = playersScoresGr.get(requestedI);
-                            playersNamesInOrder.add("#" + requestedI + ": " + playerName + " (total rate: " + playerScore + ")");
+                            playersNamesInOrder.add("#" + requestedI + " " + playerName + " (" + playerScore + "⭐)");
                             //otherPlayersNames.add(newName);
                             playersNamesSet++;
                         }
@@ -167,7 +189,7 @@ String gameId;
                         recyclerView.setAdapter(adapter);
                     }
                     // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
-                    setPlayersScore(gr, numOfUsers);
+                    setPlayersPoints(gr, numOfUsers);
                 }
                 else
                 {
@@ -182,12 +204,37 @@ String gameId;
         });
     }
 
+    public void setWinnersDrawings(String id, ImageView iv)
+    {
+        String strBitmap = id + gameId;
+        // get the image from the firebase storage
+        FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+        StorageReference storageRef = firebaseStorage.getReference();
+        StorageReference imageRef = storageRef.child(strBitmap + ".png");
 
-    public void setPlayersScore(GameRoom gr, int numOfUsers)
+        imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Use the bytes to display the image
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                iv.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception)
+            {
+                Log.d("FIREBASE", "setting image from storage failed " + exception.getMessage());
+            }
+        });
+    }
+
+
+
+    public void setPlayersPoints(GameRoom gr, int numOfUsers)
     {
         TextView tvPoints = findViewById(R.id.tv_points);
-        //int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
-        int newPointsToLevel = 800; //just for the comfort
+        int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
+        //int newPointsToLevel = 800; //just for the comfort
         tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
         for(int i = 0; i < numOfUsers; i++)
         {
