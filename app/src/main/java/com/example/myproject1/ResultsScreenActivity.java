@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -142,6 +144,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                 {
                     // Convert the Firestore document to a GameRoom object
                     GameRoom gr = value.toObject(GameRoom.class);
+                    saveDrawingInMyGallery(gr);
                     // Retrieve the numOfUsers from the GameRoom object
                     ArrayList<String> playersNamesGr = gr.getPlayersNames();
                     ArrayList<Float> playersScoresGr = gr.getPlayersScoresList();
@@ -153,21 +156,26 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     setWinnersDrawings(firstName, ivFirst);
                     float firstScore = playersScoresGr.get(ISortedList.get(0));
                     tvFirstScore.setText(firstScore + "⭐");
+                    setPlayersPoints(gr, numOfUsers, 1);
+
 
                     if(numOfUsers>1) {
                         String secondName = gr.getPlayersNames().get(ISortedList.get(1));
                         tvSecond.setText(secondName);
-                        setWinnersDrawings(firstName, ivSecond);
+                        setWinnersDrawings(secondName, ivSecond);
                         float secondScore = playersScoresGr.get(ISortedList.get(1));
                         tvSecondScore.setText(secondScore + "⭐");
+                        setPlayersPoints(gr, numOfUsers, 2);
+
                     }
                     if (numOfUsers == 3)
                     {
                         String thirdName = gr.getPlayersNames().get(ISortedList.get(2));
                         tvThird.setText(thirdName);
-                        setWinnersDrawings(firstName, ivThird);
+                        setWinnersDrawings(thirdName, ivThird);
                         float thirdScore = playersScoresGr.get(ISortedList.get(2));
                         tvThirdScore.setText(thirdScore + "⭐");
+                        setPlayersPoints(gr, numOfUsers, 3);
                     }
                     int playersNamesSet = 3;
                     if (numOfUsers > playersNamesSet)
@@ -180,6 +188,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                             float playerScore = playersScoresGr.get(requestedI);
                             playersNamesInOrder.add("#" + requestedI + " " + playerName + " (" + playerScore + "⭐)");
                             //otherPlayersNames.add(newName);
+                            setPlayersPoints(gr, numOfUsers, requestedI);
                             playersNamesSet++;
                         }
                         //playersNamesInOrder.addAll(otherPlayersNames);
@@ -189,7 +198,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                         recyclerView.setAdapter(adapter);
                     }
                     // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
-                    setPlayersPoints(gr, numOfUsers);
+                    //setPlayersPoints(gr, numOfUsers);
                 }
                 else
                 {
@@ -202,6 +211,48 @@ public class ResultsScreenActivity extends AppCompatActivity {
                 Log.e("ResultsScreenActivity", "Error fetching game document: " + e.getMessage());
             }
         });
+    }
+
+
+    public void saveDrawingInMyGallery(GameRoom gr)
+    {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference userRef = firestore.collection("Users").document(userId);
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot value) {
+                if (value != null && value.exists())
+                {
+                    User user = value.toObject(User.class);
+                    ArrayList<String> gameIdsList = user.getGameIdsList();
+                    gameIdsList.add(gameId);
+                    userRef.update("gameIdsList", gameIdsList)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Log.d("ResultsScreenActivity", "User document got updated");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e){
+                                    Log.d("ResultsScreenActivity", "User document got updated");
+                                }
+                            });
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("ResultsScreenActivity", "User document isn't found");
+            }
+        });
+//        String username = HomeFragment.username;
+//        String drawingName = username + gameId;
+
+
     }
 
     public void setWinnersDrawings(String id, ImageView iv)
@@ -228,23 +279,24 @@ public class ResultsScreenActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public void setPlayersPoints(GameRoom gr, int numOfUsers)
+    public void setPlayersPoints(GameRoom gr, int numOfUsers, int place)
     {
         TextView tvPoints = findViewById(R.id.tv_points);
-        int newPointsToLevel = (numOfUsers + 1) * 10 - 1 * 10;
-        //int newPointsToLevel = 800; //just for the comfort
-        tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
-        for(int i = 0; i < numOfUsers; i++)
+        int newPointsToLevel = (numOfUsers + 1) * 10 - place * 10;
+        String id = gr.getPlayersId().get(ISortedList.get(place - 1));
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+
+        if(id.equals(userId))
         {
-            String id = gr.getPlayersId().get(ISortedList.get(i));
-            addPointsToPointsInLevel(newPointsToLevel, id);
+            tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
         }
-        //String firstId = gr.getPlayersId().get(ISortedList.get(0));
+        //int newPointsToLevel = numOfUsers * 10 - (place - 1) * 10;
+        addPointsToPointsInLevel(newPointsToLevel, id);
     }
 
-
+    int pointsInLevel = 0;
     public void addPointsToPointsInLevel(int newPointsToLevel, String userId)
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -257,7 +309,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     // Convert the Firestore document to a User object
                     User user = value.toObject(User.class);
                     // Retrieve the pointsInLevel from the User object
-                    int pointsInLevel = user.getPointsInLevel();
+                    pointsInLevel = user.getPointsInLevel();
                     pointsInLevel += newPointsToLevel;
 
                     // Update pointsInLevel in the Firestore document
@@ -266,6 +318,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
+                                    checkLevelUpgrading(user, userRef, pointsInLevel);
                                     // Now that it's updated, I can edit the pointsInLevel in homeFragment. Or is it already updated?
                                 }
                             })
@@ -275,7 +328,6 @@ public class ResultsScreenActivity extends AppCompatActivity {
                                     Log.e("ResultsScreenActivity", "Error updating pointsInLevel: " + e.getMessage());
                                 }
                             });
-                    checkLevelUpgrading(user, userRef, pointsInLevel);
                 }
                 else
                 {
@@ -321,6 +373,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     }
                 });
     }
+
     public void resetPointsInLevel(DocumentReference userRef, int diff)
     {
         userRef.update("pointsInLevel", diff)
@@ -364,5 +417,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(ResultsScreenActivity.this, MainScreenActivity2.class);
         startActivity(intent);
     }
+
+
 
 }

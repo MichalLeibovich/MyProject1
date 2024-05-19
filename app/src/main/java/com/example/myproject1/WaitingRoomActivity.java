@@ -247,17 +247,17 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     newIdsList.add(userId);
 
                     // Update playersId in the Firestore document
-                    gameRef.update("playersScoresList", newIdsList)
+                    gameRef.update("playersId", newIdsList)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("WaitingRoomActivity", "playersIdsList updated successfully");
+                                    Log.d("WaitingRoomActivity", "playersId updated successfully");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.e("WaitingRoomActivity", "Error updating playersScoresList: " + e.getMessage());
+                                    Log.e("WaitingRoomActivity", "Error updating playersId: " + e.getMessage());
                                 }
                             });
                 }

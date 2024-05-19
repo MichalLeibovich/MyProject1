@@ -1,5 +1,7 @@
 package com.example.myproject1;
 
+import java.util.ArrayList;
+
 public class User {
     private String email;
     private String password;
@@ -14,6 +16,9 @@ public class User {
 
     private int pointsInLevel;
     private int level;
+
+    private ArrayList<String> gameIdsList;
+
 
 // the points you get:
     // ((participant + 1) * 10 - rank * 10
@@ -40,6 +45,7 @@ public class User {
         this.rank = 0;
         this.pointsInLevel = 0;
         this.level = 1;
+        this.gameIdsList = new ArrayList<>();
     }
 
     public void setEmail(String email){ this.email = email; }
@@ -49,7 +55,6 @@ public class User {
 
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
-
 
 
     public int getRank() {return rank;}
@@ -64,10 +69,10 @@ public class User {
     public float getTotalStars() {return totalStars;}
     public void setTotalStars(float totalStars) {this.totalStars = totalStars;}
 
+    public ArrayList<String> getGameIdsList() { return gameIdsList;}
+
+    public void setGameIdsList(ArrayList<String> gameIdsList) { this.gameIdsList = gameIdsList;}
 
 
-
-
-// TODO: Can I make a unique name in an efficient way? without going through all the usernames?
 
 }
