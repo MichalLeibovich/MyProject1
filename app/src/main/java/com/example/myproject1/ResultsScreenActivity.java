@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myproject1.loginsignup_screen.Player;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ResultsScreenActivity extends AppCompatActivity {
@@ -62,7 +64,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
     public void sortToRanks()
     {
-        ArrayList<Integer> sortedList = new ArrayList<Integer>();
+        ISortedList = new ArrayList<Integer>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -75,16 +77,38 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     // Retrieve the playersNames and playersScoresList from the GameRoom object
                     ArrayList<String> playersNamesGr = gr.getPlayersNames();
                     ArrayList<Float> playersScoresGr = gr.getPlayersScoresList();
+
+
+                    ///
+                    ArrayList< Player> players = new ArrayList<>();
+                    for(int i=0;i<playersNamesGr.size();i++)
+                    {
+                        players.add(new Player(playersScoresGr.get(i),playersNamesGr.get(i)));
+                    }
+
+                    Log.d("Before Sorting Algo", "onSuccess: " + players);
+
+                    Collections.sort(players);
+
+                    Log.d("After Sorting Algo", "onSuccess: " + players);
+                    setPlayersNamesOption(players,gr);
+/*
+
+
+
+
+                    //
                     // Retrieve the numOfUsers from the GameRoom object
-                    while (sortedList.size() < playersNamesGr.size())
+                    while (ISortedList.size() < playersNamesGr.size())
                     {
                         int indexOfMax = indexOfMax(playersScoresGr);
                         playersScoresGr.remove(indexOfMax);
-                        sortedList.add(indexOfMax);
+                        ISortedList.add(indexOfMax);
                     }
 
-                    ISortedList = sortedList;
                     setPlayersNames(ISortedList);
+
+ */
 
                 }
                 else
@@ -119,7 +143,81 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
 
 
+    public void setPlayersNamesOption(ArrayList<Player> players,GameRoom gr )
+    {
 
+
+        int numOfUsers = players.size();
+        TextView tvFirst = findViewById(R.id.tv_firstPlace);
+        TextView tvSecond = findViewById(R.id.tv_secondPlace);
+        TextView tvThird = findViewById(R.id.tv_thirdPlace);
+
+        ImageView ivFirst = findViewById(R.id.iv_firstDrawing);
+        ImageView ivSecond = findViewById(R.id.iv_secondDrawing);
+        ImageView ivThird= findViewById(R.id.iv_thirdDrawing);
+
+        TextView tvFirstScore = findViewById(R.id.tv_firstScore);
+        TextView tvSecondScore = findViewById(R.id.tv_secondScore);
+        TextView tvThirdScore = findViewById(R.id.tv_thirdScore);
+
+        String firstName = players.get(0).getName();
+        tvFirst.setText(firstName);
+        setWinnersDrawings(firstName, ivFirst);
+        float firstScore =players.get(0).getScore();
+        tvFirstScore.setText(firstScore + "⭐");
+        setPlayersPoints(gr, numOfUsers, 1);
+
+
+        if(numOfUsers>1) {
+            String secondName = players.get(1).getName();
+            tvSecond.setText(secondName);
+            setWinnersDrawings(secondName, ivSecond);
+            float secondScore =  players.get(1).getScore();
+            tvSecondScore.setText(secondScore + "⭐");
+            setPlayersPoints(gr, numOfUsers, 2);
+
+        }
+        if (numOfUsers == 3)
+        {
+            String thirdName =  players.get(2).getName();
+            tvThird.setText(thirdName);
+            setWinnersDrawings(thirdName, ivThird);
+            float thirdScore = players.get(2).getScore();
+            tvThirdScore.setText(thirdScore + "⭐");
+            setPlayersPoints(gr, numOfUsers, 3);
+        }
+
+        int playersNamesSet = 3;
+        if (numOfUsers > playersNamesSet)
+        {
+
+            for(int i=3;i<numOfUsers;i++)
+            {
+                int requestedI = i; // if I set 3 people, the 4th will be index 3. and so on
+                String playerName = players.get(i).getName();
+                float playerScore = players.get(i).getScore();
+                playersNamesInOrder.add("#" + requestedI + " " + playerName + " (" + playerScore + "⭐)");
+                //otherPlayersNames.add(newName);
+                setPlayersPoints(gr, numOfUsers, requestedI);
+            }
+            //playersNamesInOrder.addAll(otherPlayersNames);
+            //creating recyclerview adapter
+            PlayersNamesAdapter adapter = new PlayersNamesAdapter(ResultsScreenActivity.this, playersNamesInOrder);
+            //setting adapter to recyclerview
+            recyclerView.setAdapter(adapter);
+        }
+        // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
+        //setPlayersPoints(gr, numOfUsers);
+    }
+
+
+
+
+
+
+
+
+/*
 
     public void setPlayersNames(ArrayList<Integer> ISortedList)
     {
@@ -213,6 +311,9 @@ public class ResultsScreenActivity extends AppCompatActivity {
         });
     }
 
+ */
+
+    /*
 
     public void saveDrawingInMyGallery(GameRoom gr)
     {
@@ -254,6 +355,8 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
 
     }
+
+     */
 
     public void setWinnersDrawings(String id, ImageView iv)
     {
