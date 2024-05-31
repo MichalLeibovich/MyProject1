@@ -1,13 +1,20 @@
-package com.example.myproject1.loginsignup_screen;
+package com.example.myproject1;
 
 public class Player implements Comparable<Player>{
 
     private float score;
     private String name;
 
-    public Player(float score, String name) {
+    private String id;
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
+
+    public Player(float score, String name, String id) {
         this.score = score;
         this.name = name;
+        this.id = id;
     }
 
     public float getScore() {
@@ -28,7 +35,7 @@ public class Player implements Comparable<Player>{
 
     @Override
     public int compareTo(Player player) {
-        if(player.score < this.score)
+        if(player.score > this.score)
             return 1;
         else return -1;
     }
@@ -36,8 +43,9 @@ public class Player implements Comparable<Player>{
     @Override
     public String toString() {
         return "Player{" +
-                "score=" + score +
-                ", name='" + name + '\'' +
+                "score=" + this.score +
+                ", name='" + this.name + '\'' +
+                ", id='" + this.id + '\'' +
                 '}';
     }
 }

@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myproject1.loginsignup_screen.Player;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,13 +76,15 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     // Retrieve the playersNames and playersScoresList from the GameRoom object
                     ArrayList<String> playersNamesGr = gr.getPlayersNames();
                     ArrayList<Float> playersScoresGr = gr.getPlayersScoresList();
+                    ArrayList<String> playersIdsGr = gr.getPlayersId();
 
 
                     ///
-                    ArrayList< Player> players = new ArrayList<>();
-                    for(int i=0;i<playersNamesGr.size();i++)
+                    ArrayList<Player> players = new ArrayList<>();
+                    for(int i = 0; i < playersNamesGr.size(); i++)
                     {
-                        players.add(new Player(playersScoresGr.get(i),playersNamesGr.get(i)));
+                        Player p = new Player(playersScoresGr.get(i), playersNamesGr.get(i), playersIdsGr.get(i));
+                        players.add(p);
                     }
 
                     Log.d("Before Sorting Algo", "onSuccess: " + players);
@@ -91,7 +92,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     Collections.sort(players);
 
                     Log.d("After Sorting Algo", "onSuccess: " + players);
-                    setPlayersNamesOption(players,gr);
+                    setPlayersNamesOption(players, gr);
 /*
 
 
@@ -143,11 +144,9 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
 
 
-    public void setPlayersNamesOption(ArrayList<Player> players,GameRoom gr )
+    public void setPlayersNamesOption(ArrayList<Player> players,GameRoom gr)
     {
-
-
-        int numOfUsers = players.size();
+        int numOfPlayers = players.size();
         TextView tvFirst = findViewById(R.id.tv_firstPlace);
         TextView tvSecond = findViewById(R.id.tv_secondPlace);
         TextView tvThird = findViewById(R.id.tv_thirdPlace);
@@ -163,42 +162,44 @@ public class ResultsScreenActivity extends AppCompatActivity {
         String firstName = players.get(0).getName();
         tvFirst.setText(firstName);
         setWinnersDrawings(firstName, ivFirst);
-        float firstScore =players.get(0).getScore();
+        float firstScore = players.get(0).getScore();
         tvFirstScore.setText(firstScore + "⭐");
-        setPlayersPoints(gr, numOfUsers, 1);
+        //setPlayersPoints(gr, numOfPlayers, 1);
+        setPlayersPointsOption(players.get(0), numOfPlayers, 1);
 
-
-        if(numOfUsers>1) {
+        if(numOfPlayers >= 2) {
             String secondName = players.get(1).getName();
             tvSecond.setText(secondName);
             setWinnersDrawings(secondName, ivSecond);
             float secondScore =  players.get(1).getScore();
             tvSecondScore.setText(secondScore + "⭐");
-            setPlayersPoints(gr, numOfUsers, 2);
+            //setPlayersPoints(gr, numOfPlayers, 2);
+            setPlayersPointsOption(players.get(1), numOfPlayers, 2);
 
         }
-        if (numOfUsers == 3)
+        if (numOfPlayers >= 3)
         {
             String thirdName =  players.get(2).getName();
             tvThird.setText(thirdName);
             setWinnersDrawings(thirdName, ivThird);
             float thirdScore = players.get(2).getScore();
             tvThirdScore.setText(thirdScore + "⭐");
-            setPlayersPoints(gr, numOfUsers, 3);
+            //setPlayersPoints(gr, numOfPlayers, 3);
+            setPlayersPointsOption(players.get(2), numOfPlayers, 3);
+
         }
 
-        int playersNamesSet = 3;
-        if (numOfUsers > playersNamesSet)
+        if (numOfPlayers > 3)
         {
-
-            for(int i=3;i<numOfUsers;i++)
+            for(int i = 3; i < numOfPlayers; i++)
             {
-                int requestedI = i; // if I set 3 people, the 4th will be index 3. and so on
+                // if I set 3 people, the 4th will be index 3. and so on
                 String playerName = players.get(i).getName();
                 float playerScore = players.get(i).getScore();
-                playersNamesInOrder.add("#" + requestedI + " " + playerName + " (" + playerScore + "⭐)");
+                playersNamesInOrder.add("#" + i + " " + playerName + " (" + playerScore + "⭐)");
                 //otherPlayersNames.add(newName);
-                setPlayersPoints(gr, numOfUsers, requestedI);
+                //setPlayersPoints(gr, numOfPlayers, i);
+                setPlayersPointsOption(players.get(i), numOfPlayers, i);
             }
             //playersNamesInOrder.addAll(otherPlayersNames);
             //creating recyclerview adapter
@@ -358,11 +359,11 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
      */
 
-    public void setWinnersDrawings(String id, ImageView iv)
+    public void setWinnersDrawings(String username, ImageView iv)
     {
-        String strBitmap = id + gameId;
+        String strBitmap = username + gameId;
         // get the image from the firebase storage
-        FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageRef = firebaseStorage.getReference();
         StorageReference imageRef = storageRef.child(strBitmap + ".png");
 
@@ -382,10 +383,10 @@ public class ResultsScreenActivity extends AppCompatActivity {
         });
     }
 
-    public void setPlayersPoints(GameRoom gr, int numOfUsers, int place)
+    public void setPlayersPoints(GameRoom gr, int numOfPlayers, int place)
     {
         TextView tvPoints = findViewById(R.id.tv_points);
-        int newPointsToLevel = (numOfUsers + 1) * 10 - place * 10;
+        int newPointsToLevel = (numOfPlayers + 1) * 10 - place * 10;
         String id = gr.getPlayersId().get(ISortedList.get(place - 1));
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -399,6 +400,20 @@ public class ResultsScreenActivity extends AppCompatActivity {
         addPointsToPointsInLevel(newPointsToLevel, id);
     }
 
+    public void setPlayersPointsOption(Player player, int numOfPlayers, int place)
+    {
+        TextView tvPoints = findViewById(R.id.tv_points);
+        int newPointsToLevel = (numOfPlayers + 1) * 10 - place * 10;
+        String id = player.getId();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        if(id.equals(userId))
+        {
+            tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
+        }
+        addPointsToPointsInLevel(newPointsToLevel, id);
+    }
+
     int pointsInLevel = 0;
     public void addPointsToPointsInLevel(int newPointsToLevel, String userId)
     {
@@ -409,20 +424,15 @@ public class ResultsScreenActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot value) {
                 if (value!=null && value.exists())
                 {
-                    // Convert the Firestore document to a User object
                     User user = value.toObject(User.class);
-                    // Retrieve the pointsInLevel from the User object
                     pointsInLevel = user.getPointsInLevel();
                     pointsInLevel += newPointsToLevel;
-
-                    // Update pointsInLevel in the Firestore document
                     userRef.update("pointsInLevel", pointsInLevel)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
                                     checkLevelUpgrading(user, userRef, pointsInLevel);
-                                    // Now that it's updated, I can edit the pointsInLevel in homeFragment. Or is it already updated?
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -464,7 +474,6 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
-                        // Now that it's updated, Todo show an alert DIALOG!! in HomeFragment or not only there!
                         resetPointsInLevel(userRef, diff);
                         upgradeLevelDialog(newlevel);
                     }
