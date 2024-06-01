@@ -410,8 +410,8 @@ public class ResultsScreenActivity extends AppCompatActivity {
         if(id.equals(userId))
         {
             tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
+            addPointsToPointsInLevel(newPointsToLevel, id);
         }
-        addPointsToPointsInLevel(newPointsToLevel, id);
     }
 
     int pointsInLevel = 0;
