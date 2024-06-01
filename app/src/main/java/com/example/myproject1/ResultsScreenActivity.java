@@ -196,7 +196,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                 // if I set 3 people, the 4th will be index 3. and so on
                 String playerName = players.get(i).getName();
                 float playerScore = players.get(i).getScore();
-                playersNamesInOrder.add("#" + i + " " + playerName + " (" + playerScore + "⭐)");
+                playersNamesInOrder.add("#" + (i+1) + " " + playerName + " (" + playerScore + "⭐)");
                 //otherPlayersNames.add(newName);
                 //setPlayersPoints(gr, numOfPlayers, i);
                 setPlayersPointsOption(players.get(i), numOfPlayers, i);
@@ -433,6 +433,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     Log.d("ResultsScreenActivity", "pointsInLevel updated successfully");
                                     checkLevelUpgrading(user, userRef, pointsInLevel);
+                                    addGameToGameIds(user, userRef);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -523,6 +524,12 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
     }
 
+    public void addGameToGameIds(User user, DocumentReference userRef)
+    {
+        ArrayList<String> newGameIds = user.getGameIdsList();
+        newGameIds.add(gameId);
+        userRef.update("gameIdsList", newGameIds);
+    }
 
     public void backHomeClicked(View view)
     {

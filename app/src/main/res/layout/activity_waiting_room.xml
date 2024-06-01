@@ -18,6 +18,7 @@
         android:onClick="StartClicked"
         android:text="Start"
         android:textSize="25dp"
+        android:backgroundTint="#B284DA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutShare" />
 
@@ -56,7 +57,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutShare"
-        android:background="@drawable/waitingroom_share_design_bkg"
+        android:background="#A991FF"
         android:layout_width="411dp"
         android:layout_height="110dp"
         android:layout_marginTop="20dp"

@@ -8,10 +8,10 @@
     android:background="#fef8ef">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#fdebd0"
         android:id="@+id/constraintLayoutDrawingArea"
         android:layout_width="80dp"
         android:layout_height="440dp"
-        android:background="@drawable/game_tools_design_bkg"
         android:layout_marginTop="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"

@@ -64,7 +64,7 @@ public class SignUpTabFragment extends Fragment {
         String signupPassword = etSignUpPassword.getText().toString();
         String signupConfirmPassword = etSignUpConfirmPassword.getText().toString();
 
-        if (signupEmail.isEmpty() && signupPassword.isEmpty() && signupConfirmPassword.isEmpty()){
+        if (signupEmail.isEmpty() || signupPassword.isEmpty() || signupConfirmPassword.isEmpty()){
             Toast.makeText(getActivity(), "Fields cannon remain empty", Toast.LENGTH_SHORT).show();
         }
         else
