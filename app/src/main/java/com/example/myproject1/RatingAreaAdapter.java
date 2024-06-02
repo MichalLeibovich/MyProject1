@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,8 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
         StorageReference storageRef = firebaseStorage.getReference();
         StorageReference imageRef = storageRef.child(ratingArea.getBitmap()+".png");
 
+        // ratingArea.getBitmap -> userName + gameId
+
         imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -86,11 +89,25 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
                 public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if(fromUser)
                 {
+
+                    // disable own update
+                    String picName = ratingAreaList.get(position).getBitmap();
+                    if(picName.startsWith(HomeFragment.username))
+                    {
+                        Toast.makeText(mCtx.getApplicationContext(), "You can't rate your own drawing", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     // position - index in the arraylist
                     ratingAreaList.get(position).setRating(rating);
 
 
                 }
+
+
+
+
+
+
             }
         });
     }

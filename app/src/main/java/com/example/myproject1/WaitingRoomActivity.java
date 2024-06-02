@@ -118,9 +118,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     // if game has started, start to everybody
                     else
                     {
+                        String subject = gr.getSubject();
                         // everybody moves to next activity
                         Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
                         intent.putExtra("gameId", gameId); // Pass the game code as an extra
+                        intent.putExtra("subject", subject);
                         startActivity(intent);
                     }
                 }

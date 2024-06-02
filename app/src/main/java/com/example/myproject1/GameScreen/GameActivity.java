@@ -43,6 +43,8 @@ import com.google.firebase.storage.UploadTask;
 //import com.google.firebase.storage.StorageReference;
 //import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -54,7 +56,8 @@ public class GameActivity extends AppCompatActivity {
     public static Path path = new Path();
     public static Paint paintBrush = new Paint();
     String gameId;
-    TextView textView;
+    TextView tvTimer;
+    String subject;
 
 
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
@@ -67,10 +70,11 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
-        textView = findViewById (R.id.textView3);
+        tvTimer = findViewById (R.id.tv_timer);
 
         gameId = getIntent().getStringExtra("gameId");
 
+        setWord();
         displayPlayersName(gameId);
 
    //     Display display = new Display(this);
@@ -82,13 +86,12 @@ public class GameActivity extends AppCompatActivity {
                 NumberFormat f = new DecimalFormat("00");
                 long min = (millisUntilFinished / 60000) % 60;
                 long sec = (millisUntilFinished / 1000) % 60;
-                textView.setText(f.format(min) + ":" + f.format(sec));
+                tvTimer.setText(f.format(min) + ":" + f.format(sec));
             }
             // When the task is over it will print 00:00:00 there
             public void onFinish() {
-                textView.setText("00:00");
+                tvTimer.setText("00:00");
                 saveCanvasAsBitmap();
-
             }
         }.start();
 
@@ -96,6 +99,13 @@ public class GameActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void setWord()
+    {
+        subject = getIntent().getStringExtra("subject");
+        TextView tvSubject = findViewById(R.id.tv_subject);
+        tvSubject.setText("Subject: " + subject);
     }
 
 

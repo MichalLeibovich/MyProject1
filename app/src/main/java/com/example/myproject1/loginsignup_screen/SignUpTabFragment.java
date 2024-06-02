@@ -28,6 +28,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class SignUpTabFragment extends Fragment {
@@ -145,33 +147,11 @@ public class SignUpTabFragment extends Fragment {
                 addUserToFirestore(user);
 
 
-
-
-
-
-
-
-
-
-
-                //todo hi
-                // FROM-
                 //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                 //TO-
                 Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
 
 
-
-
-
-
-
-
-
-
-
-                //intent.putExtra("username", username); // Pass the username as an extra
-                // TODO: pass the userId instead ?
                 startActivity(intent);
             }
         });
@@ -184,12 +164,33 @@ public class SignUpTabFragment extends Fragment {
         dialog.show();
     }
 
-//    public void checkUsername(String username)
-//    {
-//    // check if there's another one in firebase
-//
-//        if ()
-//    }
+    public void checkUsername(String username)
+    {
+    // check if there's another one in firebase
+
+        FirebaseFirestore firebase = FirebaseFirestore.getInstance();
+        firebase.collection("cities")
+                .whereEqualTo("capital", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            if(task.getResult().size() > 0)
+                            {
+                                /// toast
+                                return;
+                            }
+
+                        }
+                        else
+                        {
+                            Log.d("SignUp", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
 
 }

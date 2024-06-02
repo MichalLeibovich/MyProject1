@@ -1,6 +1,16 @@
 package com.example.myproject1;
 
+import com.example.myproject1.loginsignup_screen.Subjects;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Firebase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameRoom
 {
@@ -38,6 +48,16 @@ public class GameRoom
         this.countUsersFinishedRating = 0;
     }
 
+    public void randomizeSubject()
+    {
+
+
+    }
+
+    public void setRandomSubject(String randomSub)
+    {
+        this.subject = randomSub;
+    }
 
     public String getHostId() {
         return hostId;

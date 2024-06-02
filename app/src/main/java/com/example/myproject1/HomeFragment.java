@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myproject1.loginsignup_screen.Subjects;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -235,9 +239,48 @@ public class HomeFragment extends Fragment {
         createNewGame(userId, username);
     }
 
+
+
     private void createNewGame(String userId, String username)
     {
+
+        // read words from FB
+        // get random word...
         GameRoom gameRoom = new GameRoom(userId, username);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference docRef = firestore.collection("Subjects").document("allSubjects");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists())
+                {
+                    //String str = documentSnapshot.getString("allSubjects");
+                    Subjects subjects = documentSnapshot.toObject(Subjects.class);
+                    ArrayList arrSubjects = subjects.getSubjectsArray();
+                    Random rand = new Random();
+                    int randomNum = rand.nextInt(arrSubjects.size());
+                    String randomSubject = (String)arrSubjects.get(randomNum);
+                    gameRoom.setRandomSubject(randomSubject);
+
+                    getRandomResult(gameRoom);
+                }
+            }
+        });        //gameRoom.setSubject("pencil");
+
+
+//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+//        String uid = fAuth.getCurrentUser().getUid();
+//        DocumentReference ref = fbfs.collection("Users").document(uid);
+//        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                Toast.makeText(MainScreenActivity.this, "set successes", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+    }
+
+    private void getRandomResult(GameRoom gameRoom) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -255,17 +298,6 @@ public class HomeFragment extends Fragment {
                 Log.d("FIREBASE", e.getMessage());
             }
         });
-
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//        String uid = fAuth.getCurrentUser().getUid();
-//        DocumentReference ref = fbfs.collection("Users").document(uid);
-//        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void unused) {
-//                Toast.makeText(MainScreenActivity.this, "set successes", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
     }
 
 
