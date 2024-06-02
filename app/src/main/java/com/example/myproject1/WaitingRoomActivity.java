@@ -31,7 +31,8 @@ import java.util.List;
 
 public class WaitingRoomActivity extends AppCompatActivity {
 
-    String gameId;
+    public static String gameId;
+    //String gameId;
     String hostId;
 
     //a list to store all the players' names

@@ -265,18 +265,7 @@ public class HomeFragment extends Fragment {
                     getRandomResult(gameRoom);
                 }
             }
-        });        //gameRoom.setSubject("pencil");
-
-
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//        String uid = fAuth.getCurrentUser().getUid();
-//        DocumentReference ref = fbfs.collection("Users").document(uid);
-//        ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void unused) {
-//                Toast.makeText(MainScreenActivity.this, "set successes", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        });
 
     }
 

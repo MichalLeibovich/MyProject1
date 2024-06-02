@@ -92,7 +92,7 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
 
                     // disable own update
                     String picName = ratingAreaList.get(position).getBitmap();
-                    if(picName.startsWith(HomeFragment.username))
+                    if(picName.equals(HomeFragment.username + WaitingRoomActivity.gameId))
                     {
                         Toast.makeText(mCtx.getApplicationContext(), "You can't rate your own drawing", Toast.LENGTH_SHORT).show();
                         return;

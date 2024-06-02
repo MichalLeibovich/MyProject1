@@ -28,7 +28,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
@@ -56,14 +55,18 @@ public class SignUpTabFragment extends Fragment {
         });
     }
 
+
+    private String signupEmail;
+    private String signupPassword;
+
     public void signUp()
     {
         EditText etSignupEmail = fragView.findViewById(R.id.et_signup_email);
         EditText etSignUpPassword = fragView.findViewById(R.id.et_signup_password);
         EditText etSignUpConfirmPassword = fragView.findViewById(R.id.et_signup_confirmPassword);
 
-        String signupEmail = etSignupEmail.getText().toString();
-        String signupPassword = etSignUpPassword.getText().toString();
+        signupEmail = etSignupEmail.getText().toString();
+        signupPassword = etSignUpPassword.getText().toString();
         String signupConfirmPassword = etSignUpConfirmPassword.getText().toString();
 
         if (signupEmail.isEmpty() || signupPassword.isEmpty() || signupConfirmPassword.isEmpty()){
@@ -72,7 +75,7 @@ public class SignUpTabFragment extends Fragment {
         else
         {
             if (!signupPassword.equals(signupConfirmPassword)) {
-                Toast.makeText(getActivity(), "Password and confirmation password have to be the same", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Password and confirmation password must be the same", Toast.LENGTH_SHORT).show();
             }
                 else
                 {
@@ -81,7 +84,6 @@ public class SignUpTabFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Log.d("FIREBASE", "onComplete: success");
                                 showDialogBox(signupEmail, signupPassword);
 //                                User user = new User(signupEmail, signupPassword);
 //                                addUserToFirestore(user);
@@ -122,7 +124,7 @@ public class SignUpTabFragment extends Fragment {
         ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(getActivity(), "set successes", Toast.LENGTH_SHORT).show();
+                Log.d("FIREBASE", "set successes");
             }
         });
 
@@ -134,25 +136,14 @@ public class SignUpTabFragment extends Fragment {
         dialog.setContentView(R.layout.custom_dialog_box_username);
 
         Button b = dialog.findViewById(R.id.buttonRegister);
-        EditText et = dialog.findViewById(R.id.usernameEditText);
+        EditText et = dialog.findViewById(R.id.et_username);
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 String username = et.getText().toString();
-                // checkUsername();
-                // TODO: checkusername will be boolean and if username is availabe, do what's below. if not - toast.
-                User user = new User(signupEmail, signupPassword, username);
-                addUserToFirestore(user);
-
-
-                //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                //TO-
-                Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
-
-
-                startActivity(intent);
+                checkUsername(username);
             }
         });
 
@@ -169,8 +160,8 @@ public class SignUpTabFragment extends Fragment {
     // check if there's another one in firebase
 
         FirebaseFirestore firebase = FirebaseFirestore.getInstance();
-        firebase.collection("cities")
-                .whereEqualTo("capital", true)
+        firebase.collection("Users")
+                .whereEqualTo("username", username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -179,14 +170,20 @@ public class SignUpTabFragment extends Fragment {
                         {
                             if(task.getResult().size() > 0)
                             {
-                                /// toast
+                                // getContext() = getActivity() | in this case they have no difference
+                                Toast.makeText(getActivity(), "This username is already in use. Try another one", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-
+                            User user = new User(signupEmail, signupPassword, username);
+                            addUserToFirestore(user);
+                            //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                            //TO-
+                            Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
+                            startActivity(intent);
                         }
                         else
                         {
-                            Log.d("SignUp", "Error getting documents: ", task.getException());
+                            Log.d("SignUpTabFragment", "Error getting documents: ", task.getException());
                         }
                     }
                 });

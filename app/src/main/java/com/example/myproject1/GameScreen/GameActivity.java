@@ -133,6 +133,12 @@ public class GameActivity extends AppCompatActivity {
         path.reset();
     }
 
+    public void reset() {
+        pathList.clear();
+        colorList.clear();
+        path.reset();
+    }
+
     public void whiteColor(View view) {
         int color = ContextCompat.getColor(this, R.color.white);
         paintBrush.setColor(color);
@@ -348,7 +354,7 @@ public class GameActivity extends AppCompatActivity {
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imageRef.putBytes(data);
-    /*
+
         uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
 
@@ -356,6 +362,7 @@ public class GameActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Log.d("FB STORAGE", "onComplete: upload success");
+                    reset();
                 }
                 else
                     Log.d("FB STORAGE", "onComplete: upload fail " + task.getException().getMessage());
@@ -363,7 +370,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-     */
+
         // This is required only if we want to get the image url
         // in https:...  type -> direct url to the image
         // not via Firebase references
@@ -383,7 +390,6 @@ public class GameActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
                     Toast.makeText(GameActivity.this, "Uploading successes", Toast.LENGTH_SHORT);
-
                     Intent intent = new Intent(GameActivity.this, RatingScreenActivity.class);
                     //intent.putExtra(Intent.EXTRA_TEXT, gameId);
                     intent.putExtra("gameId", gameId);
