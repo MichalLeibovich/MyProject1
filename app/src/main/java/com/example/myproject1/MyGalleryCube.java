@@ -1,11 +1,11 @@
 package com.example.myproject1;
 
-public class GridViewGallery
+public class MyGalleryCube
 {
     private String bitmap;
     private String subject;
 
-    public GridViewGallery(String bitmap, String subject) {
+    public MyGalleryCube(String bitmap, String subject) {
         this.bitmap = bitmap;
         this.subject = subject;
     }
@@ -25,5 +25,4 @@ public class GridViewGallery
     public void setSubject(String subject) {
         this.subject = subject;
     }
-
 }

@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import com.example.myproject1.GameRoom;
 import com.example.myproject1.HomeFragment;
-import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.example.myproject1.RatingScreenActivity;
 import com.google.android.gms.tasks.Continuation;
@@ -42,8 +40,6 @@ import com.google.firebase.storage.UploadTask;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.StorageReference;
 //import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;

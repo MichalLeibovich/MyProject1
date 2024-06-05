@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.MainScreenActivity2;
 import com.example.myproject1.R;
 import com.example.myproject1.User;
