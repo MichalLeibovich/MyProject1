@@ -533,7 +533,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
     public void backHomeClicked(View view)
     {
-        Intent intent = new Intent(ResultsScreenActivity.this, MainScreenActivity2.class);
+        Intent intent = new Intent(ResultsScreenActivity.this, MainScreenActivity.class);
         startActivity(intent);
     }
 

@@ -61,12 +61,6 @@ public class HomeFragment extends Fragment {
 
 
 
-        Button buttonChangeAccount = fragView.findViewById(R.id.accounts_button);
-        buttonChangeAccount.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                accountsButtonClicked();
-            }
-        });
 
 
         ImageView ivQuestionMark = fragView.findViewById(R.id.imageView_questionMark);
@@ -353,11 +347,7 @@ public class HomeFragment extends Fragment {
         dialog.show();
     }
 
-    public void accountsButtonClicked()
-    {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-    }
+
 
     public void questionMarkClicked()
     {

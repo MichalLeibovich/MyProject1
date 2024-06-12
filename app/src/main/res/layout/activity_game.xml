@@ -30,17 +30,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonThickness"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/game_tools_thickness_pic"
-            app:backgroundTint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPencil" />
-
-        <Button
             android:id="@+id/buttonEraser"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -50,43 +39,20 @@
             android:onClick="eraser"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonThickness" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonPencil" />
 
-
-
-        <Button
-            android:id="@+id/buttonFill"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/game_tools_fill_pic"
-            app:backgroundTint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonEraser" />
-
-        <Button
-            android:id="@+id/buttonUndo"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="101dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/game_tools_undo_pic"
-            app:backgroundTint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonFill" />
 
         <Button
             android:id="@+id/buttonTrash"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginTop="227dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/game_tools_trash_pic"
             android:onClick="reset"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonUndo" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonEraser" />
 
         <Button
             android:id="@+id/buttonColorWhite"
@@ -280,31 +246,19 @@
             app:layout_constraintStart_toEndOf="@+id/buttonColorPurple" />
 
 
-        <ImageView
-            android:id="@+id/buttonColorsPlate"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="32dp"
-            android:onClick="colorsPlate"
-            android:background="@drawable/game_tools_colorsplate_pic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonColorBeige" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutCanvas"
             android:layout_width="330dp"
             android:layout_height="330dp"
             android:background="@drawable/game_canvas_design"
             app:layout_constraintBottom_toTopOf="@+id/buttonColorGreenBright"
-            app:layout_constraintEnd_toStartOf="@+id/buttonFill"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.example.myproject1.GameScreen.Display
                 android:id="@+id/include"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

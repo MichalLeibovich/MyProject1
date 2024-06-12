@@ -1,6 +1,5 @@
 package com.example.myproject1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainScreenActivity2 extends AppCompatActivity
+public class MainScreenActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;

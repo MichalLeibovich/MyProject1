@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myproject1.MainScreenActivity2;
+import com.example.myproject1.MainScreenActivity;
 import com.example.myproject1.R;
 import com.example.myproject1.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -177,7 +177,7 @@ public class SignUpTabFragment extends Fragment {
                             addUserToFirestore(user);
                             //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             //TO-
-                            Intent intent = new Intent(getActivity(), MainScreenActivity2.class);
+                            Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             startActivity(intent);
                         }
                         else

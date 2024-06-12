@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.example.myproject1.loginsignup_screen.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
 
         if (fUser.getCurrentUser() != null) {
             //Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
-            Intent intent = new Intent(MainActivity.this, MainScreenActivity2.class);
+            Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
             startActivity(intent);
         }
 

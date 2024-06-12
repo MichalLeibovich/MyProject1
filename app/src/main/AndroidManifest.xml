@@ -19,7 +19,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainScreenActivity2"
+            android:name=".MainScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MyGalleryActivity"
