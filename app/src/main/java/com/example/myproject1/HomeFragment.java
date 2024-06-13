@@ -316,7 +316,6 @@ public class HomeFragment extends Fragment {
                                         Toast.makeText(getContext(), "You cannot join the game- game has already started", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // game has not started
-                                        // how to join the same game room of the gameId and not open a new one?
                                         Intent intent = new Intent(getActivity(), WaitingRoomActivity.class);
                                         intent.putExtra("gameId", gameId); // Pass the game code as an extra
                                         intent.putExtra("player","player");
@@ -325,8 +324,6 @@ public class HomeFragment extends Fragment {
 
                                     }
                                 } else {
-                                    // "started" field is missing or null
-                                    // Handle this case
                                 }
                             } else {
                                 // Document does not exist

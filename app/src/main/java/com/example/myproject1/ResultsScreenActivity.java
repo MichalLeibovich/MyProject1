@@ -93,23 +93,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
                     Log.d("After Sorting Algo", "onSuccess: " + players);
                     setPlayersNamesOption(players, gr);
-/*
 
-
-
-
-                    //
-                    // Retrieve the numOfUsers from the GameRoom object
-                    while (ISortedList.size() < playersNamesGr.size())
-                    {
-                        int indexOfMax = indexOfMax(playersScoresGr);
-                        playersScoresGr.remove(indexOfMax);
-                        ISortedList.add(indexOfMax);
-                    }
-
-                    setPlayersNames(ISortedList);
-
- */
 
                 }
                 else
@@ -201,163 +185,21 @@ public class ResultsScreenActivity extends AppCompatActivity {
                 //setPlayersPoints(gr, numOfPlayers, i);
                 setPlayersPointsOption(players.get(i), numOfPlayers, i);
             }
-            //playersNamesInOrder.addAll(otherPlayersNames);
             //creating recyclerview adapter
             PlayersNamesAdapter adapter = new PlayersNamesAdapter(ResultsScreenActivity.this, playersNamesInOrder);
             //setting adapter to recyclerview
             recyclerView.setAdapter(adapter);
         }
-        // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
-        //setPlayersPoints(gr, numOfUsers);
-    }
-
-
-
-
-
-
-
-
-/*
-
-    public void setPlayersNames(ArrayList<Integer> ISortedList)
-    {
-        TextView tvFirst = findViewById(R.id.tv_firstPlace);
-        TextView tvSecond = findViewById(R.id.tv_secondPlace);
-        TextView tvThird = findViewById(R.id.tv_thirdPlace);
-
-        ImageView ivFirst = findViewById(R.id.iv_firstDrawing);
-        ImageView ivSecond = findViewById(R.id.iv_secondDrawing);
-        ImageView ivThird= findViewById(R.id.iv_thirdDrawing);
-
-        TextView tvFirstScore = findViewById(R.id.tv_firstScore);
-        TextView tvSecondScore = findViewById(R.id.tv_secondScore);
-        TextView tvThirdScore = findViewById(R.id.tv_thirdScore);
-
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference gameRef = firestore.collection("Games").document(gameId);
-        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot value) {
-                if (value!=null && value.exists())
-                {
-                    // Convert the Firestore document to a GameRoom object
-                    GameRoom gr = value.toObject(GameRoom.class);
-                    saveDrawingInMyGallery(gr);
-                    // Retrieve the numOfUsers from the GameRoom object
-                    ArrayList<String> playersNamesGr = gr.getPlayersNames();
-                    ArrayList<Float> playersScoresGr = gr.getPlayersScoresList();
-                    int numOfUsers = playersNamesGr.size();
-                    // I don't need numOfUsers on database, I can just take an array's size
-
-                    String firstName = gr.getPlayersNames().get(ISortedList.get(0));
-                    tvFirst.setText(firstName);
-                    setWinnersDrawings(firstName, ivFirst);
-                    float firstScore = playersScoresGr.get(ISortedList.get(0));
-                    tvFirstScore.setText(firstScore + "⭐");
-                    setPlayersPoints(gr, numOfUsers, 1);
-
-
-                    if(numOfUsers>1) {
-                        String secondName = gr.getPlayersNames().get(ISortedList.get(1));
-                        tvSecond.setText(secondName);
-                        setWinnersDrawings(secondName, ivSecond);
-                        float secondScore = playersScoresGr.get(ISortedList.get(1));
-                        tvSecondScore.setText(secondScore + "⭐");
-                        setPlayersPoints(gr, numOfUsers, 2);
-
-                    }
-                    if (numOfUsers == 3)
-                    {
-                        String thirdName = gr.getPlayersNames().get(ISortedList.get(2));
-                        tvThird.setText(thirdName);
-                        setWinnersDrawings(thirdName, ivThird);
-                        float thirdScore = playersScoresGr.get(ISortedList.get(2));
-                        tvThirdScore.setText(thirdScore + "⭐");
-                        setPlayersPoints(gr, numOfUsers, 3);
-                    }
-                    int playersNamesSet = 3;
-                    if (numOfUsers > playersNamesSet)
-                    {
-                        ArrayList<String> otherPlayersNames = new ArrayList<>();
-                        while(numOfUsers > playersNamesSet)
-                        {
-                            int requestedI = ISortedList.get(playersNamesSet); // if I set 3 people, the 4th will be index 3. and so on
-                            String playerName = playersNamesGr.get(requestedI);
-                            float playerScore = playersScoresGr.get(requestedI);
-                            playersNamesInOrder.add("#" + requestedI + " " + playerName + " (" + playerScore + "⭐)");
-                            //otherPlayersNames.add(newName);
-                            setPlayersPoints(gr, numOfUsers, requestedI);
-                            playersNamesSet++;
-                        }
-                        //playersNamesInOrder.addAll(otherPlayersNames);
-                        //creating recyclerview adapter
-                        PlayersNamesAdapter adapter = new PlayersNamesAdapter(ResultsScreenActivity.this, playersNamesInOrder);
-                        //setting adapter to recyclerview
-                        recyclerView.setAdapter(adapter);
-                    }
-                    // כביכול אני יכולה לעשות פעולה נפרדת אבל זה אותו גייםרום אז חבל לא להשתמש בזה ולקרוא הכל מחדש
-                    //setPlayersPoints(gr, numOfUsers);
-                }
-                else
-                {
-                    Log.d("ResultsScreenActivity", "Game document does not exist");
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("ResultsScreenActivity", "Error fetching game document: " + e.getMessage());
-            }
-        });
-    }
-
- */
-
-    /*
-
-    public void saveDrawingInMyGallery(GameRoom gr)
-    {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = currentUser.getUid();
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference userRef = firestore.collection("Users").document(userId);
-        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot value) {
-                if (value != null && value.exists())
-                {
-                    User user = value.toObject(User.class);
-                    ArrayList<String> gameIdsList = user.getGameIdsList();
-                    gameIdsList.add(gameId);
-                    userRef.update("gameIdsList", gameIdsList)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d("ResultsScreenActivity", "User document got updated");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e){
-                                    Log.d("ResultsScreenActivity", "User document got updated");
-                                }
-                            });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("ResultsScreenActivity", "User document isn't found");
-            }
-        });
-//        String username = HomeFragment.username;
-//        String drawingName = username + gameId;
-
 
     }
 
-     */
+
+
+
+
+
+
+
 
     public void setWinnersDrawings(String username, ImageView iv)
     {

@@ -25,8 +25,6 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
         this.playersNamesList = playersNamesList;
     }
 
-
-
     @Override
     public PlayersNamesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
@@ -42,8 +40,6 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
         String name = playersNamesList.get(position);
         //binding the data with the viewholder views
         holder.playerName.setText(name);
-
-        //holder.playerName.setText(product.getPlayerName());
     }
 
     @Override

@@ -28,9 +28,6 @@ public class LoginTabFragment extends Fragment {
     View fragView;
 
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -67,16 +64,8 @@ public class LoginTabFragment extends Fragment {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             Toast.makeText(getActivity(), "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            //Intent intent = new Intent(getActivity(), MainScreenActivity);
-
-                            //todo hi
-                            // FROM-
-                            //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                            //TO-
                             Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-
                             startActivity(intent);
-                            //finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

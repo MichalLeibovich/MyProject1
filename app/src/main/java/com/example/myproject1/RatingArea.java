@@ -8,9 +8,7 @@ public class RatingArea
     private String bitmap;
     private String username;
     private float rating; // Field to hold the rating value
-
   //  private float ratingBar;
-
 
 
     public RatingArea(String bitmap, String username, float rating) {
@@ -35,22 +33,7 @@ public class RatingArea
         this.rating = rating;
     }
 
-    /*
-        public RatingArea(Bitmap bitmap, String username, RatingBar ratingBar)
-        {
-            this.bitmap = bitmap;
-            this.username = username;
-            this.ratingBar = ratingBar;
-        }
 
-        public Bitmap getBitmap() {
-            return bitmap;
-        }
-
-        public void setBitmap(Bitmap bitmap) {
-            this.bitmap = bitmap;
-        }
-    */
     public String getUsername() {
         return username;
     }
@@ -58,16 +41,7 @@ public class RatingArea
     public void setUsername(String username) {
         this.username = username;
     }
-    /*
-    public RatingBar getRatingBar() {
-        return ratingBar;
-    }
 
-    public void setRatingBar(RatingBar ratingBar) {
-        this.ratingBar = ratingBar;
-    }
-
-     */
 
 
 }

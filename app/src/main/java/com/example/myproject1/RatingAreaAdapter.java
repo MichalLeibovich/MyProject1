@@ -56,9 +56,6 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
         holder.tvUserName.setText(ratingArea.getUsername());
         holder.ratingBar.setRating(ratingArea.getRating());
 
-        //storage.getImage(holder.ivDrawing,ratingArea.getBitmap());
-        //holder.ivDrawing.setImageBitmap(ratingArea.getBitmap());
-
         // get the image from the firebase storage
         FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
         StorageReference storageRef = firebaseStorage.getReference();

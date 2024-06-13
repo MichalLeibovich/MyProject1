@@ -115,9 +115,7 @@ public class RatingScreenActivity extends AppCompatActivity {
                     for (int i = 0; i < ratingAreasList.size(); i++) {
                         playersScoresList.set(i,playersScoresList.get(i)+ratingAreasList.get(i).getRating());
                     }
-                    // Update the value of the specific element in the ArrayList
-                    // playersScoresList.set(index, playersScoresList.get(index) + rating);
-//
+
                     // Update the modified playersScoresList in the Firestore document
                     gameRef.update("playersScoresList", playersScoresList)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -144,7 +142,6 @@ public class RatingScreenActivity extends AppCompatActivity {
                                     Log.d( "RatingScreenActivity", "countUsersFinishedRating updated successfully");
                                     //TODO
                                     // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
-                                    //int numOfUsers = gr.getNumOfUsers();
                                     int numOfUsers = gr.getPlayersNames().size();
                                     checkEveryoneFinished();
                                 }
@@ -196,21 +193,6 @@ public class RatingScreenActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-//    public void Call(View v)
-//    {
-//        // This function is called when button is clicked.
-//        // Display ratings, which is required to be converted into string first.
-//        TextView t = (TextView)findViewById(R.id.textView2);
-//        t.setText("You Rated :"+String.valueOf(rt.getRating()));
-//    }
-
-
-
 
 
 

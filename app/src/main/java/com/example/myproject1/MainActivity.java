@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity{
         this.viewPager2.setAdapter(this.viewPagerAdapter);
 
         if (fUser.getCurrentUser() != null) {
-            //Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
             Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
             startActivity(intent);
         }
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                // why I can't write this. in listeners I suppose?
                 viewPager2.setCurrentItem(tab.getPosition());
             }
 

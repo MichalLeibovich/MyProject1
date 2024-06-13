@@ -36,7 +36,6 @@ public class SignUpTabFragment extends Fragment {
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragView = inflater.inflate(R.layout.fragment_sign_up_tab, container, false);
@@ -84,10 +83,6 @@ public class SignUpTabFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 showDialogBox(signupEmail, signupPassword);
-//                                User user = new User(signupEmail, signupPassword);
-//                                addUserToFirestore(user);
-//                                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-//                                startActivity(intent);
                             }
                             else
                             {
@@ -108,8 +103,6 @@ public class SignUpTabFragment extends Fragment {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "Signed up successfully", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-//                startActivity(intent);
             }
 
         }).addOnFailureListener(new OnFailureListener() {
@@ -146,11 +139,6 @@ public class SignUpTabFragment extends Fragment {
             }
         });
 
-//        User user = new User(signupEmail, signupPassword);
-//        addUserToFirestore(user);
-//        Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-//        startActivity(intent);
-
         dialog.show();
     }
 
@@ -169,14 +157,11 @@ public class SignUpTabFragment extends Fragment {
                         {
                             if(task.getResult().size() > 0)
                             {
-                                // getContext() = getActivity() | in this case they have no difference
                                 Toast.makeText(getActivity(), "This username is already in use. Try another one", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             User user = new User(signupEmail, signupPassword, username);
                             addUserToFirestore(user);
-                            //Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-                            //TO-
                             Intent intent = new Intent(getActivity(), MainScreenActivity.class);
                             startActivity(intent);
                         }

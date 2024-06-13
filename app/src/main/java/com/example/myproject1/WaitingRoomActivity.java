@@ -75,24 +75,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        new AlertDialog.Builder(this)
-//                .setIcon(android.R.drawable.ic_dialog_alert)
-//                .setTitle("Closing Activity")
-//                .setMessage("Are you sure you want to close this activity?")
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                    }
-//
-//                })
-//                .setNegativeButton("No", null)
-//                .show();
-//    }
-
 
     public void listenForChanges()
     {
@@ -291,9 +273,6 @@ public class WaitingRoomActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Game started successfully
-//                        Intent intent = new Intent(WaitingRoomActivity.this, GameActivity.class);
-//                        intent.putExtra("gameId", gameId); // Pass the game code as an extra
-//                        startActivity(intent);
                         Log.e("FIREBASE", "Game has started");
                     }
                 })

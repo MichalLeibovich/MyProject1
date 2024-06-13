@@ -110,28 +110,6 @@ public class Display extends View
         return true;
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        float x = event.getX();
-//        float y = event.getY();
-//        switch(event.getAction())
-//        {
-//            case MotionEvent.ACTION_DOWN:
-//                path.moveTo(x, y);
-//                invalidate();
-//                return true;
-//            case MotionEvent.ACTION_MOVE:
-//                //path.lineTo(x, y);
-//                moveTouch(x, y);
-//                pathList.add(path);
-//                colorList.add(currentBrush);
-//                invalidate();
-//                return true;
-//            default:
-//                return false;
-//        }
-//    }
-
     @Override
     protected void onDraw(Canvas canvas)
 
