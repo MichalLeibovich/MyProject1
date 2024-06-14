@@ -55,6 +55,9 @@ public class GameActivity extends AppCompatActivity {
     TextView tvTimer;
     String subject;
 
+    private Display drawingView;
+
+
 
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
 
@@ -67,6 +70,7 @@ public class GameActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
         tvTimer = findViewById (R.id.tv_timer);
+        drawingView = findViewById(R.id.include);
 
         gameId = getIntent().getStringExtra("gameId");
 
@@ -76,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
    //     Display display = new Display(this);
 
 
-        new CountDownTimer(20000, 1000) {
+        new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
@@ -134,6 +138,13 @@ public class GameActivity extends AppCompatActivity {
         colorList.clear();
         path.reset();
     }
+
+
+    public void undoDrawing(View view)
+    {
+        drawingView.undo();
+    }
+
 
     public void whiteColor(View view) {
         int color = ContextCompat.getColor(this, R.color.white);
@@ -403,4 +414,6 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
+
+
 }

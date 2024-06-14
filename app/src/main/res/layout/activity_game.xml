@@ -43,16 +43,28 @@
 
 
         <Button
+            android:id="@+id/buttonUndo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="172dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/game_tools_undo_pic"
+            android:onClick="undoDrawing"
+            app:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonEraser" />
+
+        <Button
             android:id="@+id/buttonTrash"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="227dp"
+            android:layout_marginTop="21dp"
             android:layout_marginEnd="4dp"
             android:background="@drawable/game_tools_trash_pic"
             android:onClick="reset"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonEraser" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonUndo" />
 
         <Button
             android:id="@+id/buttonColorWhite"

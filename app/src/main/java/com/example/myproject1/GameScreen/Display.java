@@ -24,6 +24,13 @@ public class Display extends View
     public ViewGroup.LayoutParams params;
     public static int currentBrush = Color.BLACK;
 
+    private ArrayList<Path> undonePaths = new ArrayList<>();
+    private ArrayList<Integer> undoneColors = new ArrayList<>();
+
+
+
+
+
 
     private float mX, mY;
     private static final float TOLERANCE = 5;
@@ -77,8 +84,12 @@ public class Display extends View
 
 
     // when ACTION_UP stop touch
-    private void upTouch() {
+    private void upTouch()
+    {
         path.lineTo(this.mX, this.mY);
+        pathList.add(path);
+        colorList.add(currentBrush);
+        path = new Path();
     }
 
 
@@ -112,7 +123,6 @@ public class Display extends View
 
     @Override
     protected void onDraw(Canvas canvas)
-
     {
         for (int i = 0; i < pathList.size(); i++)
         {
@@ -121,4 +131,14 @@ public class Display extends View
             invalidate();
         }
     }
+
+
+    public void undo() {
+        if (pathList.size() > 0) {
+            undonePaths.add(pathList.remove(pathList.size() - 1));
+            undoneColors.add(colorList.remove(colorList.size() - 1));
+            invalidate();
+        }
+    }
+
 }
