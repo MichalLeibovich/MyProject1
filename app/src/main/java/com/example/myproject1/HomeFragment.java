@@ -254,16 +254,16 @@ public class HomeFragment extends Fragment {
                     Random rand = new Random();
                     int randomNum = rand.nextInt(arrSubjects.size());
                     String randomSubject = (String)arrSubjects.get(randomNum);
-                    gameRoom.setRandomSubject(randomSubject);
+                    gameRoom.setSubject(randomSubject);
 
-                    getRandomResult(gameRoom);
+                    createNewGame2(gameRoom);
                 }
             }
         });
 
     }
 
-    private void getRandomResult(GameRoom gameRoom) {
+    private void createNewGame2(GameRoom gameRoom) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("Games").add(gameRoom).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

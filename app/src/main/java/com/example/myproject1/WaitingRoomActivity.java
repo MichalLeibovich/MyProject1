@@ -124,53 +124,11 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
         addUserToScores();
 
-        addNumOfUsers();
-
         addUserIdToPlayersId();
     }
 
 
-    public void addNumOfUsers()
-    {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference gameRef = firestore.collection("Games").document(gameId);
-        gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot value) {
-                if (value!=null && value.exists())
-                {
-                    // Convert the Firestore document to a GameRoom object
-                    GameRoom gr = value.toObject(GameRoom.class);
-                    // Retrieve the playersScoresList from the GameRoom object
-                    int updatedNumOfUsers = gr.getNumOfUsers() + 1;
 
-                    // Update the modified numOfUsers in the Firestore document
-                    gameRef.update("numOfUsers", updatedNumOfUsers)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("WaitingRoomActivity", "playersScoresList updated successfully");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("WaitingRoomActivity", "Error updating playersScoresList: " + e.getMessage());
-                                }
-                            });
-                }
-                else
-                {
-                    Log.d("WaitingRoomActivity", "Game document does not exist");
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("WaitingRoomActivity", "Error fetching game document: " + e.getMessage());
-            }
-        });
-    }
 
     public void addUserToScores()
     {

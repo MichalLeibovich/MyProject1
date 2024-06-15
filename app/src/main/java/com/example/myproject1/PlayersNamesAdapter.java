@@ -18,7 +18,7 @@ public class PlayersNamesAdapter extends RecyclerView.Adapter<PlayersNamesViewHo
     private List<String> playersNamesList;
 
 
-    //getting the context and product list with constructor
+    //getting the context and names list with constructor
     public PlayersNamesAdapter(Context mCtx, List<String> playersNamesList)
     {
         this.mCtx = mCtx;

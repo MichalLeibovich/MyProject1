@@ -34,7 +34,8 @@ public class SignUpTabFragment extends Fragment {
 
     View fragView;
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
-
+    private String signupEmail;
+    private String signupPassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,8 +55,7 @@ public class SignUpTabFragment extends Fragment {
     }
 
 
-    private String signupEmail;
-    private String signupPassword;
+
 
     public void signUp()
     {

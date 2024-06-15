@@ -54,8 +54,9 @@ public class GameActivity extends AppCompatActivity {
     String gameId;
     TextView tvTimer;
     String subject;
+    Bitmap myBitmap;
 
-    private Display drawingView;
+    //private Display drawingView;
 
 
 
@@ -70,15 +71,12 @@ public class GameActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
         tvTimer = findViewById (R.id.tv_timer);
-        drawingView = findViewById(R.id.include);
+        //drawingView = findViewById(R.id.include);
 
         gameId = getIntent().getStringExtra("gameId");
 
         setWord();
         displayPlayersName(gameId);
-
-   //     Display display = new Display(this);
-
 
         new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -88,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
                 long sec = (millisUntilFinished / 1000) % 60;
                 tvTimer.setText(f.format(min) + ":" + f.format(sec));
             }
-            // When the task is over it will print 00:00:00 there
+            // When the task is over it will print 00:00 there
             public void onFinish() {
                 tvTimer.setText("00:00");
                 saveCanvasAsBitmap();
@@ -140,10 +138,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void undoDrawing(View view)
-    {
-        drawingView.undo();
-    }
+//    public void undoDrawing(View view)
+//    {
+//        drawingView.undo();
+//    }
 
 
     public void whiteColor(View view) {
@@ -255,7 +253,6 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-    Bitmap myBitmap;
 
 
 

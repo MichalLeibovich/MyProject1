@@ -14,23 +14,15 @@ import java.util.Random;
 
 public class GameRoom
 {
-
-    //
-
     private String hostId;
     private  String subject;
     private  boolean started; // has the game started? T- yes, F- no
     private  int countUsersFinishedRating; // count how many users finished rating all drawings (to know when everyone has finished);
-    private  int numOfUsers; // how many users are in here
     private ArrayList<String> playersId;
     private ArrayList<String> playersNames;
     private ArrayList<Float> playersScoresList;
 
-
-    // TODO: func that randomizes a subject
-
     public GameRoom(){}
-
 
     public GameRoom(String id, String username)
     {
@@ -44,20 +36,9 @@ public class GameRoom
         this.hostId = id;
         //this.subject = randomSubject();
         this.started = false;
-        this.numOfUsers = 1;
         this.countUsersFinishedRating = 0;
     }
 
-    public void randomizeSubject()
-    {
-
-
-    }
-
-    public void setRandomSubject(String randomSub)
-    {
-        this.subject = randomSub;
-    }
 
     public String getHostId() {
         return hostId;
@@ -82,13 +63,6 @@ public class GameRoom
 
     public int getCountUsersFinishedRating() { return countUsersFinishedRating; }
     public void setCountUsersFinishedRating(int countUsersFinishedRating) {this.countUsersFinishedRating = countUsersFinishedRating;}
-
-    public int getNumOfUsers() {
-        return numOfUsers;
-    }
-    public void setNumOfUsers(int numOfUsers) {
-        this.numOfUsers = numOfUsers;
-    }
 
     public ArrayList<String> getPlayersId(){ return this.playersId; }
     public void setPlayersId(ArrayList<String> playersId){ this.playersId = playersId; }
