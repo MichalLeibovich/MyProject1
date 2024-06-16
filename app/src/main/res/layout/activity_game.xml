@@ -61,7 +61,7 @@
             android:layout_marginTop="21dp"
             android:layout_marginEnd="4dp"
             android:background="@drawable/game_tools_trash_pic"
-            android:onClick="reset"
+            android:onClick="resetDrawing"
             app:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonUndo" />

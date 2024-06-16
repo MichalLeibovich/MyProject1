@@ -24,17 +24,15 @@ public class Display extends View
     public ViewGroup.LayoutParams params;
     public static int currentBrush = Color.BLACK;
 
-    private ArrayList<Path> undonePaths = new ArrayList<>();
-    private ArrayList<Integer> undoneColors = new ArrayList<>();
-
-
-
-
 
 
     private float mX, mY;
     private static final float TOLERANCE = 5;
 
+
+
+    public static ArrayList<Path> pathListUndo = new ArrayList<>();
+    public static ArrayList<Integer> colorListUndo = new ArrayList<>();
 
     public Display(Context context) {
         super(context);
@@ -89,6 +87,8 @@ public class Display extends View
         path.lineTo(this.mX, this.mY);
         pathList.add(path);
         colorList.add(currentBrush);
+        pathListUndo.add(path);
+        colorListUndo.add(currentBrush);
         path = new Path();
     }
 
@@ -114,6 +114,7 @@ public class Display extends View
 
             case MotionEvent.ACTION_UP:
                 upTouch();
+                makePathListPathListUndo();
                 break;
 
         }
@@ -134,11 +135,44 @@ public class Display extends View
 
 
     public void undo() {
-        if (pathList.size() > 0) {
-            undonePaths.add(pathList.remove(pathList.size() - 1));
-            undoneColors.add(colorList.remove(colorList.size() - 1));
-            invalidate();
+        if (!pathListUndo.isEmpty() && !colorListUndo.isEmpty()) {
+            pathListUndo.remove(pathListUndo.size() - 1);
+            colorListUndo.remove(colorListUndo.size() - 1);
         }
+
+        // Clear current path list and color list
+        pathList.clear();
+        colorList.clear();
+
+        // Rebuild the path and color lists based on remaining undo lists
+        for (int i = 0; i < pathListUndo.size(); i++) {
+            pathList.add(pathListUndo.get(i));
+            colorList.add(colorListUndo.get(i));
+        }
+        invalidate();
+
+    }
+
+    public void makePathListPathListUndo()
+    {
+        // Clear current path list and color list
+        pathList.clear();
+        colorList.clear();
+
+        // Rebuild the path and color lists based on remaining undo lists
+        for (int i = 0; i < pathListUndo.size(); i++) {
+            pathList.add(pathListUndo.get(i));
+            colorList.add(colorListUndo.get(i));
+        }
+    }
+
+    public void reset()
+    {
+        pathList.clear();
+        colorList.clear();
+        pathListUndo.clear();
+        colorListUndo.clear();
+        invalidate();
     }
 
 }

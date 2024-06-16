@@ -56,11 +56,13 @@ public class GameActivity extends AppCompatActivity {
     String subject;
     Bitmap myBitmap;
 
-    //private Display drawingView;
-
-
-
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+
+    private Display drawingView;
+
+
+
+
 
 
 
@@ -71,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
         tvTimer = findViewById (R.id.tv_timer);
-        //drawingView = findViewById(R.id.include);
+        drawingView = findViewById(R.id.include);
 
         gameId = getIntent().getStringExtra("gameId");
 
@@ -125,23 +127,23 @@ public class GameActivity extends AppCompatActivity {
         currentColor(paintBrush.getColor());
     }
 
-    public void reset(View view) {
-        pathList.clear();
-        colorList.clear();
-        path.reset();
-    }
 
-    public void reset() {
-        pathList.clear();
-        colorList.clear();
-        path.reset();
+    public void undoDrawing(View view)
+    {
+        drawingView.undo();
     }
 
 
-//    public void undoDrawing(View view)
-//    {
-//        drawingView.undo();
-//    }
+    public void resetDrawing(View view)
+    {
+        drawingView.reset();
+        path.reset();
+    }
+    public void resetDrawing()
+    {
+        drawingView.reset();
+        path.reset();
+    }
 
 
     public void whiteColor(View view) {
@@ -366,7 +368,7 @@ public class GameActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Log.d("FB STORAGE", "onComplete: upload success");
-                    reset();
+                    resetDrawing();
                 }
                 else
                     Log.d("FB STORAGE", "onComplete: upload fail " + task.getException().getMessage());
