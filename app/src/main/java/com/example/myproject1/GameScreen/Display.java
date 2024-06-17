@@ -24,15 +24,13 @@ public class Display extends View
     public ViewGroup.LayoutParams params;
     public static int currentBrush = Color.BLACK;
 
-
-
     private float mX, mY;
     private static final float TOLERANCE = 5;
 
-
-
     public static ArrayList<Path> pathListUndo = new ArrayList<>();
     public static ArrayList<Integer> colorListUndo = new ArrayList<>();
+
+
 
     public Display(Context context) {
         super(context);
@@ -140,15 +138,7 @@ public class Display extends View
             colorListUndo.remove(colorListUndo.size() - 1);
         }
 
-        // Clear current path list and color list
-        pathList.clear();
-        colorList.clear();
-
-        // Rebuild the path and color lists based on remaining undo lists
-        for (int i = 0; i < pathListUndo.size(); i++) {
-            pathList.add(pathListUndo.get(i));
-            colorList.add(colorListUndo.get(i));
-        }
+        makePathListPathListUndo();
         invalidate();
 
     }

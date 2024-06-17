@@ -79,7 +79,6 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     ArrayList<String> playersIdsGr = gr.getPlayersId();
 
 
-                    ///
                     ArrayList<Player> players = new ArrayList<>();
                     for(int i = 0; i < playersNamesGr.size(); i++)
                     {
@@ -92,8 +91,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                     Collections.sort(players);
 
                     Log.d("After Sorting Algo", "onSuccess: " + players);
-                    setPlayersNamesOption(players, gr);
-
+                    setPlayersNames(players, gr);
 
                 }
                 else
@@ -111,24 +109,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
 
 
-    public int indexOfMax(ArrayList<Float> rates)
-    {
-        float maxRate = 0;
-        int maxI = 0;
-        for (int i = 0; i < rates.size(); i++)
-        {
-            if (rates.get(i) > maxRate)
-            {
-                maxRate = rates.get(i);
-                maxI = i;
-            }
-        }
-        return maxI;
-    }
-
-
-
-    public void setPlayersNamesOption(ArrayList<Player> players,GameRoom gr)
+    public void setPlayersNames(ArrayList<Player> players, GameRoom gr)
     {
         int numOfPlayers = players.size();
         TextView tvFirst = findViewById(R.id.tv_firstPlace);
@@ -148,8 +129,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
         setWinnersDrawings(firstName, ivFirst);
         float firstScore = players.get(0).getScore();
         tvFirstScore.setText(firstScore + "⭐");
-        //setPlayersPoints(gr, numOfPlayers, 1);
-        setPlayersPointsOption(players.get(0), numOfPlayers, 1);
+        setPlayersPoints(players.get(0), numOfPlayers, 1);
 
         if(numOfPlayers >= 2) {
             String secondName = players.get(1).getName();
@@ -157,8 +137,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
             setWinnersDrawings(secondName, ivSecond);
             float secondScore =  players.get(1).getScore();
             tvSecondScore.setText(secondScore + "⭐");
-            //setPlayersPoints(gr, numOfPlayers, 2);
-            setPlayersPointsOption(players.get(1), numOfPlayers, 2);
+            setPlayersPoints(players.get(1), numOfPlayers, 2);
 
         }
         if (numOfPlayers >= 3)
@@ -168,8 +147,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
             setWinnersDrawings(thirdName, ivThird);
             float thirdScore = players.get(2).getScore();
             tvThirdScore.setText(thirdScore + "⭐");
-            //setPlayersPoints(gr, numOfPlayers, 3);
-            setPlayersPointsOption(players.get(2), numOfPlayers, 3);
+            setPlayersPoints(players.get(2), numOfPlayers, 3);
 
         }
 
@@ -181,9 +159,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
                 String playerName = players.get(i).getName();
                 float playerScore = players.get(i).getScore();
                 playersNamesInOrder.add("#" + (i+1) + " " + playerName + " (" + playerScore + "⭐)");
-                //otherPlayersNames.add(newName);
-                //setPlayersPoints(gr, numOfPlayers, i);
-                setPlayersPointsOption(players.get(i), numOfPlayers, i);
+                setPlayersPoints(players.get(i), numOfPlayers, i);
             }
             //creating recyclerview adapter
             PlayersNamesAdapter adapter = new PlayersNamesAdapter(ResultsScreenActivity.this, playersNamesInOrder);
@@ -225,24 +201,8 @@ public class ResultsScreenActivity extends AppCompatActivity {
         });
     }
 
-    public void setPlayersPoints(GameRoom gr, int numOfPlayers, int place)
-    {
-        TextView tvPoints = findViewById(R.id.tv_points);
-        int newPointsToLevel = (numOfPlayers + 1) * 10 - place * 10;
-        String id = gr.getPlayersId().get(ISortedList.get(place - 1));
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = currentUser.getUid();
-
-        if(id.equals(userId))
-        {
-            tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
-        }
-        //int newPointsToLevel = numOfUsers * 10 - (place - 1) * 10;
-        addPointsToPointsInLevel(newPointsToLevel, id);
-    }
-
-    public void setPlayersPointsOption(Player player, int numOfPlayers, int place)
+    public void setPlayersPoints(Player player, int numOfPlayers, int place)
     {
         TextView tvPoints = findViewById(R.id.tv_points);
         int newPointsToLevel = (numOfPlayers + 1) * 10 - place * 10;

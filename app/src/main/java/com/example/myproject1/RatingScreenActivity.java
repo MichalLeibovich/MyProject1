@@ -39,7 +39,7 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     RatingBar rtBar;
 
-    //a list to store all the products
+    //a list to store all the rating areas
     List<RatingArea> ratingAreasList;
     RecyclerView recyclerViewAreas;
 
@@ -52,10 +52,7 @@ public class RatingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_screen);
 
-
-
         gameId = getIntent().getStringExtra("gameId");
-
 
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
@@ -74,8 +71,6 @@ public class RatingScreenActivity extends AppCompatActivity {
 
 
         ratingAreasList = new ArrayList<>();
-
-
 
     }
 
@@ -140,9 +135,6 @@ public class RatingScreenActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d( "RatingScreenActivity", "countUsersFinishedRating updated successfully");
-                                    //TODO
-                                    // if usersFinishedRating == gr.getNumOfUsers() --> move to next activity
-                                    int numOfUsers = gr.getPlayersNames().size();
                                     checkEveryoneFinished();
                                 }
                             })

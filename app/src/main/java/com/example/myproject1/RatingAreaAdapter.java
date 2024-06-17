@@ -42,7 +42,6 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
         //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.custom_recyclerview_rating, null);
-        //View view = inflater.inflate(R.layout.custom_recyclerview_rating, parent, false);
         return new MyRatingAreaViewHolder(view);
     }
 
