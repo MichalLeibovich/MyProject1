@@ -273,7 +273,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e)
             {
-                Log.e("MainScreenActivity", "Error fetching user document: " + e.getMessage());
+                Log.e("WaitingRoomActivity", "Error fetching GameRoom document: " + e.getMessage());
             }
         });
     }

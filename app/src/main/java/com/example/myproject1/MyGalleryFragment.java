@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,7 +42,6 @@ public class MyGalleryFragment extends Fragment {
 
     View fragView;
     GridView gvMyGallery;
-    User user;
     ArrayList<MyGalleryCube> myGalleryCubes;
 
 
@@ -105,7 +102,7 @@ public class MyGalleryFragment extends Fragment {
                 @Override
                 public void onSuccess(DocumentSnapshot value) {
                     if (value.exists()) {
-                        user = value.toObject(User.class);
+                        User user = value.toObject(User.class);
                         displayGridView(user);
                     } else {
                         Log.d("MyGalleryFragment", "User document does not exist");
@@ -136,7 +133,7 @@ public class MyGalleryFragment extends Fragment {
         for (int i = 0; i < gameIdsList.size(); i++)
         {
             String gameId = gameIdsList.get(i);
-            getSubjectInGameRoom(gameId, username, gameIdsList.size());
+            getSubjectFromGameRoom(gameId, username, gameIdsList.size());
             // Inside the func, I got the subject and then went to continue func
             // Inside continue func, I added the myGalleryCube with this subject, gameId and username4
             // Now, all myGalleryCubes are in the arrayList myGalleryCubes.
@@ -144,7 +141,7 @@ public class MyGalleryFragment extends Fragment {
 
     }
 
-    private void getSubjectInGameRoom(String gameId, String username, int gameIdsListSize)
+    private void getSubjectFromGameRoom(String gameId, String username, int gameIdsListSize)
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRoomRef = firestore.collection("Games").document(gameId);

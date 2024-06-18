@@ -38,8 +38,8 @@ public class ResultsScreenActivity extends AppCompatActivity {
     List<String> playersNamesInOrder;
     //the recyclerview
     RecyclerView recyclerView;
+    int pointsInLevel = 0;
 
-    ArrayList<Integer> ISortedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +58,10 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
        sortToRanks();
 
-
     }
 
     public void sortToRanks()
     {
-        ISortedList = new ArrayList<Integer>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -172,11 +170,6 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
     public void setWinnersDrawings(String username, ImageView iv)
     {
         String strBitmap = username + gameId;
@@ -216,7 +209,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
         }
     }
 
-    int pointsInLevel = 0;
+
     public void addPointsToPointsInLevel(int newPointsToLevel, String userId)
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();

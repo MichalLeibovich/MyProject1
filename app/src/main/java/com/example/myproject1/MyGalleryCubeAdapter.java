@@ -25,23 +25,8 @@ import java.util.List;
 public class MyGalleryCubeAdapter extends ArrayAdapter<MyGalleryCube>
 {
 
-
-//    TextView tvItemSubject;
-//    ImageView ivItemDrawing;
-
     public MyGalleryCubeAdapter(@NonNull Context context, @NonNull List<MyGalleryCube> MyGalleryCubeArrayList) {
         super(context, 0, MyGalleryCubeArrayList);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        MyGalleryCube myGalleryCube = getItem(position);
-        return myGalleryCube != null ? myGalleryCube.getBitmap().hashCode() : position;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return true;
     }
 
 
@@ -102,8 +87,6 @@ public class MyGalleryCubeAdapter extends ArrayAdapter<MyGalleryCube>
 
         return convertView;
     }
-
-
 
 
 
