@@ -21,9 +21,9 @@
     <GridView
         android:id="@+id/gv_myGallery"
         android:layout_width="408dp"
-        android:layout_height="660dp"
-        android:numColumns="2"
+        android:layout_height="576dp"
         android:layout_marginTop="30dp"
+        android:numColumns="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
