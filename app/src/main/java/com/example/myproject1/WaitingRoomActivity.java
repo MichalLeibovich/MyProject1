@@ -93,6 +93,8 @@ public class WaitingRoomActivity extends AppCompatActivity {
                         // gr.getPlayersNames().get(gr.getPlayersNames().size()-1);
                         playersNamesList.clear();
                         playersNamesList.addAll(gr.getPlayersNames());
+
+
                         //creating recyclerview adapter
                         PlayersNamesAdapter adapter = new PlayersNamesAdapter(WaitingRoomActivity.this, playersNamesList);
                         //setting adapter to recyclerview
@@ -221,6 +223,13 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
     public void StartClicked(View view)
     {
+
+
+        if(playersNamesList!=null && playersNamesList.size()<2)
+        {
+            Toast.makeText(this,"please wait for players to join",Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Update the "started" field to true in the game document
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);

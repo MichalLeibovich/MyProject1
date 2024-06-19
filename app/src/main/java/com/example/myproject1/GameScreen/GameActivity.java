@@ -80,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
         setWord();
         displayPlayersName(gameId);
 
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(120000, 1000) {
             public void onTick(long millisUntilFinished) {
                 // Used for formatting digit to be in 2 digits only
                 NumberFormat f = new DecimalFormat("00");
