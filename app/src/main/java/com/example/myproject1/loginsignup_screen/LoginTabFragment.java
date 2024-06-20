@@ -54,7 +54,7 @@ public class LoginTabFragment extends Fragment {
         String loginEmail = etLoginEmail.getText().toString();
         String loginPassword = etLoginPassword.getText().toString();
 
-        if (loginEmail.isEmpty() && loginPassword.isEmpty()) {
+        if (loginEmail.isEmpty() || loginPassword.isEmpty()) {
             Toast.makeText(getActivity(), "Fields cannot remain empty", Toast.LENGTH_SHORT).show();
         }
         else
