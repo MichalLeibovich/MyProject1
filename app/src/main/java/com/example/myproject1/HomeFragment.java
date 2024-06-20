@@ -248,7 +248,6 @@ public class HomeFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists())
                 {
-                    //String str = documentSnapshot.getString("allSubjects");
                     Subjects subjects = documentSnapshot.toObject(Subjects.class);
                     ArrayList arrSubjects = subjects.getSubjectsArray();
                     Random rand = new Random();
