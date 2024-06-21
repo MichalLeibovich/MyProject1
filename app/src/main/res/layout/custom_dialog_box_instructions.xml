@@ -45,11 +45,11 @@
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
             android:text="In order to start playing, press play and choose
-between creating a new game room or join one. Then you're sent to the waiting room,
-where you can share the code and invite your friends to play! Once teh host press 'start',
+between creating a new game room or joining one. Then, you're sent to the waiting room,
+where you can share the code and invite your friends to play! Once the host press 'start',
 The game starts. When 2 minutes end, you reach the rating screen, in which you
-rank each one of your friend's drawings. When everyone is finished ranking, say hello
-to the results screen! The game ended and you see your and friends' rank and the rate
+rate each one of your friends' drawings. When everyone finishes rating, say hello
+to the results screen! The game ends and you see your and friends' rank and the rate
 you got in total."
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"

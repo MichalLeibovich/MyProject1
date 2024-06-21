@@ -1,5 +1,7 @@
 package com.example.myproject1;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -309,6 +311,18 @@ public class WaitingRoomActivity extends AppCompatActivity {
         //this action indicates that you want to send data
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, gameId);
-        startActivityForResult(Intent.createChooser(shareIntent, "share using"), 1);
+        //startActivityForResult(Intent.createChooser(shareIntent, "share using"), 1);
+        Intent chooser = Intent.createChooser(shareIntent, "share using");
+        mActivityResultLauncher.launch(chooser);
     }
+
+    private ActivityResultLauncher<Intent> mActivityResultLauncher= registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK){
+                    Log.d("WaitingRoomActivity", "Returned from sharing intent");
+                }
+            }
+    );
+
 }
