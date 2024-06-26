@@ -258,6 +258,12 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
     public void displayStartToHost1()
     {
+        // In order to display start to host only after I fetched the hostId in this GameRoom,
+        // I separated this func to 2 functions.
+
+        // this one as said fetches the hostId, then calls for displayStartToHost2
+
+
         // current user's id
         FirebaseAuth fUser = FirebaseAuth.getInstance();
         String currentUserId = fUser.getCurrentUser().getUid();
@@ -291,6 +297,7 @@ public class WaitingRoomActivity extends AppCompatActivity {
 
     public void displayStartToHost2(String currentUserId, String hostId)
     {
+        // after I have the hostId, if the current user is the host, enable start button. If it's not, disable.
         Button startButton = findViewById(R.id.startGameButton);
 
         if(currentUserId.equals(hostId))
@@ -307,6 +314,9 @@ public class WaitingRoomActivity extends AppCompatActivity {
     public void shareCode(View view)
     {
         // impilicit intent - אינטנט מרומז
+        // Implicit intents do not name a specific component like explicit intent, -->
+        // instead declare general action to perform, which allows a component from another app to handle
+
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         //this action indicates that you want to send data
         shareIntent.setType("text/plain");

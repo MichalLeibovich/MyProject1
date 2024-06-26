@@ -91,6 +91,7 @@ public class MyGalleryCubeAdapter extends ArrayAdapter<MyGalleryCube>
 
 
     private static class ViewHolder {
+        // "holds" each item
         TextView tvItemSubject;
         ImageView ivItemDrawing;
     }

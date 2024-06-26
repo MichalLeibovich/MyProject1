@@ -94,9 +94,15 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     public void finishedRating(View view)
     {
+        // when finished is pressed, I update the players' scores that the player gave to each player in this GameRoom
+        // I also update the number of users finished rating in this GameRoom
+
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            // ref.get() fetches the current data of the document from firebase
+            // if the document exists, I will receive a DocumentSnapshot containing the document's data
+            // If the document does not exist, I will still receive a DocumentSnapshot, but it will be empty
             @Override
             public void onSuccess(DocumentSnapshot value) {
                 if (value!=null && value.exists())
@@ -162,6 +168,8 @@ public class RatingScreenActivity extends AppCompatActivity {
 
     public void checkEveryoneFinished()
     {
+        // if the number of players in this GameRoom and the number of users finished rating is the same, -->
+        // --> everybody will move to the next activity
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
         fb.collection("Games").document(gameId).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

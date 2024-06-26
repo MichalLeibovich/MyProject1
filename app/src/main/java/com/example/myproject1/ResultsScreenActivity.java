@@ -62,6 +62,8 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
     public void sortToRanks()
     {
+        // I create an object of player to each player and put them in an ArrayList
+        // then, I sort all players to ranks
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference gameRef = firestore.collection("Games").document(gameId);
         gameRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -109,6 +111,10 @@ public class ResultsScreenActivity extends AppCompatActivity {
 
     public void setPlayersNames(ArrayList<Player> players, GameRoom gr)
     {
+        // The function sets the players on the podium and calls to each podium player setWinnersDrawings and setPlayersPoints
+        // If there are more people than the podium players number,
+        // the rest will be inserted in a List in a for loop and then will be inserted in the RecyclerView
+        // in the for loop, I also call the function setPlayersPoints for each player
         int numOfPlayers = players.size();
         TextView tvFirst = findViewById(R.id.tv_firstPlace);
         TextView tvSecond = findViewById(R.id.tv_secondPlace);
@@ -204,6 +210,7 @@ public class ResultsScreenActivity extends AppCompatActivity {
         String userId = currentUser.getUid();
         if(id.equals(userId))
         {
+            // set the text only to the phone that belongs to this user
             tvPoints.setText("Well done! You get " + newPointsToLevel + " points");
             addPointsToPointsInLevel(newPointsToLevel, id);
         }

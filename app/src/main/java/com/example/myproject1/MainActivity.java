@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+
+        //the code synchronizes the selected tab in a TabLayout with the current page displayed in the ViewPager2
         this.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position)

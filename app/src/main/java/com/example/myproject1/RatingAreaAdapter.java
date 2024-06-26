@@ -116,6 +116,8 @@ public class RatingAreaAdapter extends RecyclerView.Adapter<RatingAreaAdapter.My
 
 
     class MyRatingAreaViewHolder extends RecyclerView.ViewHolder {
+        // "holds" each item, each rating area line in the recyclerView
+
         TextView tvUserName;
         RatingBar ratingBar;
         ImageView ivDrawing;

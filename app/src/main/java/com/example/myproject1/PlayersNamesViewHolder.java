@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PlayersNamesViewHolder extends RecyclerView.ViewHolder
 {
+    // "holds" each item, each line that shows the player name
+
     TextView playerName;
 
     public PlayersNamesViewHolder(View itemView) {

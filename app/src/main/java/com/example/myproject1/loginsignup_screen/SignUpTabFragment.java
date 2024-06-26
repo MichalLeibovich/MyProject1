@@ -116,6 +116,7 @@ public class SignUpTabFragment extends Fragment {
 
          */
         String uid = fAuth.getCurrentUser().getUid();
+        // When I don't have a document like this, set automatically creates such a document
         DocumentReference ref = fb.collection("Users").document(uid);
         ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
