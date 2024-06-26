@@ -99,6 +99,8 @@ public class SignUpTabFragment extends Fragment {
     private void addUserToFirestore(User user)
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        /*
         fb.collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -111,6 +113,8 @@ public class SignUpTabFragment extends Fragment {
                 Log.d("FIREBASE", e.getMessage());
             }
         });
+
+         */
         String uid = fAuth.getCurrentUser().getUid();
         DocumentReference ref = fb.collection("Users").document(uid);
         ref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
